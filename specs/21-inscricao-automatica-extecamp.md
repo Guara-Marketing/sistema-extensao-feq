@@ -71,6 +71,7 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
 - **Fail-closed**: qualquer obrigatório sem dado, opção não reconhecida, cidade fora da
   lista, tela desconhecida → `pendencias` (só nomes de campo, sem PII) e nada é enviado.
 - CPF com dígito verificador errado (ou todo repetido) não é enviado: vira pendência.
+- Celular de 8 dígitos (id do WhatsApp sem o 9) ganha o 9: a Extecamp o recusa ("campos em destaque", Suélen 16/11/2026). A pendência de envio sem link lista os campos `has-danger` (fora telefone residencial e `pj_*`, que ela sempre marca).
 - Ex-aluno com nascimento recusado **não** cai para primeiro cadastro (duplicaria o aluno).
 - Envio sem o link de volta e sem confirmação → `robo_obs` começa com `ENVIADO`. Rodar de
   novo só **confere** (nunca reenvia): se a página de confirmação mostra a inscrição, conclui

@@ -252,4 +252,10 @@ r = I.inscrever({**FICHA, "cpf": "123.456.789-00"}, LEAD, URL, valer=True, sessa
 check(not r["ok"] and fx.envio is None and r["pendencias"],
       f"CPF inválido vira pendência e nada é enviado ({r['pendencias']})")
 
+# celular sem o 9 (id do WhatsApp) ganha o 9; fixo continua com 8 dígitos
+check(I._celular("557196760114") == ("71", "99676-0114")
+      and I._celular("5571996760114") == ("71", "99676-0114")
+      and I._celular("551932345678") == ("19", "3234-5678"),
+      "celular de 8 dígitos ganha o 9 (a Extecamp recusa); fixo fica como está")
+
 print(f"\n{ok} checks OK — inscrição Extecamp")

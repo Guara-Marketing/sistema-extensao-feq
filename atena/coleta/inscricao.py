@@ -195,6 +195,11 @@ def _celular(tel):
     if len(d) not in (10, 11):
         return None, None
     n = d[2:]
+    # Celular sem o 9 (o id do WhatsApp costuma vir assim: 55 71 9676-0114). A
+    # Extecamp recusa celular de 8 dígitos ("campos em destaque", caso Suélen 16/11/2026);
+    # todo celular brasileiro tem 9 dígitos desde 2016. Fixo (2-5) fica como está.
+    if len(n) == 8 and n[0] in "6789":
+        n = "9" + n
     return d[:2], (f"{n[:5]}-{n[5:]}" if len(n) == 9 else f"{n[:4]}-{n[4:]}")
 
 
@@ -541,8 +546,19 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
     if not link:
         txt = re.sub(r"<[^>]+>", " ", _texto(resp))
         m = re.search(r"ATEN[ÇC][ÃA]O[^.]{0,160}", txt)
+        # campos que a Extecamp marcou (has-danger), fora os opcionais que ela sempre
+        # marca vazios: telefone residencial e pagamento por empresa (pj_*)
+        html = _texto(resp)
+        marcados = []
+        for g in re.finditer(r'class="[^"]*has-danger[^"]*"', html):
+            fim = html.find("form-group", g.end())
+            for nome in re.findall(r'name="([^"]+)"', html[g.end():fim if fim > 0 else g.end() + 3000]):
+                if not nome.startswith(("pj_", "TELEFONE", "DDD_TELRES", "comprovante", "nome_da_empresa")) \
+                        and nome not in marcados:
+                    marcados.append(nome)
         out["pendencias"].append("Extecamp não devolveu o link de continuidade"
-                                 + (f": {m.group(0).strip()}" if m else ""))
+                                 + (f": {m.group(0).strip()}" if m else "")
+                                 + (f" (campos em destaque: {', '.join(marcados)})" if marcados else ""))
         out["resposta_html"] = _texto(resp)   # quem chama guarda: mostra os campos em destaque
         return out
     out.update(ok=True, link=link)
