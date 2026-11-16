@@ -172,6 +172,13 @@ Extecamp. O Injetor ainda não edita esse campo (mudança direta no catálogo, v
   `https://cursos-extensao.feq.unicamp.br/inscricao-feq-1000/` (slug perene; a LP antiga
   `inscricao-feq-1000-018` é espelhada com o mesmo conteúdo). **Pendência:** quando a
   Extecamp abrir o link, remover o campo.
+- **FEQ-0331, nova turma (Sávio)** (16/11/2026): inscrições até 11/02/2027, aulas
+  26/02/2027–01/08/2027. A Extecamp ainda não tem turma nem link, então só as datas mudaram
+  (prorrogação no Injetor — turma e `urlExtecamp` seguem na 004) e `urlInscricaoLead` aponta
+  para `https://cursos-extensao.feq.unicamp.br/inscricao-feq-0331/`. A LP coleta as fichas;
+  o robô da spec 21 não consegue lançá-las na turma 004 encerrada, e elas ficam pendentes.
+  **Quando o link sair:** `POST /api/injetor/oferecimento` (turma + URL), remover
+  `urlInscricaoLead` e reprocessar as fichas pendentes do curso.
 
 ### O que muda sozinho quando um oferecimento novo é declarado (revisão de 06/10/2026)
 

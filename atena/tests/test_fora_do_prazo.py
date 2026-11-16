@@ -67,9 +67,19 @@ check(ONT.captavel(_ENCERRADO, D(2026, 8, 7))["status"] == "encerrada",
 # bastava: o teste continuava dependendo de existir, naquele dia, ALGUM curso nessa
 # janela — e em 09/09/2026 não existia mais nenhum, então a suíte quebrou sozinha,
 # sem ninguém mudar código. As seções 3 e 4 recebem a mesma data por parâmetro.
-_HOJE = D(2026, 8, 30)
-_FORA_DO_PRAZO = next(c for c in sorted(ONT.cursos())
-                      if ONT.captavel(c, _HOJE)["status"] == "fora_do_prazo")
+# Data fixa ainda dependia do catálogo: em 16/11/2026 o FEQ-0331 (o único nessa
+# janela em 30/08) ganhou turma nova. Agora o dia sai do próprio curso: o dia
+# seguinte ao fim das inscrições, desde que as aulas ainda não tenham começado.
+def _dia_fora_do_prazo(c):
+    i = ONT.curso(c) or {}
+    if not (i.get("inscricoes_fim") and i.get("aulas_inicio")):
+        return None
+    d = D.fromisoformat(i["inscricoes_fim"]) + datetime.timedelta(days=1)
+    return d if ONT.captavel(c, d)["status"] == "fora_do_prazo" else None
+
+
+_FORA_DO_PRAZO, _HOJE = next((c, d) for c in sorted(ONT.cursos())
+                             if (d := _dia_fora_do_prazo(c)) and c != "FEQ-0480")
 
 # ------------------------------------------------------- 2) política ancorada
 pol = ONT.politica("politicaForaDoPrazo")

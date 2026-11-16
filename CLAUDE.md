@@ -280,4 +280,8 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   público da Extecamp (`/FEQ-1000/019`) ainda não abre. O agente manda a LP
   (`urlInscricaoLead`, `specs/08`); quando o link abrir, remover esse campo do catálogo de
   produção. A LP antiga `inscricao-feq-1000-018` é espelho da nova.
+- **FEQ-0331 nova turma** (16/11/2026): inscrições até 11/02/2027, aulas 26/02–01/08/2027,
+  sem turma/link na Extecamp ainda. Agente manda a LP (`urlInscricaoLead`); fichas ficam
+  pendentes no robô. Quando o link sair: `/api/injetor/oferecimento`, remover o campo e
+  reprocessar as fichas (`specs/08`).
 - Rotacionar quaisquer segredos que tenham circulado em texto.

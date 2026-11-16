@@ -258,4 +258,17 @@ check(I._celular("557196760114") == ("71", "99676-0114")
       and I._celular("551932345678") == ("19", "3234-5678"),
       "celular de 8 dígitos ganha o 9 (a Extecamp recusa); fixo fica como está")
 
+# turma fechada (FEQ-0331/004, 16/11/2026): mesma página de busca + redirect para a home
+class _Fechada(FakeExtecamp):
+    def post(self, url, data=None, **kw):
+        if url.endswith("procura_aluno.php"):
+            return R("<script>location.href='https://www.extecamp.unicamp.br'</script>" + BUSCA)
+        return super().post(url, data, **kw)
+
+
+fx = _Fechada()
+r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
+check(not r["ok"] and not fx.buscas and fx.envio is None and "fechada" in r["pendencias"][0],
+      "turma fechada vira pendência antes de buscar documento ou enviar ficha")
+
 print(f"\n{ok} checks OK — inscrição Extecamp")

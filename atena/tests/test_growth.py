@@ -770,9 +770,14 @@ for _cod, _t in (("FEQ-0480", "009"), ("FEQ-0499", "001")):
 check(wpd._slug is ponte.slug_lp,
       "deploy e LP usam a mesma função de slug (eram duas implementações)")
 check('feq-selo-aberto">Inscrições abertas' in _home
-      and 'feq-selo-espera">Sem turma aberta' in _home
-      and 'feq-selo-prazo">Fora do prazo' in _home,
-      "home: os três estados (aberto · fora do prazo · lista de espera) saem da ontologia")
+      and 'feq-selo-espera">Sem turma aberta' in _home,
+      "home: os estados aberto e lista de espera saem da ontologia")
+# "fora do prazo" testado direto no card: o catálogo real deixa de ter um curso
+# nesse estado sempre que a turma é renovada (FEQ-0331 era o exemplo até 16/11/2026)
+check('feq-selo-prazo">Fora do prazo' in ponte._card_home(
+          g5.cursos()[0], _ont_real.curso(g5.cursos()[0]["curso"]),
+          {"captavel": False, "recuperavel": True}),
+      "home: curso recuperável sai com o selo 'Fora do prazo'")
 _nome_fechado = (_ont_real.curso(_FECHADO) or {}).get("nome", "")[:25]
 _ifech = _home.index(_nome_fechado)
 check("R$" not in _home[_ifech:_ifech + 400],

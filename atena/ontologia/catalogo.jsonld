@@ -495,12 +495,12 @@
       "janelaInscricao": {
         "@type": "feq:JanelaTemporal",
         "inicio": "2026-05-15",
-        "fim": "2026-08-15"
+        "fim": "2027-02-11"
       },
       "janelaOferecimento": {
         "@type": "feq:JanelaTemporal",
-        "inicio": "2026-09-04",
-        "fim": "2026-12-18"
+        "inicio": "2027-02-26",
+        "fim": "2027-08-01"
       },
       "planoPagamento": {
         "@type": "feq:PlanoPagamento",
@@ -510,6 +510,7 @@
         "aVista": "5815.95"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0331/004",
+      "urlInscricaoLead": "https://cursos-extensao.feq.unicamp.br/inscricao-feq-0331/",
       "objetivo": "Capacitar profissionais da indústria de processos a identificar, analisar e calcular riscos com técnicas quantitativas avançadas, integrando Análise Quantitativa de Riscos (AQR) com Fluidodinâmica Computacional (CFD) e Aprendizado de Máquina, em aulas online ao vivo.",
       "conteudoProgramatico": "(1) Ferramentas Quantitativas e Qualitativas (modelagem, simulação de Monte Carlo, cenários acidentais); (2) Aplicação Prática (estudos de caso e projetos reais); (3) Tomada de Decisão Baseada em Riscos (estratégias de mitigação); (4) Tecnologia em AQR (software especializado e dados); (5) Comunicação de Riscos (relatórios e recomendações); (6) Desenvolvimento Contínuo em AQR (tendências emergentes); (7) CFD e Machine Learning aplicados à análise de risco. 60 horas-aula em 4 meses. Professor: Sávio Vianna.",
       "insightVenda": "Dados insuficientes / sem campanhas recentes.",

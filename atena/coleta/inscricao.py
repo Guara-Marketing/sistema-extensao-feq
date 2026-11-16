@@ -429,6 +429,10 @@ def _data_nascimento(html, dma):
     return None
 
 
+# Turma encerrada (ou ainda sem pagamento cadastrado): a Extecamp devolve a MESMA página de
+# busca, com o form de RG inteiro, mais um redirect em JS para a home. Só o form não basta:
+# visto em FEQ-0331/004 em 16/11/2026. Turma aberta não tem esse redirect.
+_VOLTA_HOME = re.compile(r"location\.href\s*=\s*['\"]https?://www\.extecamp\.unicamp\.br/?['\"]", re.I)
 _CONCLUIDA = re.compile(r"inscri[çc][ãa]o foi conclu[íi]da", re.I)
 # A página diz "concluída" MESMO SEM inscrição — só com a data e o nº em branco
 # ("realizada em: . Você é o ° inscrito"). Handerson, 11/11/2026: o robô viu o
@@ -455,6 +459,8 @@ def _localizar(http, url_curso, ficha):
     if not f0:
         return {"erro": "página do curso sem o formulário de entrada (link fechado?)"}
     pag = _texto(http.post(urljoin(url_curso, f0["action"]), {k: c["valor"] for k, c in f0["campos"].items()}))
+    if _VOLTA_HOME.search(pag):
+        return {"erro": "turma fechada na Extecamp (a página manda de volta para a home)"}
     busca = _form_com(pag, "rg")
     novo = next((f for f in formularios(pag) if "inscricao.php" in f["action"]), None)
     if not busca or not novo:
