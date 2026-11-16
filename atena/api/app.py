@@ -843,7 +843,12 @@ def _inscrever_extecamp(card_id, valer):
             GRW.set_inscricao_robo(ficha["id"], f"robô: inscrito ({r['caminho']})", link=r["link"])
             GRW.set_inscricao_status(ficha["id"], "transcrita")
             r["conversao_offline"] = _confirmar_inscricao(lead, card_id, curso=ficha["curso"])
-            r["aviso_lead"] = _avisar_continuidade(EST.get_lead(card_id), r["link"])
+            if r.get("link_alerta"):            # link sem ação ou de outra pessoa: não vai ao lead
+                r["aviso_lead"] = {"ok": False, "motivo": r["link_alerta"]}
+                EST.add_alerta("inscricao", f"Link de continuidade de {lead.get('nome') or card_id} "
+                                            f"({ficha['curso']}) não enviado: {r['link_alerta']}")
+            else:
+                r["aviso_lead"] = _avisar_continuidade(EST.get_lead(card_id), r["link"])
             EST.log_acao("robô", f"inscrição feita na Extecamp ({ficha['curso']}, {r['caminho']})", card_id)
         else:
             obs = ("ENVIADO sem link de confirmação: " if r.get("enviado") else "robô parou: ") \

@@ -76,6 +76,11 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
 - Envio sem o link de volta e sem confirmação → `robo_obs` começa com `ENVIADO`. Rodar de
   novo só **confere** (nunca reenvia): se a página de confirmação mostra a inscrição, conclui
   com o link; senão o humano confere no ADM Cursos e marca Transcrita.
+- **Link conferido antes de ir ao lead** (`conferir_link`, só leitura): a página precisa
+  mostrar a inscrição com data e nº, o primeiro nome do lead e o botão do boleto da taxa
+  (`gera_boleto`). Se não mostrar, a inscrição vale, mas o link **não** é enviado e vira
+  alerta na Central com o motivo. O caso típico é "Termo já aceito": o lead já gerou o
+  boleto e a página fica sem ação, então parece genérica (Enzo, 16/11/2026).
 - Lock por card: duas execuções simultâneas do mesmo lead são recusadas.
 - Ficha básica (spec 17, só CPF/nascimento/pagamento) não tem os obrigatórios → sempre
   pendência; esses cursos seguem na transcrição manual.

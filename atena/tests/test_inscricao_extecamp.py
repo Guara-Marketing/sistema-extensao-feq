@@ -116,14 +116,18 @@ class FakeExtecamp:
             return R(CIDADES_SP if url.endswith("=SP") else "<select name='pf_cid'></select>")
         if "ok-inscricao_taxa.php?id1=%F1" in url:
             # a Extecamp devolve o MESMO modelo sem inscrição, só com data/nº em branco
-            return R("<p>Pré inscrição foi concluída! MARIA, sua pré inscrição foi realizada em: "
-                     + ("<b>10-11-2026 15:50</b>. Você é o 20° inscrito(a).</p>" if self.inscrito
+            return R("<p>Pré inscrição foi concluída! MARIA TESTE, sua pré inscrição foi realizada em: "
+                     + ("<b>10-11-2026 15:50</b>. Você é o 20° inscrito(a).</p>"
+                        "<a href='ok-inscricao_taxa_gera_boleto.php?id=1&id1=%F1'>Aceito</a>" if self.inscrito
                         else ". Você é o ° inscrito(a).</p>"))
         if "inscricao.php?id1=%F1" in url:
             return R(ficha_html(self.pref))
         if "viacep" in url:
             return R("", j={"logradouro": "Avenida Albert Einstein", "bairro": "Cidade Universitária",
                             "localidade": "Campinas", "uf": "SP"})
+        if url == LINK:                          # o robô confere o link antes de mandar
+            return R("Pré inscrição foi concluída! MARIA TESTE, sua pré inscrição foi realizada em: "
+                     "16-11-2026 12:50 . Você é o 12° inscrito(a). <a href='ok-inscricao_taxa_gera_boleto.php'>")
         raise AssertionError(f"GET inesperado {url}")
 
     def post(self, url, data=None, **kw):
@@ -241,6 +245,19 @@ fx.inscrito = True
 r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
 check(r["ok"] and r.get("ja_inscrito") and fx.envio is None and "ok-inscricao_taxa" in r["link"],
       "ex-aluno já inscrito na turma: devolve o link e NÃO envia de novo")
+
+check(r.get("link_alerta") is None, "link com nome e botão do boleto passa na conferência")
+
+print("conferência do link antes de ir ao lead")
+_base = "Pré inscrição foi concluída! MARIA TESTE, sua pré inscrição no curso X foi realizada em: 16-11-2026 12:50 . Você é o 12° inscrito(a). "
+check(I.conferir_link(_Pag(_base + "<a href='ok-inscricao_taxa_gera_boleto.php?id=1'>"), LINK, "Maria Teste") is None,
+      "página com o nome e o botão do boleto: pode mandar")
+check("termo" in (I.conferir_link(_Pag(_base + "Atenção: Termo já aceito."), LINK, "Maria") or ""),
+      "termo já aceito, sem botão (Enzo, 16/11/2026): não manda")
+check("outra pessoa" in (I.conferir_link(_Pag(_base + "gera_boleto"), LINK, "João Silva") or ""),
+      "nome da página diferente do lead: não manda")
+check("sem data" in (I.conferir_link(_Pag(_vazia), LINK, "Maria") or ""),
+      "'concluída' vazia: não manda")
 
 # CPF com dígito verificador errado: não preenche CPF1-4 (vira pendência, nada enviado)
 check("CPF1" in I.valores_desejados(FICHA, LEAD)

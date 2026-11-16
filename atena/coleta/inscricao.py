@@ -451,6 +451,29 @@ def _ja_inscrito(http, query):
     return url if _CONCLUIDA.search(pag) and _REALIZADA_EM.search(pag) else None
 
 
+_TERMO_ACEITO = re.compile(r"termo\s+j[aá]\s+aceito", re.I)
+_NOME_NA_PAG = re.compile(r"([^>.!]{2,160}?),\s*sua\s+pr[ée][\s-]*inscri", re.I)
+
+
+def conferir_link(http, link, nome):
+    """Abre o link de continuidade ANTES de ele ir ao lead (só leitura). Devolve o motivo
+    para não mandar, ou None. Exige: inscrição com data e nº, o primeiro nome do lead e o
+    botão do boleto da taxa. Enzo, 16/11/2026: o termo já estava aceito, a página só dizia
+    "Termo já aceito" sem botão nenhum e o lead a leu como genérica."""
+    pag = _texto(http.get(link))
+    if not (_CONCLUIDA.search(pag) and _REALIZADA_EM.search(pag)):
+        return "a página do link não mostra a inscrição (sem data/nº)"
+    m = _NOME_NA_PAG.search(re.sub(r"<[^>]+>", " ", pag))
+    if not m or _norm(nome).split()[:1] != _norm(m.group(1)).split()[:1]:
+        return "a página do link é de outra pessoa (o primeiro nome não confere)"
+    if "gera_boleto" in pag:
+        return None
+    if _TERMO_ACEITO.search(pag):
+        return ("o lead já aceitou o termo e gerou o boleto; o link não tem mais ação "
+                "(confira o pagamento antes de mandar qualquer link)")
+    return "a página do link não tem o botão do boleto da taxa"
+
+
 def _localizar(http, url_curso, ficha):
     """Passos 1-3: entrada do curso e busca do cadastro pelas variantes do documento.
     Retorno: {erro} | {ex_aluno, ficha_html (None = primeiro cadastro), novo, query, n}."""
@@ -515,7 +538,8 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
         return out
     link = _ja_inscrito(http, loc["query"])
     if link:                                    # nunca inscrever duas vezes
-        out.update(ok=True, link=link, ja_inscrito=True)
+        out.update(ok=True, link=link, ja_inscrito=True,
+                   link_alerta=conferir_link(http, link, desejado.get("pf_nome")))
         return out
     ficha_html = loc["ficha_html"]
     if ficha_html is None:                      # 3b. primeiro cadastro
@@ -567,5 +591,5 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
                                  + (f" (campos em destaque: {', '.join(marcados)})" if marcados else ""))
         out["resposta_html"] = _texto(resp)   # quem chama guarda: mostra os campos em destaque
         return out
-    out.update(ok=True, link=link)
+    out.update(ok=True, link=link, link_alerta=conferir_link(http, link, desejado.get("pf_nome")))
     return out
