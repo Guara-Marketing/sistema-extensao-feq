@@ -242,4 +242,14 @@ r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
 check(r["ok"] and r.get("ja_inscrito") and fx.envio is None and "ok-inscricao_taxa" in r["link"],
       "ex-aluno já inscrito na turma: devolve o link e NÃO envia de novo")
 
+# CPF com dígito verificador errado: não preenche CPF1-4 (vira pendência, nada enviado)
+check("CPF1" in I.valores_desejados(FICHA, LEAD)
+      and "CPF1" not in I.valores_desejados({**FICHA, "cpf": "123.456.789-00"}, LEAD)
+      and "CPF1" not in I.valores_desejados({**FICHA, "cpf": "111.111.111-11"}, LEAD),
+      "CPF inválido (dígito verificador ou repetido) não é enviado à Extecamp")
+fx = FakeExtecamp()
+r = I.inscrever({**FICHA, "cpf": "123.456.789-00"}, LEAD, URL, valer=True, sessao=fx)
+check(not r["ok"] and fx.envio is None and r["pendencias"],
+      f"CPF inválido vira pendência e nada é enviado ({r['pendencias']})")
+
 print(f"\n{ok} checks OK — inscrição Extecamp")

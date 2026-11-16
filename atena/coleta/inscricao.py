@@ -139,6 +139,13 @@ def _escolher(opcoes, desejado):
 
 
 # ------------------------------------------------------------------ documento
+def _cpf_valido(c):
+    d = [int(x) for x in _dig(c)]
+    if len(d) != 11 or len(set(d)) == 1:
+        return False
+    return all(sum(d[i] * (n + 1 - i) for i in range(n)) * 10 % 11 % 10 == d[n] for n in (9, 10))
+
+
 def variantes_documento(numero, emissor="", cpf=""):
     """Formas em que o documento pode ter sido cadastrado na Extecamp. A busca é por
     texto exato e o cadastro antigo foi digitado à mão: com/sem hífen do dígito,
@@ -221,7 +228,9 @@ def valores_desejados(ficha, lead):
     v["pf_rg"] = (f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}" if tipo == "CIN" and len(cpf) == 11
                   else (f.get("doc_numero") or "").strip())
     v["pf_emissor"] = (f.get("doc_emissor") or "").strip().upper()
-    if len(cpf) == 11:
+    # CPF com dígito verificador errado NÃO vai: CPF1-4 vazios viram pendência de
+    # obrigatório (fail-closed). Inscrição com CPF trocado é cadastro a desfazer à mão.
+    if _cpf_valido(cpf):
         v["CPF1"], v["CPF2"], v["CPF3"], v["CPF4"] = cpf[:3], cpf[3:6], cpf[6:9], cpf[9:]
     dma = _nascimento(f.get("nascimento"))
     if dma:

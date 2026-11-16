@@ -70,6 +70,7 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
 ## Guardrails
 - **Fail-closed**: qualquer obrigatório sem dado, opção não reconhecida, cidade fora da
   lista, tela desconhecida → `pendencias` (só nomes de campo, sem PII) e nada é enviado.
+- CPF com dígito verificador errado (ou todo repetido) não é enviado: vira pendência.
 - Ex-aluno com nascimento recusado **não** cai para primeiro cadastro (duplicaria o aluno).
 - Envio sem o link de volta e sem confirmação → `robo_obs` começa com `ENVIADO`. Rodar de
   novo só **confere** (nunca reenvia): se a página de confirmação mostra a inscrição, conclui
@@ -99,4 +100,6 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
 ## Ativação
 1. Primeira inscrição real pelo botão, com um lead verdadeiro, conferindo no ADM Cursos.
 2. Um ex-aluno real para validar a tela de nascimento.
-3. Então `INSCRICAO_AUTO=1` no VPS.
+3. Então `INSCRICAO_AUTO=1` no VPS. **Ligado em 16/11/2026**, depois do lote da fila
+   (4 fichas: 3 inscritas e conferidas na página com data e nº; 1 "campos em destaque"
+   sem confirmação, segue para conferência humana no ADM Cursos).
