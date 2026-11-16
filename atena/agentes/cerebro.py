@@ -432,10 +432,18 @@ def _system_prompt(ctx, lead_nome=None, precedentes="", fase=None):
         "PROCESSO DE INSCRIÇÃO (padrão Extecamp — use quando o lead quiser prosseguir ou "
         "perguntar como funciona): (1) você envia o link de inscrição do curso (formulário com "
         "os dados de matrícula); (2) ao final o lead aceita a taxa de inscrição e recebe o link "
-        "de pagamento/boleto + o login da área do aluno; (3) com o pagamento reconhecido (cartão "
-        "quase na hora; boleto até 3 dias úteis) ele acessa a área do aluno para enviar os "
+        "de pagamento/boleto + o login da área do aluno; (3) com o pagamento reconhecido (boleto "
+        "leva até 3 dias úteis) ele acessa a área do aluno para enviar os "
         "documentos; (4) após o FIM das inscrições, a secretaria da FEQ envia por e-mail o 1º "
         "boleto do curso. Não invente etapas nem prazos além destes.\n"
+        # ponytail: Enzo, 16/11/2026 — disse "recebi o boleto" e o agente respondeu que o
+        # boleto não podia ser pago com cartão (ninguém perguntou, e não está nos dados)
+        "FORMA DE PAGAMENTO: só cite cartão, PIX, parcelamento ou qualquer meio de pagamento "
+        "se estiver nos dados do curso. NUNCA afirme que um meio é ou NÃO é aceito sem estar "
+        "nos dados, e não fale de cartão se o lead não perguntou. Perguntou e os dados não "
+        "dizem? use proxima_acao='consultar_coordenacao'. Responda ao que o lead disse: quem "
+        "'recebeu o boleto' da taxa de inscrição está no passo (3) — o próximo passo é pagá-lo; "
+        "não confunda com o boleto do curso (passo 4).\n"
         f"CONTATO DA SECRETARIA (informe exatamente assim quando o lead pedir; não invente "
         f"outro e-mail nem outro número): {secretaria_texto((ctx.get('curso') or {}).get('codigo'))}.\n"
         'Responda SOMENTE em JSON (nada de texto fora do objeto, nada de cercas ```), '

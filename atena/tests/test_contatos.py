@@ -134,4 +134,8 @@ Orquestrador(_est, _ont).processar_mensagem("m1", "quero cancelar minha matrícu
 _d = _est.listar_decisoes("m1")[0]
 check(_d["acao"] == C.CONTINUAR and _d["mensagem"] == _me and _d["status"] == "proposta",
       "fallback determinístico: cancelamento de matriculado vira orientação, não escalonamento")
+# Enzo, 16/11/2026: o agente inventou que o boleto não podia ser pago com cartão
+_p = _system_prompt(_ctx, fase="Inscrito")
+check("FORMA DE PAGAMENTO" in _p and "cartão quase na hora" not in _p,
+      "prompt proíbe afirmar meio de pagamento fora dos dados")
 print(f"{ok}/{ok} passaram.")
