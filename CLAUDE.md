@@ -226,7 +226,8 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
 - ✅ **Robô de inscrição na Extecamp** (06/11/2026, `specs/21`, `atena/coleta/inscricao.py`):
   ficha da etapa 2 → formulário público (busca ex-aluno por variantes do documento, senão
   primeiro cadastro) → link `ok-inscricao*` ao lead (template `feq_continuidade_inscricao`).
-  Botões simular/Inscrever na aba Inscrições; `INSCRICAO_AUTO=1` liga o automático.
+  Botões simular/Inscrever na aba Inscrições; `INSCRICAO_AUTO=1` liga o automático
+  (**ligado no VPS em 16/11/2026**; CPF com dígito verificador inválido vira pendência).
   Primeira inscrição real em 06/11/2026 (FEQ-1150, primeiro cadastro): a Extecamp respondeu
   "campos em destaque" e inscreveu mesmo assim — o robô confirma pela página `ok-inscricao_taxa`.
 
