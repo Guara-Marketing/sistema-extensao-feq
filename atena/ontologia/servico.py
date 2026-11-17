@@ -205,6 +205,8 @@ class Ontologia:
                 "valor_parcela": str(self.g.value(plano, FEQ.valorParcela) or "") if plano else "",
                 "a_vista": str(self.g.value(plano, FEQ.aVista) or "") if plano else "",
                 "taxa": str(self.g.value(plano, FEQ.taxaInscricao) or "") if plano else "",
+                # meio de pagamento da TAXA: o cérebro só cita meio que esteja aqui (spec 08)
+                "taxa_meios": str(self.g.value(plano, FEQ.meiosPagamentoTaxa) or "") if plano else "",
             },
             "inscricoes_fim": fim_i.isoformat() if fim_i else None,
             # Data do boleto da inscrição (o lead pergunta "até quando pago?"). Some

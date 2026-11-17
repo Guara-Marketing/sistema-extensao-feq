@@ -103,7 +103,8 @@
     "fichaInscricao": "feq:fichaInscricao",
     "captacaoAntecipada": "feq:captacaoAntecipada",
     "oferecimentoContinuo": "feq:oferecimentoContinuo",
-    "urlInscricaoLead": "feq:urlInscricaoLead"
+    "urlInscricaoLead": "feq:urlInscricaoLead",
+    "meiosPagamentoTaxa": "feq:meiosPagamentoTaxa"
   },
   "@graph": [
     {
@@ -138,7 +139,8 @@
         "taxaInscricao": "69.00",
         "numParcelas": 15,
         "valorParcela": "1115.96",
-        "aVista": "16739.36"
+        "aVista": "16739.36",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0360/007",
       "objetivo": "Capacitar o aluno na gestão de processos industriais, integrando segurança, confiabilidade e otimização, para se tornar referência na área — com autonomia para formular estratégias e implementar as melhores práticas de mercado.",
@@ -205,7 +207,8 @@
         "taxaInscricao": "69.00",
         "numParcelas": 19,
         "valorParcela": "866.09",
-        "aVista": "16455.75"
+        "aVista": "16455.75",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/dados/FEQ-0480/009",
       "objetivo": "Qualificar profissionais para atuar em projetos de melhoria e inovação nas engenharias de processos usando ferramentas modernas de Inteligência Artificial: engenharia e simulação de processos, machine learning e deep learning, controle inteligente, análise de dados, otimização com algoritmos genéticos, lógica fuzzy e aprendizado por reforço.",
@@ -299,7 +302,8 @@
         "taxaInscricao": "69.00",
         "numParcelas": 20,
         "valorParcela": "892.81",
-        "aVista": "17856.13"
+        "aVista": "17856.13",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-1000/019",
       "objetivo": "Formar o Engenheiro de Processos referência da próxima década, com repertório técnico e administrativo para gerir os processos de grandes empresas, integrando conhecimentos técnicos e habilidades gerenciais para realizar e gerir projetos e processos da indústria.",
@@ -344,7 +348,8 @@
         "taxaInscricao": "22.00",
         "numParcelas": 4,
         "valorParcela": "949.94",
-        "aVista": "3799.74"
+        "aVista": "3799.74",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "alertaCatalogo": "Sem turma aberta na Extecamp — LP em modo lista de espera até reabrir.",
       "objetivo": "Qualificar profissionais na análise de eficiência energética em processos de manufatura e sistemas de utilidades industriais, aprendendo novas técnicas para identificar e priorizar oportunidades de redução de consumo de energia na indústria.",
@@ -408,7 +413,8 @@
         "taxaInscricao": "22.00",
         "numParcelas": 3,
         "valorParcela": "1000.12",
-        "aVista": "3000.37"
+        "aVista": "3000.37",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0333/001",
       "objetivo": "Compreender captura, utilização e armazenamento de carbono (CCUS) e seu papel na mitigação climática e na descarbonização: dominar a cadeia de valor (captura-transporte-utilização-armazenamento de CO₂), tecnologias de captura e aplicações comerciais, o cenário global e brasileiro, e políticas públicas/mercados de carbono. Desenvolve pensamento crítico sobre o tema. Ministrado EM INGLÊS.",
@@ -460,7 +466,8 @@
         "taxaInscricao": "22.00",
         "numParcelas": 13,
         "valorParcela": "733.34",
-        "aVista": "9533.46"
+        "aVista": "9533.46",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0580/001",
       "objetivo": "Jornada completa: dos fundamentos de programação em Python (bibliotecas, lógica, manipulação de dados) às técnicas avançadas de otimização e simulação — pesquisa operacional, solvers, otimização por força bruta e algoritmos genéticos, programação por restrições, simulação de Monte Carlo e de eventos discretos/processos contínuos — culminando em um projeto final aplicado. Curso mão-na-massa: Python aplicado à tomada de decisão em processos industriais.",
@@ -507,7 +514,8 @@
         "taxaInscricao": "22.00",
         "numParcelas": 5,
         "valorParcela": "1163.19",
-        "aVista": "5815.95"
+        "aVista": "5815.95",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0331/004",
       "urlInscricaoLead": "https://cursos-extensao.feq.unicamp.br/inscricao-feq-0331/",
@@ -579,7 +587,8 @@
         "taxaInscricao": "65.00",
         "numParcelas": 15,
         "valorParcela": "905.07",
-        "aVista": "13576.09"
+        "aVista": "13576.09",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/dados/FEQ-0655/001",
       "objetivo": "Capacitar profissionais para a administração condominial com excelência e sustentabilidade, desenvolvendo gestão administrativa, legislação, planejamento financeiro, gestão de contratos, manutenção predial, gestão de pessoas e práticas de sustentabilidade social e ambiental.",
@@ -616,7 +625,8 @@
         "taxaInscricao": "24.00",
         "numParcelas": 6,
         "valorParcela": "158.53",
-        "aVista": "951.19"
+        "aVista": "951.19",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0299/001",
       "plataformaAula": "Google Classroom",
@@ -670,7 +680,8 @@
         "taxaInscricao": "24.00",
         "numParcelas": 3,
         "valorParcela": "599.39",
-        "aVista": "1798.18"
+        "aVista": "1798.18",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0670/001",
       "salarioRef": "R$ 6.000,00 — referência para engenheiros e pesquisadores em simulação computacional e modelagem molecular",
@@ -733,7 +744,8 @@
         "taxaInscricao": "24.00",
         "numParcelas": 4,
         "valorParcela": "752.91",
-        "aVista": "3011.64"
+        "aVista": "3011.64",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "objetivo": "Dar acesso aos fundamentos e aplicações da gradação composicional aplicada à simulação de reservatórios.",
       "publicoAlvo": "Graduados no Ensino Superior ou estudantes de graduação em Engenharia Química e áreas correlatas.",
@@ -777,7 +789,8 @@
         "taxaInscricao": "24.00",
         "numParcelas": 1,
         "valorParcela": "499.16",
-        "aVista": "499.16"
+        "aVista": "499.16",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "objetivo": "A proposta central é apresentar o controle de processos como uma competência estratégica para engenheiros que desejam transformar dados, modelos e instrumentação em estabilidade operacional, eficiência industrial e decisões automatizadas de maior qualidade.",
       "publicoAlvo": "Engenheiros de processos, engenheiros químicos, de alimentos, mecânicos, mecatrônicos, engenheiros de automação, instrumentistas, analistas de processo e profissionais de áreas afins.",
@@ -831,7 +844,8 @@
         "taxaInscricao": "24.00",
         "numParcelas": 3,
         "valorParcela": "143.54",
-        "aVista": "430.63"
+        "aVista": "430.63",
+        "meiosPagamentoTaxa": "boleto ou cartão"
       },
       "urlExtecamp": "https://ins.extecamp.unicamp.br/curso/dados/ECO-1100/001",
       "objetivo": "Apresentar os principais elementos que estruturam a dinâmica econômica internacional contemporânea. Por meio do exame de transformações nas dimensões monetário-financeira, produtivo-tecnológico-comercial e ambiental, fornecer subsídios analíticos e empíricos para uma compreensão crítica das relações econômicas globais na atualidade.",

@@ -80,8 +80,13 @@ publica mínimo de alunos); pacing contra um prazo de 2031 não informa nada.
 `codigo, nome, @type(Especializacao|Extensao), modalidade, horarioAula, professorResponsavel,
 requisito{nivelMinimo}, cargaHoraria{horas}?, vagasMin?, vagasMax?, publicoAlvo?, certificacao?,
 janelaInscricao{inicio?,fim}, janelaOferecimento{inicio,fim},
-planoPagamento{taxaInscricao,numParcelas,valorParcela,aVista}, urlExtecamp?, insightVenda,
+planoPagamento{taxaInscricao,meiosPagamentoTaxa?,numParcelas,valorParcela,aVista}, urlExtecamp?, insightVenda,
 alertaCatalogo?, wasDerivedFrom`.
+
+`meiosPagamentoTaxa` (17/11/2026, confirmado pela coordenação): a taxa de inscrição da
+Extecamp aceita **boleto ou cartão**, em todos os cursos com taxa. Chega ao cérebro como
+`plano.taxa_meios`. O prompt proíbe citar meio de pagamento que não esteja nos dados, e
+os meios da mensalidade continuam sem registro.
 
 ## Cursos (resumo) — captabilidade é calculada vs. `hoje`, não fixa aqui
 | Código | Tipo | Requisito | Inscrições até | À vista |
