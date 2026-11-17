@@ -138,7 +138,7 @@ check(_d["acao"] == C.CONTINUAR and _d["mensagem"] == _me and _d["status"] == "p
 _p = _system_prompt(_ctx, fase="Inscrito")
 check("FORMA DE PAGAMENTO" in _p and "cartão quase na hora" not in _p,
       "prompt proíbe afirmar meio de pagamento fora dos dados")
-check(_ont.curso("FEQ-1000")["plano"]["taxa_meios"] == "boleto ou cartão"
-      and '"taxa_meios": "boleto ou cartão"' in _system_prompt({"curso": _ont.curso("FEQ-1000"), "captavel": _ont.captavel("FEQ-1000")}),
+check(_ont.curso("FEQ-1000")["plano"]["taxa_meios"] == "boleto ou cartão de crédito"
+      and '"taxa_meios": "boleto ou cartão de crédito"' in _system_prompt({"curso": _ont.curso("FEQ-1000"), "captavel": _ont.captavel("FEQ-1000")}),
       "meio de pagamento da taxa vem da ontologia e chega ao prompt")
 print(f"{ok}/{ok} passaram.")

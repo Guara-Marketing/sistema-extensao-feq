@@ -84,7 +84,7 @@ planoPagamento{taxaInscricao,meiosPagamentoTaxa?,numParcelas,valorParcela,aVista
 alertaCatalogo?, wasDerivedFrom`.
 
 `meiosPagamentoTaxa` (17/11/2026, confirmado pela coordenação): a taxa de inscrição da
-Extecamp aceita **boleto ou cartão**, em todos os cursos com taxa. Chega ao cérebro como
+Extecamp aceita **boleto ou cartão de crédito**, em todos os cursos com taxa. Chega ao cérebro como
 `plano.taxa_meios`. O prompt proíbe citar meio de pagamento que não esteja nos dados, e
 os meios da mensalidade continuam sem registro.
 
