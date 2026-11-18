@@ -196,7 +196,7 @@
   // Guardado entre as duas etapas: a etapa 2 reencontra o lead pelo TELEFONE, e o
   // event_id é criado aqui para ser o MESMO no Pixel e na CAPI quando a etapa 2 for
   // concluída (a dedup exige o par idêntico).
-  var LEAD = { nome: "", email: "", telefone: "", event_id: "" };
+  var LEAD = { nome: "", email: "", telefone: "", event_id: "", ficha_token: "" };
   var INSTAGRAM_URL = "https://www.instagram.com/extensaofequnicamp/";
 
   // ---- ETAPA 1: valida -> POST -> abre a etapa 2. SEM Pixel. -------------------
@@ -263,7 +263,11 @@
         url: window.location.href,
         utm: utmSalvos()          // origem da campanha, capturada em silêncio
       })
-    }).then(seguir, seguir);
+    }).then(function (resp) {
+      // token que liga a ficha da etapa 2 a esta etapa 1 (sem ele a ficha vai para conferência)
+      return resp.json().then(function (d) { LEAD.ficha_token = (d && d.ficha_token) || ""; })
+        .catch(function () {}).then(seguir);
+    }, seguir);
     setTimeout(seguir, TIMEOUT_MS);   // backend lento/fora: o lead não fica preso
   });
 
@@ -306,7 +310,7 @@
           { content_ids: [CFG.curso], content_name: CFG.curso }, { eventID: LEAD.event_id });
     }
     var corpo = { whatsapp: LEAD.telefone, nome: LEAD.nome, email: LEAD.email,
-                  curso_id: CFG.curso, event_id: LEAD.event_id,
+                  curso_id: CFG.curso, event_id: LEAD.event_id, ficha_token: LEAD.ficha_token,
                   fbp: cookie("_fbp"), fbc: cookie("_fbc"), url: window.location.href };
     new FormData(formE2).forEach(function (v, k) { if (v) corpo[k] = v; });
 
