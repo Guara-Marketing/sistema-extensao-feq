@@ -288,4 +288,27 @@ r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
 check(not r["ok"] and not fx.buscas and fx.envio is None and "fechada" in r["pendencias"][0],
       "turma fechada vira pendência antes de buscar documento ou enviar ficha")
 
+# FEQ-0360/007 (17/11/2026): "primeiro cadastro" vira upload_foto.php (exige foto)
+class _ComFoto(FakeExtecamp):
+    def post(self, url, data=None, **kw):
+        r = super().post(url, data, **kw)
+        r.text = r.text.replace("inscricao.php?id1=&id2=%81g", "upload_foto/foto/upload_foto.php?id1=") \
+            .replace("location.href='inscricao.php", "location.href='upload_foto/foto/upload_foto.php")
+        return r
+
+
+fx = _ComFoto()
+r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
+check(not r["ok"] and fx.buscas and fx.envio is None and "foto" in r["pendencias"][0],
+      "turma com foto: busca o documento, não achou -> pendência, nada enviado")
+fx = _ComFoto(docs={"MG-12.345.678"})
+r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
+check(not r["ok"] and fx.envio is None and "foto" in r["pendencias"][0],
+      "turma com foto: ex-aluno ainda não inscrito -> pendência (não envia foto), nada enviado")
+fx = _ComFoto(docs={"MG-12.345.678"})
+fx.inscrito = True
+r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
+check(r["ok"] and r.get("ja_inscrito") and fx.envio is None,
+      "turma com foto no 1º cadastro: quem já está inscrito sai com o link, sem reenviar")
+
 print(f"\n{ok} checks OK — inscrição Extecamp")

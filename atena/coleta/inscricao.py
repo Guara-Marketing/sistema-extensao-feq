@@ -474,6 +474,10 @@ def conferir_link(http, link, nome):
     return "a página do link não tem o botão do boleto da taxa"
 
 
+_ERRO_FOTO = ("turma exige foto de rosto no cadastro (carteira estudantil) e o robô não "
+              "envia foto — inscreva à mão")
+
+
 def _localizar(http, url_curso, ficha):
     """Passos 1-3: entrada do curso e busca do cadastro pelas variantes do documento.
     Retorno: {erro} | {ex_aluno, ficha_html (None = primeiro cadastro), novo, query, n}."""
@@ -486,8 +490,14 @@ def _localizar(http, url_curso, ficha):
         return {"erro": "turma fechada na Extecamp (a página manda de volta para a home)"}
     busca = _form_com(pag, "rg")
     novo = next((f for f in formularios(pag) if "inscricao.php" in f["action"]), None)
-    if not busca or not novo:
-        return {"erro": "tela de busca de cadastro mudou (faltam os forms rg/primeiro cadastro)"}
+    if not busca:
+        return {"erro": "tela de busca de cadastro mudou (falta o form de documento)"}
+    # FEQ-0360/007 (17/11/2026): o "primeiro cadastro" vai para upload_foto.php (exige
+    # foto). Ex-aluno ainda passa pela busca; só quem não é achado vira pendência.
+    if not novo:
+        acoes = [f["action"].split("?")[0] for f in formularios(pag) if f is not busca]
+        novo_erro = _ERRO_FOTO if any("upload_foto" in a for a in acoes) else \
+            f"primeiro cadastro desta turma não é a ficha de sempre ({', '.join(acoes) or 'sem form'})"
     variantes = variantes_documento((ficha or {}).get("doc_numero"), (ficha or {}).get("doc_emissor"),
                                     (ficha or {}).get("cpf"))
     out = {"ex_aluno": False, "ficha_html": None, "novo": novo, "query": None, "n": len(variantes)}
@@ -511,11 +521,15 @@ def _localizar(http, url_curso, ficha):
         m = _JS_LOCATION.search(html)
         if m and not _form_com(html, "pf_nome"):
             out["query"] = m.group(1).replace("&amp;", "&").split("?", 1)[-1]
+            if "upload_foto" in m.group(1):     # a query ainda serve a _ja_inscrito
+                return {**out, "erro": _ERRO_FOTO}
             html = _texto(http.get(urljoin(BASE, m.group(1).replace("&amp;", "&"))))
         if not _form_com(html, "pf_nome"):
             return {**out, "erro": "ex-aluno: data de nascimento não aceita pela Extecamp"}
         out["ficha_html"] = html
         return out
+    if not novo:
+        return {**out, "erro": novo_erro}
     return out
 
 
@@ -533,10 +547,10 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
     ex_aluno = loc.get("ex_aluno", False)
     if ex_aluno:
         out["caminho"] = "ex-aluno"
-    if loc.get("erro"):
+    link = _ja_inscrito(http, loc.get("query"))   # antes do erro: turma com foto ainda acha quem já está
+    if not link and loc.get("erro"):
         out["pendencias"].append(loc["erro"])
         return out
-    link = _ja_inscrito(http, loc["query"])
     if link:                                    # nunca inscrever duas vezes
         out.update(ok=True, link=link, ja_inscrito=True,
                    link_alerta=conferir_link(http, link, desejado.get("pf_nome")))

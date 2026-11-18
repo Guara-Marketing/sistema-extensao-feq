@@ -73,6 +73,11 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
 - CPF com dígito verificador errado (ou todo repetido) não é enviado: vira pendência.
 - Celular de 8 dígitos (id do WhatsApp sem o 9) ganha o 9: a Extecamp o recusa ("campos em destaque", Suélen 16/11/2026). A pendência de envio sem link lista os campos `has-danger` (fora telefone residencial e `pj_*`, que ela sempre marca).
 - Ex-aluno com nascimento recusado **não** cai para primeiro cadastro (duplicaria o aluno).
+- **Turma que exige foto** (FEQ-0360/007, 17/11/2026: carteira estudantil): o "primeiro
+  cadastro" e o redirect do ex-aluno vão para `upload_foto.php` em vez da ficha. O robô não
+  envia foto. Mesmo assim ele busca o documento e confere `ok-inscricao_taxa` com os ids
+  do redirect: quem já está inscrito sai com o link, e os demais viram pendência ("turma
+  exige foto") e seguem à mão.
 - Envio sem o link de volta e sem confirmação → `robo_obs` começa com `ENVIADO`. Rodar de
   novo só **confere** (nunca reenvia): se a página de confirmação mostra a inscrição, conclui
   com o link; senão o humano confere no ADM Cursos e marca Transcrita.
