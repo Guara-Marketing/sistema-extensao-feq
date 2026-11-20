@@ -741,7 +741,7 @@ def inscricao_transcrita(card_id):
     # reclique não reenvia a confirmação ao lead
     aviso = {"ok": False, "motivo": "ficha já estava transcrita"} if ja_transcrita \
         else {"ok": False, "motivo": "lead já aparece inscrito na Extecamp"} if ja_inscrito \
-        else _avisar_inscricao_efetuada(EST.get_lead(card_id))
+        else _avisar_inscricao_efetuada(EST.get_lead(card_id), ficha["curso"])
     return jsonify({"ok": True, "status": "transcrita", "conversao_offline": capi,
                     "aviso_lead": aviso})
 
@@ -749,7 +749,7 @@ def inscricao_transcrita(card_id):
 TPL_INSCRICAO_EFETUADA = "feq_inscricao_efetuada"
 
 
-def _avisar_inscricao_efetuada(lead):
+def _avisar_inscricao_efetuada(lead, curso=None):
     """Template de inscrição efetuada (nome, curso, e-mail informado na LP). Sem e-mail,
     com opt-out ou template ainda não aprovado na Meta: NÃO envia e diz por quê — o
     operador vê na resposta e a transcrição em si nunca falha por causa do aviso."""
@@ -762,7 +762,7 @@ def _avisar_inscricao_efetuada(lead):
         return {"ok": False, "motivo": f"template {TPL_INSCRICAO_EFETUADA} ainda não aprovado na Meta"}
     # nome vindo da Extecamp/ficha costuma estar em CAIXA ALTA: "Olá, MAYARA!" soa grito
     primeiro = ((lead.get("nome") or "").split() or [""])[0].capitalize()
-    params = montar_params(TPL_INSCRICAO_EFETUADA, {**lead, "nome": primeiro}, ONTO.ont)
+    params = montar_params(TPL_INSCRICAO_EFETUADA, {**lead, "nome": primeiro, "curso": curso or lead.get("curso")}, ONTO.ont)
     if params is None:
         return {"ok": False, "motivo": "lead sem e-mail cadastrado — avise por outro canal"}
     r = WA.enviar_template(lead["telefone"], TPL_INSCRICAO_EFETUADA, params=params)
@@ -780,7 +780,7 @@ _ROBO_EM_CURSO = set()
 _ROBO_LOCK = threading.Lock()
 
 
-def _avisar_continuidade(lead, link):
+def _avisar_continuidade(lead, link, curso=None):
     """Manda ao lead o SEU link ok-inscricao: é por ele que a inscrição se valida
     (termo + taxa). Mesmo fail-soft do aviso de inscrição efetuada."""
     from atena.transporte.whatsapp import montar_params
@@ -791,7 +791,8 @@ def _avisar_continuidade(lead, link):
     if st is not None and st.get(TPL_CONTINUIDADE) != "APPROVED":
         return {"ok": False, "motivo": f"template {TPL_CONTINUIDADE} ainda não aprovado na Meta"}
     primeiro = ((lead.get("nome") or "").split() or [""])[0].capitalize()
-    params = montar_params(TPL_CONTINUIDADE, {**lead, "nome": primeiro, "link": link}, ONTO.ont)
+    params = montar_params(TPL_CONTINUIDADE, {**lead, "nome": primeiro, "link": link,
+                                          "curso": curso or lead.get("curso")}, ONTO.ont)
     if params is None:
         return {"ok": False, "motivo": "parâmetro vazio no template"}
     r = WA.enviar_template(lead["telefone"], TPL_CONTINUIDADE, params=params)
@@ -848,7 +849,7 @@ def _inscrever_extecamp(card_id, valer):
                 EST.add_alerta("inscricao", f"Link de continuidade de {lead.get('nome') or card_id} "
                                             f"({ficha['curso']}) não enviado: {r['link_alerta']}")
             else:
-                r["aviso_lead"] = _avisar_continuidade(EST.get_lead(card_id), r["link"])
+                r["aviso_lead"] = _avisar_continuidade(EST.get_lead(card_id), r["link"], ficha["curso"])
             EST.log_acao("robô", f"inscrição feita na Extecamp ({ficha['curso']}, {r['caminho']})", card_id)
         else:
             obs = ("ENVIADO sem link de confirmação: " if r.get("enviado") else "robô parou: ") \
