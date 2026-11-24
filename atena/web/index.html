@@ -429,6 +429,192 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--guara);b
   *,*::before,*::after{transition:none!important;animation:none!important;}
   .btn:hover,.kb-card:hover{transform:none;}
 }
+
+/* ===== Utilitários (ex-estilos inline, 24/11/2026). !important porque substituem
+   style="" e precisam vencer seletores como `.sec h2` do mesmo jeito que o inline
+   vencia. display e o fundo do #autoTgl seguem inline: o JS os reescreve. ===== */
+.ai-center{align-items:center!important;}
+.ai-flex-start{align-items:flex-start!important;}
+.ai-start{align-items:start!important;}
+.as-flex-end{align-self:flex-end!important;}
+.bcol-collapse{border-collapse:collapse!important;}
+.bd-1-solid-border{border:1px solid var(--border)!important;}
+.bdb-1-solid-border{border-bottom:1px solid var(--border)!important;}
+.bds-dashed{border-style:dashed!important;}
+.bdt-1-solid-border{border-top:1px solid var(--border)!important;}
+.bf-blur-6{backdrop-filter:blur(6px)!important;-webkit-backdrop-filter:blur(6px)!important;}
+.bg-bad-bg{background:var(--bad-bg)!important;}
+.bg-guara{background:var(--guara)!important;}
+.bg-guara-bg{background:var(--guara-bg)!important;}
+.bg-info-bg{background:var(--info-bg)!important;}
+.bg-ok-bg{background:var(--ok-bg)!important;}
+.bg-overlay{background:var(--overlay)!important;}
+.bg-surface-2{background:var(--surface-2)!important;}
+.bg-warn-bg{background:var(--warn-bg)!important;}
+.c-bad{color:var(--bad)!important;}
+.c-fff{color:#fff!important;}
+.c-guara{color:var(--guara)!important;}
+.c-ok{color:var(--ok)!important;}
+.c-text-2{color:var(--text-2)!important;}
+.c-warn{color:var(--warn)!important;}
+.cols-150-1fr-auto-auto{grid-template-columns:150px 1fr auto auto!important;}
+.cols-160-1fr{grid-template-columns:160px 1fr!important;}
+.cols-1fr{grid-template-columns:1fr!important;}
+.cols-1fr-1fr{grid-template-columns:1fr 1fr!important;}
+.cols-1fr-1fr-140-auto{grid-template-columns:1fr 1fr 140px auto!important;}
+.cols-repeat-auto-fill-minmax-190-1fr{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))!important;}
+.cols-repeat-auto-fill-minmax-210-1fr{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;}
+.cols-repeat-auto-fit-minmax-260-1fr{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))!important;}
+.cur-grab{cursor:grab!important;}
+.cur-pointer{cursor:pointer!important;}
+.d-block{display:block!important;}
+.d-flex{display:flex!important;}
+.d-grid{display:grid!important;}
+.d-inline-block{display:inline-block!important;}
+.ff-inherit{font-family:inherit!important;}
+.ff-ui-monospace-monospace{font-family:ui-monospace,monospace!important;}
+.fit-contain{object-fit:contain!important;}
+.flex-1{flex:1!important;}
+.fs-16{font-size:16px!important;}
+.fs-22{font-size:22px!important;}
+.fs-26{font-size:26px!important;}
+.fs-l{font-size:13.5px!important;}
+.fs-m{font-size:12.5px!important;}
+.fs-s{font-size:11.5px!important;}
+.fs-xs{font-size:10.5px!important;}
+.fw-400{font-weight:400!important;}
+.fw-500{font-weight:500!important;}
+.fw-700{font-weight:700!important;}
+.fw-800{font-weight:800!important;}
+.fwrap-wrap{flex-wrap:wrap!important;}
+.gap-10{gap:10px!important;}
+.gap-10-16{gap:10px 16px!important;}
+.gap-12{gap:12px!important;}
+.gap-14{gap:14px!important;}
+.gap-16{gap:16px!important;}
+.gap-6{gap:6px!important;}
+.gap-7{gap:7px!important;}
+.gap-8{gap:8px!important;}
+.gcol-1_-1{grid-column:1/-1!important;}
+.h-22{height:22px!important;}
+.h-40{height:40px!important;}
+.h-6{height:6px!important;}
+.h-64{height:64px!important;}
+.inset-0{inset:0!important;}
+.jc-center{justify-content:center!important;}
+.jc-flex-end{justify-content:flex-end!important;}
+.jc-space-between{justify-content:space-between!important;}
+.lh-1d35{line-height:1.35!important;}
+.ls-d08em{letter-spacing:.08em!important;}
+.m-0{margin:0!important;}
+.m-0-0-0-6{margin:0 0 0 6px!important;}
+.m-0-0-10{margin:0 0 10px!important;}
+.m-0-0-12{margin:0 0 12px!important;}
+.m-0-0-4{margin:0 0 4px!important;}
+.m-0-0-6{margin:0 0 6px!important;}
+.m-0-0-8{margin:0 0 8px!important;}
+.m-0-0-9{margin:0 0 9px!important;}
+.m-0-11-11{margin:0 11px 11px!important;}
+.m-10-2-0{margin:10px 2px 0!important;}
+.m-10-2-4{margin:10px 2px 4px!important;}
+.m-12-0-6{margin:12px 0 6px!important;}
+.m-12-2-4{margin:12px 2px 4px!important;}
+.m-14-0-8{margin:14px 0 8px!important;}
+.m-18-0-6{margin:18px 0 6px!important;}
+.m-2{margin:2px!important;}
+.m-4-0-0{margin:4px 0 0!important;}
+.m-4-0-10{margin:4px 0 10px!important;}
+.m-4-0-8{margin:4px 0 8px!important;}
+.m-5-2{margin:5px 2px!important;}
+.m-6-0-0{margin:6px 0 0!important;}
+.m-6-0-12{margin:6px 0 12px!important;}
+.m-6-2-10{margin:6px 2px 10px!important;}
+.m-8-0{margin:8px 0!important;}
+.m-8-0-0{margin:8px 0 0!important;}
+.m-8-2-4{margin:8px 2px 4px!important;}
+.m-auto{margin:auto!important;}
+.m-n4-0-10{margin:-4px 0 10px!important;}
+.maxh-280{max-height:280px!important;}
+.maxw-230{max-width:230px!important;}
+.maxw-232{max-width:232px!important;}
+.maxw-240{max-width:240px!important;}
+.maxw-320{max-width:320px!important;}
+.maxw-420{max-width:420px!important;}
+.mb-10{margin-bottom:10px!important;}
+.mb-12{margin-bottom:12px!important;}
+.mb-14{margin-bottom:14px!important;}
+.mb-2{margin-bottom:2px!important;}
+.mb-4{margin-bottom:4px!important;}
+.mb-6{margin-bottom:6px!important;}
+.mb-8{margin-bottom:8px!important;}
+.mb-n4{margin-bottom:-4px!important;}
+.minw-0{min-width:0!important;}
+.minw-180{min-width:180px!important;}
+.minw-190{min-width:190px!important;}
+.minw-210{min-width:210px!important;}
+.minw-260{min-width:260px!important;}
+.minw-64{min-width:64px!important;}
+.minw-78{min-width:78px!important;}
+.ml-2{margin-left:2px!important;}
+.ml-6{margin-left:6px!important;}
+.ml-auto{margin-left:auto!important;}
+.mt-10{margin-top:10px!important;}
+.mt-12{margin-top:12px!important;}
+.mt-14{margin-top:14px!important;}
+.mt-16{margin-top:16px!important;}
+.mt-2{margin-top:2px!important;}
+.mt-3{margin-top:3px!important;}
+.mt-4{margin-top:4px!important;}
+.mt-5{margin-top:5px!important;}
+.mt-6{margin-top:6px!important;}
+.mt-8{margin-top:8px!important;}
+.ov-hidden{overflow:hidden!important;}
+.p-1-5{padding:1px 5px!important;}
+.p-1-6{padding:1px 6px!important;}
+.p-12{padding:12px!important;}
+.p-12-14{padding:12px 14px!important;}
+.p-14-16{padding:14px 16px!important;}
+.p-16{padding:16px!important;}
+.p-2-8{padding:2px 8px!important;}
+.p-24{padding:24px!important;}
+.p-3-7{padding:3px 7px!important;}
+.p-3-9{padding:3px 9px!important;}
+.p-4-0{padding:4px 0!important;}
+.p-4-10{padding:4px 10px!important;}
+.p-4-2{padding:4px 2px!important;}
+.p-4-9{padding:4px 9px!important;}
+.p-5-0{padding:5px 0!important;}
+.p-5-10{padding:5px 10px!important;}
+.p-5-7{padding:5px 7px!important;}
+.p-5-8{padding:5px 8px!important;}
+.p-5-9{padding:5px 9px!important;}
+.p-6-10{padding:6px 10px!important;}
+.p-6-11{padding:6px 11px!important;}
+.p-7-14{padding:7px 14px!important;}
+.p-8-10{padding:8px 10px!important;}
+.p-8-11{padding:8px 11px!important;}
+.p-8-12-12{padding:8px 12px 12px!important;}
+.p-8-14{padding:8px 14px!important;}
+.pos-fixed{position:fixed!important;}
+.r-r-s{border-radius:var(--r-s)!important;}
+.shadow-shadow{box-shadow:var(--shadow)!important;}
+.shadow-shadow-lg{box-shadow:var(--shadow-lg)!important;}
+.shrink-0{flex-shrink:0!important;}
+.ta-center{text-align:center!important;}
+.ta-left{text-align:left!important;}
+.ta-right{text-align:right!important;}
+.td-none{text-decoration:none!important;}
+.tov-ellipsis{text-overflow:ellipsis!important;}
+.tt-uppercase{text-transform:uppercase!important;}
+.w-100pc{width:100%!important;}
+.w-22{width:22px!important;}
+.w-320{width:320px!important;}
+.w-64{width:64px!important;}
+.w-auto{width:auto!important;}
+.wb-break-word{word-break:break-word!important;}
+.ws-nowrap{white-space:nowrap!important;}
+.ws-pre-wrap{white-space:pre-wrap!important;}
+.z-50{z-index:50!important;}
 </style>
 </head>
 <body>
@@ -437,25 +623,25 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--guara);b
 // Sem escolha salva, o CSS já segue prefers-color-scheme sozinho — não seta nada aqui.
 try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.dataset.theme = t; }catch(e){}
 </script>
-<div id="login" style="display:none;position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;z-index:50;">
-  <div class="g" style="padding:24px;width:320px;box-shadow:var(--shadow-lg);text-align:center;">
-    <img src="/assets/guara.png" alt="Guará Marketing" style="width:64px;height:64px;object-fit:contain;margin-bottom:6px;">
-    <div style="font-weight:700;font-size:16px;margin-bottom:14px;">Central FEQ — acesso</div>
-    <input id="lu" placeholder="usuário" style="margin-bottom:8px;">
-    <input id="lp" type="password" placeholder="senha" style="margin-bottom:12px;">
-    <button class="btn btn-p" style="width:100%;" onclick="login()">Entrar</button>
-    <div id="lerr" class="muted" style="color:var(--bad);margin-top:8px;"></div>
+<div id="login" class="pos-fixed inset-0 bg-overlay bf-blur-6 ai-center jc-center z-50" style="display:none;">
+  <div class="g p-24 w-320 shadow-shadow-lg ta-center">
+    <img src="/assets/guara.png" alt="Guará Marketing" class="w-64 h-64 fit-contain mb-6">
+    <div class="fw-700 fs-16 mb-14">Central FEQ — acesso</div>
+    <input id="lu" placeholder="usuário" class="mb-8">
+    <input id="lp" type="password" placeholder="senha" class="mb-12">
+    <button class="btn btn-p w-100pc" onclick="login()">Entrar</button>
+    <div id="lerr" class="muted c-bad mt-8"></div>
   </div>
 </div>
-<div id="trocaSenha" style="display:none;position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;z-index:50;">
-  <div class="g" style="padding:24px;width:320px;box-shadow:var(--shadow-lg);text-align:center;">
-    <div style="font-weight:700;font-size:16px;margin-bottom:6px;">Defina sua senha</div>
-    <div class="muted" style="margin-bottom:14px;">Primeiro acesso: troque a senha provisória.</div>
-    <input id="tsAtual" type="password" placeholder="senha atual (provisória)" style="margin-bottom:8px;">
-    <input id="tsNova" type="password" placeholder="nova senha (mín. 6)" style="margin-bottom:8px;">
-    <input id="tsConf" type="password" placeholder="confirme a nova senha" style="margin-bottom:12px;">
-    <button class="btn btn-p" style="width:100%;" onclick="trocarSenha()">Salvar e entrar</button>
-    <div id="tsErr" class="muted" style="color:var(--bad);margin-top:8px;"></div>
+<div id="trocaSenha" class="pos-fixed inset-0 bg-overlay bf-blur-6 ai-center jc-center z-50" style="display:none;">
+  <div class="g p-24 w-320 shadow-shadow-lg ta-center">
+    <div class="fw-700 fs-16 mb-6">Defina sua senha</div>
+    <div class="muted mb-14">Primeiro acesso: troque a senha provisória.</div>
+    <input id="tsAtual" type="password" placeholder="senha atual (provisória)" class="mb-8">
+    <input id="tsNova" type="password" placeholder="nova senha (mín. 6)" class="mb-8">
+    <input id="tsConf" type="password" placeholder="confirme a nova senha" class="mb-12">
+    <button class="btn btn-p w-100pc" onclick="trocarSenha()">Salvar e entrar</button>
+    <div id="tsErr" class="muted c-bad mt-8"></div>
   </div>
 </div>
 <div class="wrap">
@@ -467,13 +653,13 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
         <div class="muted">Atena · Guará Marketing × FEQ Unicamp</div>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <div class="d-flex ai-center gap-10 fwrap-wrap">
       <div class="logos-inst">
         <span class="logo-plaque"><img src="/assets/feq.png" alt="FEQ"></span>
         <span class="logo-plaque"><img src="/assets/unicamp.svg" alt="Unicamp"></span>
       </div>
-      <button id="autoTgl" class="pill" style="cursor:pointer;font-family:inherit;background:var(--surface);" onclick="toggleAuto()"><i class="ti ti-bolt"></i> aprovação automática: OFF</button>
-      <span class="pill" style="background:var(--ok-bg);"><i class="ti ti-circle-filled" style="font-size:10.5px;"></i> sistema ativo</span>
+      <button id="autoTgl" class="pill cur-pointer ff-inherit" style="background:var(--surface);" onclick="toggleAuto()"><i class="ti ti-bolt"></i> aprovação automática: OFF</button>
+      <span class="pill bg-ok-bg"><i class="ti ti-circle-filled fs-xs"></i> sistema ativo</span>
       <button id="temaTgl" class="theme-tgl" onclick="alternarTema()" title="Alternar tema claro/escuro"><i class="ti ti-moon"></i></button>
     </div>
   </div>
@@ -483,11 +669,11 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
       <button class="navi on" data-sec="painel"><i class="ti ti-layout-dashboard"></i> Painel</button>
       <!-- Caixa de entrada única: o agente comercial abria 5 abas para descobrir se
            tinha trabalho. Fica no topo porque é por onde o dia começa. -->
-      <button class="navi" data-sec="notificacoes"><i class="ti ti-bell"></i> Notificações <span class="tag t-bad" id="ntCount" style="display:none;margin-left:auto;"></span></button>
-      <button class="navi" data-sec="inscricoes"><i class="ti ti-file-text"></i> Inscrições <span class="tag t-warn" id="inCount" style="display:none;margin-left:auto;"></span></button>
+      <button class="navi" data-sec="notificacoes"><i class="ti ti-bell"></i> Notificações <span class="tag t-bad ml-auto" id="ntCount" style="display:none;"></span></button>
+      <button class="navi" data-sec="inscricoes"><i class="ti ti-file-text"></i> Inscrições <span class="tag t-warn ml-auto" id="inCount" style="display:none;"></span></button>
       <button class="navi" data-sec="coleta"><i class="ti ti-cloud-download"></i> Coleta de Dados</button>
       <button class="navi" data-sec="kanban"><i class="ti ti-layout-columns"></i> Funil</button>
-      <button class="navi" data-sec="conversas"><i class="ti ti-messages"></i> Conversas <span class="tag t-ok" id="cvCount" style="display:none;margin-left:auto;"></span></button>
+      <button class="navi" data-sec="conversas"><i class="ti ti-messages"></i> Conversas <span class="tag t-ok ml-auto" id="cvCount" style="display:none;"></span></button>
       <button class="navi" data-sec="injetor"><i class="ti ti-database-import"></i> Injetor</button>
       <button class="navi" data-sec="medicao"><i class="ti ti-chart-arrows-vertical"></i> Medição</button>
       <button class="navi" data-sec="lps"><i class="ti ti-browser"></i> LPs</button>
@@ -505,21 +691,21 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
       <section id="painel">
         <div class="cards" id="cards"></div>
         <div class="g sec">
-          <h2 style="display:flex;align-items:center;gap:8px;">Captabilidade hoje <span class="muted" id="hoje"></span>
-            <button class="btn btn-g" style="margin-left:auto;" onclick="copiarRelatorioCap(this)" title="Copia o painel em texto, pronto para colar num e-mail ou WhatsApp"><i class="ti ti-copy"></i> Copiar relatório</button></h2>
-          <p class="muted" style="margin:-4px 0 10px;">Inscritos = inscritos + matriculados da turma corrente no ADM Cursos da Extecamp, contra a meta do curso.</p>
+          <h2 class="d-flex ai-center gap-8">Captabilidade hoje <span class="muted" id="hoje"></span>
+            <button class="btn btn-g ml-auto" onclick="copiarRelatorioCap(this)" title="Copia o painel em texto, pronto para colar num e-mail ou WhatsApp"><i class="ti ti-copy"></i> Copiar relatório</button></h2>
+          <p class="muted m-n4-0-10">Inscritos = inscritos + matriculados da turma corrente no ADM Cursos da Extecamp, contra a meta do curso.</p>
           <div id="capt"></div>
-          <p class="muted" style="margin:10px 2px 0;">Status calculado pela ontologia (janela de inscrição vs. hoje). Curso encerrado não é engajado pelo SDR.</p>
+          <p class="muted m-10-2-0">Status calculado pela ontologia (janela de inscrição vs. hoje). Curso encerrado não é engajado pelo SDR.</p>
         </div>
       </section>
 
       <section id="kanban" class="hidden">
-        <div class="g sec" style="padding:14px 16px;">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <h2 style="display:flex;align-items:center;gap:7px;margin:0;"><i class="ti ti-layout-columns"></i> Funil de leads</h2>
+        <div class="g sec p-14-16">
+          <div class="d-flex ai-center gap-10 fwrap-wrap">
+            <h2 class="d-flex ai-center gap-7 m-0"><i class="ti ti-layout-columns"></i> Funil de leads</h2>
             <input id="kbBusca" placeholder="Buscar por nome ou telefone…" oninput="renderKanban()"
-                   style="width:auto;flex:1;min-width:180px;max-width:320px;padding:5px 9px;font-size:12.5px;margin-left:auto;">
-            <select id="kbFiltro" onchange="renderKanban()" style="width:auto;padding:5px 9px;font-size:12.5px;"><option value="">Todos os cursos</option></select>
+                   class="w-auto flex-1 minw-180 maxw-320 p-5-9 fs-m ml-auto">
+            <select id="kbFiltro" onchange="renderKanban()" class="w-auto p-5-9 fs-m"><option value="">Todos os cursos</option></select>
             <label class="chave" title="Ligado: arraste os cards entre as fases. Desligado: clicar abre a conversa.">
               <input type="checkbox" id="kbMover" onchange="kbModoMover(this.checked)">
               <span class="trilho"><span class="btn-chave"></span></span>
@@ -527,7 +713,7 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
             </label>
             <button class="btn btn-p" onclick="kbNovoAbrir()"><i class="ti ti-user-plus"></i> Novo lead</button>
           </div>
-          <p class="muted" style="margin:6px 2px 10px;"><span id="kbDica">Clique num card para abrir a conversa.</span> A busca ignora acentos e a máscara do telefone; o filtro considera todos os cursos de interesse do lead.</p>
+          <p class="muted m-6-2-10"><span id="kbDica">Clique num card para abrir a conversa.</span> A busca ignora acentos e a máscara do telefone; o filtro considera todos os cursos de interesse do lead.</p>
           <div class="kb-board" id="kbBoard"></div>
         </div>
       </section>
@@ -535,41 +721,41 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
       <section id="conversas" class="hidden">
         <div class="g conv-shell">
           <div class="conv-side">
-            <div class="conv-search" style="display:flex;gap:6px;"><input id="convBusca" placeholder="Buscar por nome, curso ou telefone…" oninput="renderListaConv()" style="flex:1;"><select id="convFiltroCurso" onchange="renderListaConv()" style="width:auto;padding:5px 7px;font-size:12.5px;"><option value="">Todos os cursos</option></select></div>
+            <div class="conv-search d-flex gap-6"><input id="convBusca" placeholder="Buscar por nome, curso ou telefone…" oninput="renderListaConv()" class="flex-1"><select id="convFiltroCurso" onchange="renderListaConv()" class="w-auto p-5-7 fs-m"><option value="">Todos os cursos</option></select></div>
             <div class="conv-list" id="convLista"></div>
           </div>
           <div class="conv-main" id="convMain">
-            <div class="muted" style="margin:auto;text-align:center;"><i class="ti ti-message-2" style="font-size:26px;display:block;margin-bottom:6px;"></i>Selecione uma conversa</div>
+            <div class="muted m-auto ta-center"><i class="ti ti-message-2 fs-26 d-block mb-6"></i>Selecione uma conversa</div>
           </div>
         </div>
       </section>
 
       <section id="notificacoes" class="hidden">
         <div class="g sec">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <h2 style="margin:0;"><i class="ti ti-bell"></i> Notificações</h2>
-            <span class="muted" id="ntResumo" style="margin-left:auto;"></span>
+          <div class="d-flex ai-center gap-10 fwrap-wrap">
+            <h2 class="m-0"><i class="ti ti-bell"></i> Notificações</h2>
+            <span class="muted ml-auto" id="ntResumo"></span>
             <button class="btn btn-g" onclick="ntLerTudo()"><i class="ti ti-checks"></i> Limpar tudo</button>
           </div>
-          <p class="muted" style="margin:6px 2px 10px;">Tudo que espera por você, numa fila só — aprove, responda e resolva daqui mesmo.
+          <p class="muted m-6-2-10">Tudo que espera por você, numa fila só — aprove, responda e resolva daqui mesmo.
             As fichas saem quando são transcritas; o resto pode ser limpo (o ✕) — um item dispensado volta se o lead falar de novo.
             Cada resposta humana vira lição para o agente não precisar perguntar de novo.</p>
-          <div id="ntFiltros" style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px;"></div>
+          <div id="ntFiltros" class="gap-6 fwrap-wrap m-0-0-10" style="display:flex;"></div>
           <div id="ntLista"></div>
         </div>
       </section>
 
       <section id="inscricoes" class="hidden">
         <div class="g sec">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <h2 style="margin:0;"><i class="ti ti-file-text"></i> Inscrições recebidas</h2>
-            <select id="inFiltro" onchange="inCarregar()" style="width:auto;padding:5px 9px;font-size:12.5px;margin-left:auto;">
+          <div class="d-flex ai-center gap-10 fwrap-wrap">
+            <h2 class="m-0"><i class="ti ti-file-text"></i> Inscrições recebidas</h2>
+            <select id="inFiltro" onchange="inCarregar()" class="w-auto p-5-9 fs-m ml-auto">
               <option value="recebida">A transcrever</option>
               <option value="transcrita">Já transcritas</option>
               <option value="">Todas</option>
             </select>
           </div>
-          <p class="muted" style="margin:6px 2px 10px;">A ficha que o lead preencheu na etapa 2 da página do
+          <p class="muted m-6-2-10">A ficha que o lead preencheu na etapa 2 da página do
             curso, pronta para ser lançada no sistema da Extecamp. Ao marcar <strong>Transcrita</strong>, a
             conversão é reportada à Meta e o card fica registrado como inscrito.</p>
           <div id="inLista"></div>
@@ -578,37 +764,37 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
 
       <section id="medicao" class="hidden">
         <div class="g sec">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <h2 style="margin:0;"><i class="ti ti-chart-arrows-vertical"></i> Medição do funil</h2>
-            <select id="mdDias" onchange="mdCarregar()" style="width:auto;padding:5px 9px;font-size:12.5px;margin-left:auto;">
+          <div class="d-flex ai-center gap-10 fwrap-wrap">
+            <h2 class="m-0"><i class="ti ti-chart-arrows-vertical"></i> Medição do funil</h2>
+            <select id="mdDias" onchange="mdCarregar()" class="w-auto p-5-9 fs-m ml-auto">
               <option value="7">últimos 7 dias</option>
               <option value="30" selected>últimos 30 dias</option>
               <option value="90">últimos 90 dias</option>
               <option value="365">tudo</option>
             </select>
-            <select id="mdCurso" onchange="mdCarregar()" style="width:auto;padding:5px 9px;font-size:12.5px;"><option value="">Todos os cursos</option></select>
+            <select id="mdCurso" onchange="mdCarregar()" class="w-auto p-5-9 fs-m"><option value="">Todos os cursos</option></select>
           </div>
-          <p class="muted" style="margin:6px 2px 10px;">Coorte: acompanha os leads <strong>criados</strong> na janela — não divide conversões do mês por leads do mês. As etapas são cumulativas, então quem avançou conta nas anteriores.</p>
+          <p class="muted m-6-2-10">Coorte: acompanha os leads <strong>criados</strong> na janela — não divide conversões do mês por leads do mês. As etapas são cumulativas, então quem avançou conta nas anteriores.</p>
           <div id="mdFunil"></div>
         </div>
         <div class="g sec">
-          <h3 style="margin:0 0 8px;"><i class="ti ti-heartbeat"></i> Saúde do agente</h3>
+          <h3 class="m-0-0-8"><i class="ti ti-heartbeat"></i> Saúde do agente</h3>
           <div id="mdSaude"></div>
-          <h3 style="margin:14px 0 8px;"><i class="ti ti-clock"></i> Tempos (mediana)</h3>
+          <h3 class="m-14-0-8"><i class="ti ti-clock"></i> Tempos (mediana)</h3>
           <div id="mdTempos"></div>
         </div>
         <div class="g sec">
-          <h3 style="margin:0 0 8px;"><i class="ti ti-list-details"></i> Por curso</h3>
+          <h3 class="m-0-0-8"><i class="ti ti-list-details"></i> Por curso</h3>
           <div id="mdCursos"></div>
-          <h3 style="margin:14px 0 8px;"><i class="ti ti-timeline"></i> Série diária</h3>
+          <h3 class="m-14-0-8"><i class="ti ti-timeline"></i> Série diária</h3>
           <div id="mdSerie"></div>
         </div>
         <div class="g sec">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <h3 style="margin:0;"><i class="ti ti-target-arrow"></i> Otimização do funil</h3>
-            <span id="otModo" style="margin-left:auto;"></span>
+          <div class="d-flex ai-center gap-10 fwrap-wrap">
+            <h3 class="m-0"><i class="ti ti-target-arrow"></i> Otimização do funil</h3>
+            <span id="otModo" class="ml-auto"></span>
           </div>
-          <p class="muted" style="margin:6px 2px 10px;">Objetivo de controle:
+          <p class="muted m-6-2-10">Objetivo de controle:
             <strong>maximizar inscritos por curso</strong> e <strong>minimizar CPL</strong>.
             O otimizador roda em sombra — calcula e mostra a escolha, sem mexer na operação —
             até haver evidência suficiente.</p>
@@ -618,38 +804,38 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
 
       <section id="coleta" class="hidden">
         <div class="g sec">
-          <h2 style="margin:0 0 4px;"><i class="ti ti-cloud-download"></i> Coleta de Dados · Extecamp</h2>
-          <p class="muted" style="margin:0 0 12px;">Traz do ADM Cursos quem está inscrito, matriculado e
+          <h2 class="m-0-0-4"><i class="ti ti-cloud-download"></i> Coleta de Dados · Extecamp</h2>
+          <p class="muted m-0-0-12">Traz do ADM Cursos quem está inscrito, matriculado e
             cancelado em cada oferecimento, e põe cada um na coluna certa do Funil.</p>
 
-          <div class="row" style="align-items:flex-start;gap:14px;flex-wrap:wrap;">
-            <div style="flex:1;min-width:260px;">
-              <p style="font-weight:800;margin:0 0 6px;">1. Entre no sistema</p>
-              <p class="muted" style="margin:0 0 8px;">O login e a verificação de humano são seus — a
+          <div class="row ai-flex-start gap-14 fwrap-wrap">
+            <div class="flex-1 minw-260">
+              <p class="fw-800 m-0-0-6">1. Entre no sistema</p>
+              <p class="muted m-0-0-8">O login e a verificação de humano são seus — a
                 Atena não guarda a sua senha da Extecamp.</p>
               <button class="btn btn-g" onclick="coletaLogar()"><i class="ti ti-external-link"></i> Logar no sistema</button>
             </div>
-            <div style="flex:1;min-width:260px;">
-              <p style="font-weight:800;margin:0 0 6px;">2. Abra a coleta</p>
-              <p class="muted" style="margin:0 0 8px;">Gera o atalho que roda a coleta dentro da aba já
+            <div class="flex-1 minw-260">
+              <p class="fw-800 m-0-0-6">2. Abra a coleta</p>
+              <p class="muted m-0-0-8">Gera o atalho que roda a coleta dentro da aba já
                 logada. Vale por 12 horas.</p>
               <button class="btn btn-p" onclick="coletaSessao()"><i class="ti ti-key"></i> Abrir sessão de coleta</button>
             </div>
           </div>
-          <div id="coletaAtalho" class="hidden" style="margin-top:12px;"></div>
+          <div id="coletaAtalho" class="hidden mt-12"></div>
 
-          <div id="coletaCursos" style="margin-top:16px;"></div>
-          <h3 style="margin:18px 0 6px;">Fila de trabalho</h3>
-          <p class="muted" id="coletaQuando" style="margin:0 0 10px;"></p>
+          <div id="coletaCursos" class="mt-16"></div>
+          <h3 class="m-18-0-6">Fila de trabalho</h3>
+          <p class="muted m-0-0-10" id="coletaQuando"></p>
           <div id="coletaFila"></div>
         </div>
       </section>
       <section id="lps" class="hidden">
         <div class="g sec">
           <h2><i class="ti ti-browser"></i> Gestão de LPs</h2>
-          <p class="muted" style="margin:0 0 10px;">As páginas são <strong>geradas pela ontologia</strong> (preço, datas e lista de espera se atualizam sozinhos). Ao editar o HTML, a página congela nesse conteúdo até você restaurar.</p>
+          <p class="muted m-0-0-10">As páginas são <strong>geradas pela ontologia</strong> (preço, datas e lista de espera se atualizam sozinhos). Ao editar o HTML, a página congela nesse conteúdo até você restaurar.</p>
           <div id="lpAviso"></div>
-          <div id="lpLista" style="margin-top:8px;"></div>
+          <div id="lpLista" class="mt-8"></div>
         </div>
         <div id="lpEditor" class="g sec hidden">
           <div class="lp-ed-top">
@@ -665,7 +851,7 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
               <button class="btn btn-p" onclick="lpPublicar()"><i class="ti ti-cloud-upload"></i> Salvar e publicar</button>
             </div>
           </div>
-          <div id="lpEdOut" style="margin:8px 0;"></div>
+          <div id="lpEdOut" class="m-8-0"></div>
           <div class="lp-split">
             <textarea id="lpCodigo" spellcheck="false" oninput="lpMarcarSujo()"></textarea>
             <iframe id="lpFrame" title="Prévia da landing page"></iframe>
@@ -676,13 +862,13 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
       <section id="templates" class="hidden">
         <div class="g sec">
           <h2><i class="ti ti-mail-cog"></i> Templates da Meta</h2>
-          <p class="muted" style="margin:0 0 10px;">Templates aprovados são o que permite <strong>iniciar</strong> conversa ou reabrir fora da janela de 24h. Criar aqui envia para revisão da Meta (fica PENDING até ela aprovar).</p>
+          <p class="muted m-0-0-10">Templates aprovados são o que permite <strong>iniciar</strong> conversa ou reabrir fora da janela de 24h. Criar aqui envia para revisão da Meta (fica PENDING até ela aprovar).</p>
           <div id="tplConexao"></div>
-          <div id="tplLista" style="margin-top:10px;"></div>
+          <div id="tplLista" class="mt-10"></div>
         </div>
         <div class="g sec">
-          <h3 style="margin:0 0 4px;"><i class="ti ti-plus"></i> Criar template</h3>
-          <p class="muted" style="margin:0 0 10px;">Use <code>{{1}}</code>, <code>{{2}}</code> para as variáveis e dê um exemplo de cada — a Meta exige para aprovar.</p>
+          <h3 class="m-0-0-4"><i class="ti ti-plus"></i> Criar template</h3>
+          <p class="muted m-0-0-10">Use <code>{{1}}</code>, <code>{{2}}</code> para as variáveis e dê um exemplo de cada — a Meta exige para aprovar.</p>
           <div class="tpl-grid">
             <label class="tpl-campo"><span class="muted">Nome (minúsculas, números e _)</span>
               <input id="tplNome" placeholder="feq_convite_turma" oninput="tplPreview()"></label>
@@ -700,36 +886,36 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
           </div>
           <label class="tpl-campo"><span class="muted">Corpo da mensagem * — <code>*negrito*</code>, <code>_itálico_</code>, <code>~riscado~</code>, emojis e quebras de linha funcionam</span>
             <textarea id="tplCorpo" rows="5" placeholder="Oi {{1}}! As inscrições do {{2}} estão abertas até {{3}}. Quer que eu te envie o link?" oninput="tplPreview()"></textarea></label>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
-            <button class="btn btn-g" style="padding:3px 9px;" onclick="tplInserirVar()"><i class="ti ti-braces"></i> Inserir variável</button>
-            <span class="muted" id="tplContador" style="margin-left:auto;font-size:11.5px;"></span>
+          <div class="d-flex gap-6 fwrap-wrap mt-4">
+            <button class="btn btn-g p-3-9" onclick="tplInserirVar()"><i class="ti ti-braces"></i> Inserir variável</button>
+            <span class="muted ml-auto fs-s" id="tplContador"></span>
           </div>
           <div id="tplExemplos"></div>
           <label class="tpl-campo"><span class="muted">Rodapé (opcional, até 60 caracteres)</span>
             <input id="tplFoot" maxlength="60" placeholder="Responda SAIR para não receber mais" oninput="tplPreview()"></label>
           <div class="tpl-campo"><span class="muted">Botões (opcional, até 10): respostas rápidas, links do site, ligar e copiar cupom</span>
             <div id="tplBotoes"></div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;">
-              <button class="btn btn-g" style="padding:4px 9px;" onclick="tplAddBotao('QUICK_REPLY')"><i class="ti ti-message-reply"></i> Resposta rápida</button>
-              <button class="btn btn-g" style="padding:4px 9px;" onclick="tplAddBotao('URL')"><i class="ti ti-link"></i> Link</button>
-              <button class="btn btn-g" style="padding:4px 9px;" onclick="tplAddBotao('PHONE_NUMBER')"><i class="ti ti-phone"></i> Ligar</button>
-              <button class="btn btn-g" style="padding:4px 9px;" onclick="tplAddBotao('COPY_CODE')"><i class="ti ti-copy"></i> Copiar cupom</button>
+            <div class="d-flex gap-6 fwrap-wrap mt-6">
+              <button class="btn btn-g p-4-9" onclick="tplAddBotao('QUICK_REPLY')"><i class="ti ti-message-reply"></i> Resposta rápida</button>
+              <button class="btn btn-g p-4-9" onclick="tplAddBotao('URL')"><i class="ti ti-link"></i> Link</button>
+              <button class="btn btn-g p-4-9" onclick="tplAddBotao('PHONE_NUMBER')"><i class="ti ti-phone"></i> Ligar</button>
+              <button class="btn btn-g p-4-9" onclick="tplAddBotao('COPY_CODE')"><i class="ti ti-copy"></i> Copiar cupom</button>
             </div>
           </div>
-          <p class="muted" style="margin:12px 2px 4px;">Prévia</p>
+          <p class="muted m-12-2-4">Prévia</p>
           <div id="tplPrevia" class="tpl-previa"></div>
-          <div style="display:flex;gap:8px;align-items:center;margin-top:12px;">
+          <div class="d-flex gap-8 ai-center mt-12">
             <button class="btn btn-p" onclick="criarTemplate()"><i class="ti ti-send"></i> Enviar para aprovação da Meta</button>
             <span class="muted">ação externa — o template vai para revisão da Meta</span>
           </div>
-          <div id="tplOut" style="margin-top:10px;"></div>
+          <div id="tplOut" class="mt-10"></div>
         </div>
       </section>
 
       <section id="campanhas" class="hidden">
         <div class="g sec">
           <h2><i class="ti ti-send"></i> Disparo em lote</h2>
-          <p class="muted" style="margin:0 0 10px;">Escolha um público e um template aprovado, confira a
+          <p class="muted m-0-0-10">Escolha um público e um template aprovado, confira a
             contagem e dispare para todos de uma vez. O envio é em lotes pacientes (não é instantâneo) —
             protege a conta contra bloqueio por rajada em público frio.</p>
           <div class="camp-grid">
@@ -758,18 +944,18 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
             <label class="tpl-campo"><span class="muted">Template aprovado</span>
               <select id="campTemplate" onchange="campConteudo()"></select></label>
           </div>
-          <div id="campPreviewOut" style="margin-top:10px;"></div>
-          <div class="tpl-grid" style="margin-top:12px;align-items:start;">
-            <div><p class="muted" style="margin:0 0 4px;">Conteúdo — de onde vem cada parte da mensagem</p><div id="campConteudo"></div></div>
-            <div><p class="muted" style="margin:0 0 4px;">Prévia com o 1º lead do público</p><div id="campPrevia" class="tpl-previa"></div></div>
+          <div id="campPreviewOut" class="mt-10"></div>
+          <div class="tpl-grid mt-12 ai-start">
+            <div><p class="muted m-0-0-4">Conteúdo — de onde vem cada parte da mensagem</p><div id="campConteudo"></div></div>
+            <div><p class="muted m-0-0-4">Prévia com o 1º lead do público</p><div id="campPrevia" class="tpl-previa"></div></div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;margin-top:12px;">
+          <div class="d-flex gap-8 ai-center mt-12">
             <button class="btn btn-p" onclick="campDisparar()"><i class="ti ti-send"></i> Disparar campanha</button>
             <span class="muted">ação externa — manda WhatsApp de verdade para o público acima</span>
           </div>
         </div>
         <div class="g sec">
-          <h3 style="margin:0 0 10px;"><i class="ti ti-list-details"></i> Campanhas</h3>
+          <h3 class="m-0-0-10"><i class="ti ti-list-details"></i> Campanhas</h3>
           <div id="campLista"></div>
         </div>
       </section>
@@ -777,29 +963,29 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
       <section id="injetor" class="hidden">
         <div class="g sec">
           <h2><i class="ti ti-database-import"></i> Injetor de conhecimento</h2>
-          <p class="muted" style="margin:0 0 10px;">Cole uma atualização (curso reabriu, novo preço, adequação). A Atena propõe o diff na ontologia + relatório de impacto, valida com SHACL e envia para sua aprovação.</p>
+          <p class="muted m-0-0-10">Cole uma atualização (curso reabriu, novo preço, adequação). A Atena propõe o diff na ontologia + relatório de impacto, valida com SHACL e envia para sua aprovação.</p>
           <textarea id="inj" rows="3" placeholder="Ex.: a inscrição do FEQ-0499 reabriu até 30/08/2026 e a carga é 48h."></textarea>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+          <div class="d-flex jc-space-between ai-center mt-10">
             <span class="muted">diff + impacto · validação SHACL · aprovação humana</span>
             <button class="btn btn-v" onclick="analisarInjetor()">Analisar impacto</button>
           </div>
-          <div id="injout" style="margin-top:12px;"></div>
+          <div id="injout" class="mt-12"></div>
         </div>
         <div class="g sec">
           <h2><i class="ti ti-calendar-plus"></i> Declarar novo oferecimento</h2>
-          <p class="muted" style="margin:0 0 10px;">Nova turma de um curso já existente: turma, janela de inscrição, janela das aulas e o link da Extecamp. Estruturado (não texto livre) porque mexe em dois lugares ao mesmo tempo — a ontologia e o cadastro da turma — e a URL precisa ser exata.</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <p class="muted m-0-0-10">Nova turma de um curso já existente: turma, janela de inscrição, janela das aulas e o link da Extecamp. Estruturado (não texto livre) porque mexe em dois lugares ao mesmo tempo — a ontologia e o cadastro da turma — e a URL precisa ser exata.</p>
+          <div class="d-grid cols-1fr-1fr gap-8">
             <select id="ofCurso"></select>
             <input id="ofTurma" placeholder="Turma (ex.: 010)">
-            <label class="muted" style="grid-column:1/-1;font-size:11.5px;margin-bottom:-4px;">Inscrições</label>
+            <label class="muted gcol-1_-1 fs-s mb-n4">Inscrições</label>
             <input id="ofInscIni" type="date" title="Início das inscrições">
             <input id="ofInscFim" type="date" title="Fim das inscrições">
-            <label class="muted" style="grid-column:1/-1;font-size:11.5px;margin-bottom:-4px;">Aulas</label>
+            <label class="muted gcol-1_-1 fs-s mb-n4">Aulas</label>
             <input id="ofAulasIni" type="date" title="Início das aulas">
             <input id="ofAulasFim" type="date" title="Fim das aulas">
-            <input id="ofUrl" style="grid-column:1/-1;" placeholder="https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-XXXX/0YY">
+            <input id="ofUrl" class="gcol-1_-1" placeholder="https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-XXXX/0YY">
           </div>
-          <div style="display:flex;justify-content:flex-end;margin-top:10px;">
+          <div class="d-flex jc-flex-end mt-10">
             <button class="btn btn-v" onclick="proporOferecimento()">Analisar impacto</button>
           </div>
         </div>
@@ -808,65 +994,65 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
       <section id="revisor" class="hidden">
         <div class="g sec">
           <h2><i class="ti ti-eye-search"></i> Revisor ao vivo (grounding real)</h2>
-          <p class="muted" style="margin:0 0 10px;">Escolha um curso e escreva uma afirmação. O Revisor ontológico resolve cada fato contra o grafo (fail-closed).</p>
-          <div style="display:grid;grid-template-columns:160px 1fr;gap:10px;align-items:start;">
+          <p class="muted m-0-0-10">Escolha um curso e escreva uma afirmação. O Revisor ontológico resolve cada fato contra o grafo (fail-closed).</p>
+          <div class="d-grid cols-160-1fr gap-10 ai-start">
             <select id="rcurso"></select>
             <textarea id="rtexto" rows="2" placeholder="Ex.: o curso custa R$ 999,00 em 30x.">O curso custa R$ 999,00 em 30x.</textarea>
           </div>
-          <div style="margin-top:10px;"><button class="btn btn-p" onclick="testarRevisor()">Revisar</button></div>
-          <div id="rout" style="margin-top:12px;"></div>
+          <div class="mt-10"><button class="btn btn-p" onclick="testarRevisor()">Revisar</button></div>
+          <div id="rout" class="mt-12"></div>
         </div>
       </section>
       <section id="config" class="hidden">
         <div class="g sec">
           <h2><i class="ti ti-settings"></i> Modelo do cérebro (Vinícius)</h2>
-          <p class="muted" style="margin:0 0 12px;">Define qual LLM processa as respostas ao lead. Provedores sem chave no .env aparecem desabilitados. O Revisor estrutural é determinístico e independe desta escolha.</p>
-          <div style="display:grid;grid-template-columns:150px 1fr auto auto;gap:10px;align-items:center;">
+          <p class="muted m-0-0-12">Define qual LLM processa as respostas ao lead. Provedores sem chave no .env aparecem desabilitados. O Revisor estrutural é determinístico e independe desta escolha.</p>
+          <div class="d-grid cols-150-1fr-auto-auto gap-10 ai-center">
             <select id="cfgProv" onchange="cfgPresets()"></select>
             <input id="cfgModelo" list="cfgLista" placeholder="id do modelo">
             <datalist id="cfgLista"></datalist>
             <button class="btn btn-g" onclick="cfgTestar()">Testar</button>
             <button class="btn btn-p" onclick="cfgSalvar()">Salvar</button>
           </div>
-          <div id="cfgOut" style="margin-top:12px;"></div>
-          <div id="cfgAtual" class="muted" style="margin-top:8px;"></div>
+          <div id="cfgOut" class="mt-12"></div>
+          <div id="cfgAtual" class="muted mt-8"></div>
         </div>
         <div class="g sec" id="secUsuarios" style="display:none;">
           <h2><i class="ti ti-users"></i> Usuários da Central</h2>
-          <p class="muted" style="margin:0 0 10px;">Contas com login e senha (armazenadas com hash). Ao criar o primeiro usuário real, o acesso de desenvolvimento (operador/operador) é desativado automaticamente.</p>
-          <div id="usrLista" style="margin-bottom:12px;"></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 140px auto;gap:8px;">
+          <p class="muted m-0-0-10">Contas com login e senha (armazenadas com hash). Ao criar o primeiro usuário real, o acesso de desenvolvimento (operador/operador) é desativado automaticamente.</p>
+          <div id="usrLista" class="mb-12"></div>
+          <div class="d-grid cols-1fr-1fr-140-auto gap-8">
             <input id="usrNome" placeholder="usuário">
             <input id="usrSenha" type="password" placeholder="senha (mín. 6)">
             <select id="usrPapel"><option value="operador">operador</option><option value="supervisor">supervisor</option></select>
             <button class="btn btn-p" onclick="usrCriar()">Criar</button>
           </div>
-          <div id="usrOut" style="margin-top:10px;"></div>
+          <div id="usrOut" class="mt-10"></div>
         </div>
       </section>
 
       <!-- ====================== Funil comercial de professores (restrito) ====== -->
       <section id="professores" class="hidden">
         <div class="g sec">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div class="d-flex jc-space-between ai-center gap-12 fwrap-wrap">
             <div>
-              <h2 style="margin:0;"><i class="ti ti-user-search"></i> Funil de professores</h2>
-              <p class="muted" style="margin:4px 0 0;">Prospecção de docentes para novos cursos. Cadastro manual — arraste o card para mudar de fase.</p>
+              <h2 class="m-0"><i class="ti ti-user-search"></i> Funil de professores</h2>
+              <p class="muted m-4-0-0">Prospecção de docentes para novos cursos. Cadastro manual — arraste o card para mudar de fase.</p>
             </div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-              <input id="pfBusca" placeholder="Buscar nome, instituto ou curso…" oninput="renderProfessores()" style="min-width:210px;">
+            <div class="d-flex gap-8 ai-center fwrap-wrap">
+              <input id="pfBusca" placeholder="Buscar nome, instituto ou curso…" oninput="renderProfessores()" class="minw-210">
               <button class="btn btn-p" onclick="pfAbrirForm()"><i class="ti ti-plus"></i> Novo professor</button>
             </div>
           </div>
-          <div class="kb-board" id="pfBoard" data-board="professores" style="margin-top:14px;"></div>
+          <div class="kb-board mt-14" id="pfBoard" data-board="professores"></div>
         </div>
 
         <!-- Gestão de acesso: só o master enxerga este bloco -->
-        <div class="g sec hidden" id="pfAcesso" style="margin-top:14px;">
-          <h2 style="margin:0 0 4px;"><i class="ti ti-lock-access"></i> Quem pode ver este módulo</h2>
-          <p class="muted" style="margin:0 0 12px;">Acesso não vem do papel: mesmo um supervisor só entra se você liberar aqui.</p>
+        <div class="g sec hidden mt-14" id="pfAcesso">
+          <h2 class="m-0-0-4"><i class="ti ti-lock-access"></i> Quem pode ver este módulo</h2>
+          <p class="muted m-0-0-12">Acesso não vem do papel: mesmo um supervisor só entra se você liberar aqui.</p>
           <div id="pfAcessoLista"></div>
-          <div style="display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap;">
+          <div class="d-flex gap-8 mt-12 ai-center fwrap-wrap">
             <select id="pfAcessoUsuario"></select>
             <button class="btn btn-g" onclick="pfConceder()"><i class="ti ti-user-plus"></i> Liberar acesso</button>
           </div>
@@ -876,21 +1062,21 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
 
     <!-- Novo lead manual no Funil -->
     <div id="kbNovoModal" class="pf-modal hidden">
-      <div class="pf-card-modal g" style="max-width:420px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <h2 style="margin:0;">Novo lead</h2>
+      <div class="pf-card-modal g maxw-420">
+        <div class="d-flex jc-space-between ai-center">
+          <h2 class="m-0">Novo lead</h2>
           <button class="conv-tpl-x" onclick="kbNovoFechar()" title="Fechar">✕</button>
         </div>
-        <p class="muted" style="margin:6px 0 12px;">Cadastra um lead que não veio pela captação
+        <p class="muted m-6-0-12">Cadastra um lead que não veio pela captação
           automática (indicação, contato feito fora do WhatsApp). Idempotente: se o telefone já
           tiver um card, esta tela abre o card existente em vez de duplicar.</p>
-        <div class="pf-grid" style="grid-template-columns:1fr;">
+        <div class="pf-grid cols-1fr">
           <label>Nome<input id="kbNovoNome" placeholder="Nome completo"></label>
           <label>WhatsApp *<input id="kbNovoTel" placeholder="(19) 99999-0000"></label>
           <label>Curso de interesse<select id="kbNovoCurso"><option value="">(a descobrir)</option></select></label>
         </div>
-        <p id="kbNovoErro" class="muted hidden" style="color:var(--bad);margin:8px 0 0;"></p>
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">
+        <p id="kbNovoErro" class="muted hidden c-bad m-8-0-0"></p>
+        <div class="d-flex jc-flex-end gap-8 mt-14">
           <button class="btn btn-g" onclick="kbNovoFechar()">Cancelar</button>
           <button class="btn btn-p" onclick="kbNovoSalvar()"><i class="ti ti-check"></i> Criar</button>
         </div>
@@ -900,8 +1086,8 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
     <!-- Ficha do professor (criar/editar) -->
     <div id="pfModal" class="pf-modal hidden">
       <div class="pf-card-modal g">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <h2 style="margin:0;" id="pfTitulo">Novo professor</h2>
+        <div class="d-flex jc-space-between ai-center">
+          <h2 class="m-0" id="pfTitulo">Novo professor</h2>
           <button class="conv-tpl-x" onclick="pfFechar()" title="Fechar">✕</button>
         </div>
         <div class="pf-grid">
@@ -911,15 +1097,15 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
           <label>Instituto<input id="pfInstituto" placeholder="FEQ, IQ, Poli-USP…"></label>
           <label>Último contato<input id="pfUltimo" type="date"></label>
           <label>Fase<select id="pfFase"></select></label>
-          <label class="pf-largo">Cursos <span class="muted" style="font-weight:400;">(texto livre — vários, separados por vírgula; podem ser de fora da FEQ)</span>
+          <label class="pf-largo">Cursos <span class="muted fw-400">(texto livre — vários, separados por vírgula; podem ser de fora da FEQ)</span>
             <input id="pfCursos" placeholder="Ex.: FEQ-0480, Termodinâmica Avançada (IQ-Unicamp), Data Science (USP)"></label>
           <label class="pf-largo">Serviços oferecidos<input id="pfServicos" placeholder="Aula ao vivo, videoaula gravada, mentoria…"></label>
           <label class="pf-largo">Proposta realizada<input id="pfProposta" placeholder="Valor//condições já apresentados"></label>
           <label class="pf-largo">Anotações<textarea id="pfAnotacoes" rows="4" placeholder="Histórico da conversa, quem indicou, restrições de agenda…"></textarea></label>
         </div>
-        <div style="display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap;">
+        <div class="d-flex jc-space-between gap-10 mt-14 fwrap-wrap">
           <button class="btn btn-g" id="pfExcluir" onclick="pfExcluir()"><i class="ti ti-trash"></i> Excluir</button>
-          <div style="display:flex;gap:8px;margin-left:auto;">
+          <div class="d-flex gap-8 ml-auto">
             <button class="btn btn-g" onclick="pfFechar()">Cancelar</button>
             <button class="btn btn-p" onclick="pfSalvar()"><i class="ti ti-check"></i> Salvar</button>
           </div>
@@ -991,12 +1177,12 @@ const CAP_GRUPOS = [['Captando agora',['aberta','antecipada']],
 let CAP_ENC_ABERTO = false;     // o polling de 5s recria o HTML: guarda se o operador abriu
 
 function capIcones(c){
-  const al = c.alerta?` <i class="ti ti-alert-triangle" title="${c.alerta}" style="color:var(--warn);"></i>`:'';
+  const al = c.alerta?` <i class="ti ti-alert-triangle c-warn" title="${c.alerta}"></i>`:'';
   /* A Extecamp discorda do nosso catálogo. Fica ao lado do código do curso porque
    * é sobre o curso, não sobre a coleta — e porque foi assim que apareceu que o
    * FEQ-0580 estava "encerrado" aqui enquanto vendia lá. */
   const dv = (c.divergencias||[]).length
-    ? ` <i class="ti ti-alert-octagon" title="Diverge da Extecamp: ${c.divergencias.join(' · ')}" style="color:var(--bad);"></i>`:'';
+    ? ` <i class="ti ti-alert-octagon c-bad" title="Diverge da Extecamp: ${c.divergencias.join(' · ')}"></i>`:'';
   return al + dv;
 }
 
@@ -1029,10 +1215,10 @@ function capCartao(c, hoje){
       <div>
         <div class="capc-num">${n!==null ? n : '—'} <small>${alvo ? `/ ${alvo} ${d.meta?'meta':'mín.'}` : 'inscritos'}</small></div>
         <div class="capc-bar"><i style="width:${pct}%;background:${cor};"></i></div>
-        <div class="muted" style="font-size:11.5px;">${
+        <div class="muted fs-s">${
           n===null ? 'sem coleta da Extecamp ainda'
           : `${pct}%${d.meta_seg ? ` · meta segura ${d.meta_seg}` : ''}${e.cancelados ? ` · ${e.cancelados} cancel.` : ''}`}</div>
-        ${quando ? `<div class="muted" style="font-size:11.5px;margin-top:2px;">coleta ${quando}</div>` : ''}
+        ${quando ? `<div class="muted fs-s mt-2">coleta ${quando}</div>` : ''}
       </div>
       <div class="capc-kv">${kv}</div>
     </div></div>`;
@@ -1047,8 +1233,8 @@ function renderCap(cap){
   const enc = cap.cursos.filter(c=>!CAP_GRUPOS.some(([,sts])=>sts.includes(c.status)));
   if(enc.length) h += `<details class="capc-enc" ${CAP_ENC_ABERTO?'open':''} ontoggle="CAP_ENC_ABERTO=this.open">
     <summary class="capg-h"><i class="ti ti-chevron-right"></i> Encerrados · ${enc.length}</summary>
-    ${enc.map(c=>`<div class="row"><strong>${c.curso}</strong>${capIcones(c)}<span class="nm" style="color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.nome}</span>
-      <span class="muted" style="margin-left:auto;white-space:nowrap;">${c.fim ? 'inscrições até '+_br(c.fim) : ''}</span></div>`).join('')}
+    ${enc.map(c=>`<div class="row"><strong>${c.curso}</strong>${capIcones(c)}<span class="nm c-text-2 ov-hidden tov-ellipsis ws-nowrap">${c.nome}</span>
+      <span class="muted ml-auto ws-nowrap">${c.fim ? 'inscrições até '+_br(c.fim) : ''}</span></div>`).join('')}
   </details>`;
   return h;
 }
@@ -1094,9 +1280,9 @@ async function testarRevisor(){
   const head = r.aprovado
     ? `<span class="tag t-ok"><i class="ti ti-check"></i> aprovado</span>`
     : `<span class="tag t-bad"><i class="ti ti-ban"></i> bloqueado</span>`;
-  const bl = (r.bloqueios||[]).map(b=>`<div class="row" style="background:var(--bad-bg);"><i class="ti ti-alert-triangle" style="color:var(--bad);"></i><span>${b}</span></div>`).join('');
+  const bl = (r.bloqueios||[]).map(b=>`<div class="row bg-bad-bg"><i class="ti ti-alert-triangle c-bad"></i><span>${b}</span></div>`).join('');
   const an = (r.ancoras||[]).map(a=>`<span class="chip t-ok"><i class="ti ti-check"></i> ${a}</span>`).join('');
-  $('#rout').innerHTML = `<div style="margin-bottom:8px;">${head}</div>${bl}${an?('<div style="margin-top:6px;">'+an+'</div>'):''}`;
+  $('#rout').innerHTML = `<div class="mb-8">${head}</div>${bl}${an?('<div class="mt-6">'+an+'</div>'):''}`;
 }
 
 // ----------------------------------------------------------- Medição do funil
@@ -1139,19 +1325,19 @@ async function mdCarregar(){
     chip('consulta à coordenação', s.consulta_coordenacao_pct, '%', (s.consulta_coordenacao_pct||0) < 10) +
     chip('opt-out', s.optout_pct, '%', (s.optout_pct||0) < 5) +
     chip('quedas no determinístico', (s.fallback_deterministico||{}).desde_o_restart, '', null) +
-    '<div class="muted" style="margin-top:6px;font-size:11.5px;">Quedas no determinístico contam desde o último restart do serviço (indicador de curto prazo, não histórico).</div>';
+    '<div class="muted mt-6 fs-s">Quedas no determinístico contam desde o último restart do serviço (indicador de curto prazo, não histórico).</div>';
 
   const t = m.tempos||{}, am = t.amostras||{};
-  const th = (rot, v, n, nota) => `<div class="row"><i class="ti ti-clock"></i><span>${rot}: <strong>${v===null?'—':v+' h'}</strong> <span class="muted">(mediana de ${n})</span>${nota?`<div class="muted" style="font-size:11.5px;">${nota}</div>`:''}</span></div>`;
+  const th = (rot, v, n, nota) => `<div class="row"><i class="ti ti-clock"></i><span>${rot}: <strong>${v===null?'—':v+' h'}</strong> <span class="muted">(mediana de ${n})</span>${nota?`<div class="muted fs-s">${nota}</div>`:''}</span></div>`;
   $('#mdTempos').innerHTML =
     th('até o 1º contato nosso', t.ate_1o_contato_h, am['1o_contato']) +
     th('até o lead responder', t.ate_resposta_do_lead_h, am.resposta) +
     th('até iniciar inscrição', t.ate_clique_h, am.clique, t.nota_clique);
 
   $('#mdCursos').innerHTML = (m.por_curso||[]).map(p=>`
-    <div class="row"><strong style="min-width:78px;">${p.curso}</strong>
+    <div class="row"><strong class="minw-78">${p.curso}</strong>
       <span class="muted">${p.leads} leads · ${p.qualificados} qualificados · ${p.cliques} iniciaram</span>
-      <span class="tag ${p.inscritos?'t-ok':'t-warn'}" style="margin-left:auto;">${p.inscritos} inscrito(s) · ${p.conversao_pct}%</span>
+      <span class="tag ${p.inscritos?'t-ok':'t-warn'} ml-auto">${p.inscritos} inscrito(s) · ${p.conversao_pct}%</span>
     </div>`).join('') || '<div class="muted">—</div>';
 
   const serie = m.serie||[], topo = Math.max(1, ...serie.map(d=>d.leads));
@@ -1160,7 +1346,7 @@ async function mdCarregar(){
       <div class="md-col" style="height:${Math.round(100*d.leads/topo)}%;"></div>
       <span class="md-data">${d.dia.slice(8)}/${d.dia.slice(5,7)}</span>
     </div>`).join('')}</div>
-    <div class="muted" style="font-size:11.5px;margin-top:4px;">Altura = leads criados no dia. Passe o mouse para ver qualificações e inícios de inscrição.</div>` : '<div class="muted">—</div>';
+    <div class="muted fs-s mt-4">Altura = leads criados no dia. Passe o mouse para ver qualificações e inícios de inscrição.</div>` : '<div class="muted">—</div>';
 }
 
 // ------------------------------------------------------------- Gestão de LPs
@@ -1168,33 +1354,33 @@ let LP_ABERTA = null, LP_SUJO = false;
 async function lpCarregar(){
   const d = await api('/api/lps');
   $('#lpAviso').innerHTML = d.wp_configurado ? ''
-    : '<div class="row t-warn" style="background:var(--warn-bg);"><i class="ti ti-alert-triangle"></i><span>Sem <code>WP_URL</code> no .env: dá para editar e pré-visualizar, mas publicar roda em dry-run.</span></div>';
+    : '<div class="row t-warn bg-warn-bg"><i class="ti ti-alert-triangle"></i><span>Sem <code>WP_URL</code> no .env: dá para editar e pré-visualizar, mas publicar roda em dry-run.</span></div>';
   $('#lpLista').innerHTML = (d.lps||[]).map(l=>{
-    const insc = l.aberto ? '<span class="chip t-ok" style="margin:0;">inscrição aberta</span>'
-                          : '<span class="chip t-warn" style="margin:0;">lista de espera</span>';
+    const insc = l.aberto ? '<span class="chip t-ok m-0">inscrição aberta</span>'
+                          : '<span class="chip t-warn m-0">lista de espera</span>';
     const edit = l.editada
-      ? `<span class="chip t-acc" style="margin:0;" title="Editada em ${l.editada_em||''} — não recebe mais atualizações da ontologia"><i class="ti ti-pencil"></i> editada à mão</span>`
-      : '<span class="chip" style="margin:0;background:var(--surface-2);">gerada</span>';
+      ? `<span class="chip t-acc m-0" title="Editada em ${l.editada_em||''} — não recebe mais atualizações da ontologia"><i class="ti ti-pencil"></i> editada à mão</span>`
+      : '<span class="chip m-0 bg-surface-2">gerada</span>';
     // só existe quando editada=true: LP gerada se auto-atualiza sozinha (lp_auto), não desatualiza
     const drift = l.drift
-      ? '<span class="chip t-bad" style="margin:0;" title="A ontologia mudou desde esta edição — a página no ar pode estar desatualizada"><i class="ti ti-alert-triangle"></i> pode estar desatualizada</span>'
+      ? '<span class="chip t-bad m-0" title="A ontologia mudou desde esta edição — a página no ar pode estar desatualizada"><i class="ti ti-alert-triangle"></i> pode estar desatualizada</span>'
       : '';
     return `<div class="lp-linha">
       <i class="ti ti-browser"></i>
-      <div style="min-width:190px;">
+      <div class="minw-190">
         <strong>${l.curso}</strong> <span class="muted">turma ${l.turma}</span>
-        <div class="muted" style="font-size:11.5px;">${escapeHtml(l.nome).slice(0,58)}</div>
+        <div class="muted fs-s">${escapeHtml(l.nome).slice(0,58)}</div>
       </div>
       ${insc} ${edit} ${drift}
       <a href="${l.previa}" target="_blank" title="Ver como está agora"><i class="ti ti-eye"></i> prévia</a>
       ${l.link?`<a href="${l.link}" target="_blank" title="Página publicada"><i class="ti ti-external-link"></i> no ar</a>`:''}
-      <button class="btn btn-v" style="margin-left:auto;padding:5px 10px;" onclick="lpAbrir('${l.curso}')"><i class="ti ti-code"></i> Editar HTML</button>
+      <button class="btn btn-v ml-auto p-5-10" onclick="lpAbrir('${l.curso}')"><i class="ti ti-code"></i> Editar HTML</button>
     </div>`;
   }).join('') || '<div class="muted">Nenhuma LP configurada.</div>';
 }
 async function lpAbrir(curso){
   const d = await api('/api/lps/'+curso);
-  if(d.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad" style="background:var(--bad-bg);">${d.erro}</div>`; return; }
+  if(d.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad bg-bad-bg">${d.erro}</div>`; return; }
   LP_ABERTA = curso; LP_SUJO = false;
   $('#lpEditor').classList.remove('hidden');
   $('#lpEdTitulo').textContent = `Editando ${curso}`;
@@ -1227,7 +1413,7 @@ async function lpSalvar(silencioso){
   if(!LP_ABERTA) return false;
   const r = await api('/api/lps/'+LP_ABERTA,{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({html: $('#lpCodigo').value})});
-  if(r.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad" style="background:var(--bad-bg);"><i class="ti ti-ban"></i><span>${escapeHtml(r.erro)}</span></div>`; return false; }
+  if(r.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad bg-bad-bg"><i class="ti ti-ban"></i><span>${escapeHtml(r.erro)}</span></div>`; return false; }
   LP_SUJO = false;
   if(!silencioso) $('#lpEdOut').innerHTML = '<span class="chip t-ok"><i class="ti ti-check"></i> salvo — publique para o lead ver</span>';
   await lpCarregar();
@@ -1238,7 +1424,7 @@ async function lpRestaurar(){
   if(!LP_ABERTA) return;
   if(!confirm('Descartar a edição desta LP e voltar ao HTML gerado pela ontologia?')) return;
   const r = await api('/api/lps/'+LP_ABERTA+'/restaurar',{method:'POST'});
-  if(r.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad" style="background:var(--bad-bg);">${escapeHtml(r.erro)}</div>`; return; }
+  if(r.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad bg-bad-bg">${escapeHtml(r.erro)}</div>`; return; }
   const curso = LP_ABERTA; await lpCarregar(); await lpAbrir(curso);
   $('#lpEdOut').innerHTML = '<span class="chip t-ok"><i class="ti ti-rotate"></i> restaurada — voltou a ser gerada pela ontologia</span>';
 }
@@ -1248,12 +1434,12 @@ async function lpPublicar(){
   if(!await lpSalvar(true)) return;
   $('#lpEdOut').innerHTML = '<span class="chip t-acc"><i class="ti ti-loader"></i> publicando…</span>';
   const r = await api('/api/lps/'+LP_ABERTA+'/publicar',{method:'POST'});
-  if(r.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad" style="background:var(--bad-bg);"><i class="ti ti-ban"></i><span>${escapeHtml(r.erro)}</span></div>`; return; }
+  if(r.erro){ $('#lpEdOut').innerHTML = `<div class="row t-bad bg-bad-bg"><i class="ti ti-ban"></i><span>${escapeHtml(r.erro)}</span></div>`; return; }
   const ok = r.status==='publicado', dry = r.status==='dry_run';
   $('#lpEdOut').innerHTML = ok
-    ? `<div class="row t-ok" style="background:var(--ok-bg);"><i class="ti ti-circle-check"></i><span>Publicada — <a href="${r.link}" target="_blank">abrir no site</a></span></div>`
-    : dry ? '<div class="row t-warn" style="background:var(--warn-bg);"><i class="ti ti-flask"></i><span>Dry-run: sem credenciais do WordPress, nada foi publicado.</span></div>'
-          : `<div class="row t-bad" style="background:var(--bad-bg);"><i class="ti ti-ban"></i><span>Falhou: ${escapeHtml(r.motivo||r.status||'')}</span></div>`;
+    ? `<div class="row t-ok bg-ok-bg"><i class="ti ti-circle-check"></i><span>Publicada — <a href="${r.link}" target="_blank">abrir no site</a></span></div>`
+    : dry ? '<div class="row t-warn bg-warn-bg"><i class="ti ti-flask"></i><span>Dry-run: sem credenciais do WordPress, nada foi publicado.</span></div>'
+          : `<div class="row t-bad bg-bad-bg"><i class="ti ti-ban"></i><span>Falhou: ${escapeHtml(r.motivo||r.status||'')}</span></div>`;
   await lpCarregar();
 }
 
@@ -1279,18 +1465,18 @@ async function tplCarregar(forcar){
     cat.innerHTML = (d.categorias||[]).map(c=>`<option value="${c[0]}">${escapeHtml(c[1])}</option>`).join('');
   $('#tplConexao').innerHTML = d.conectado
     ? `<span class="chip t-ok"><i class="ti ti-plug-connected"></i> conectado à WABA</span>
-       <button class="btn btn-g" style="margin-left:6px;padding:4px 9px;" onclick="tplCarregar(1)"><i class="ti ti-refresh"></i> Atualizar</button>`
-    : `<div class="row t-warn" style="background:var(--warn-bg);"><i class="ti ti-alert-triangle"></i><span>Sem <code>WHATSAPP_WABA_ID</code>/token no .env — não dá para consultar nem criar na Meta. Abaixo, o rol que o sistema usa no envio.</span></div>`;
+       <button class="btn btn-g ml-6 p-4-9" onclick="tplCarregar(1)"><i class="ti ti-refresh"></i> Atualizar</button>`
+    : `<div class="row t-warn bg-warn-bg"><i class="ti ti-alert-triangle"></i><span>Sem <code>WHATSAPP_WABA_ID</code>/token no .env — não dá para consultar nem criar na Meta. Abaixo, o rol que o sistema usa no envio.</span></div>`;
   const ts = d.templates||[];
   $('#tplLista').innerHTML = ts.length ? ts.map(t=>{
     const st = TPL_STATUS[t.status] || ['t-acc', t.status||'—'];
     const est = _estrutura(t);
-    return `<div class="row" style="align-items:flex-start;">
+    return `<div class="row ai-flex-start">
       <i class="ti ti-mail"></i>
-      <span style="flex:1;min-width:0;"><strong>${escapeHtml(t.name)}</strong> <span class="muted">${t.language||''} ${t.category?'· '+t.category:''}</span>
-        ${est.corpo?`<details style="margin-top:3px;"><summary class="muted" style="cursor:pointer;">${escapeHtml(est.corpo).slice(0,110)}…</summary><div class="tpl-previa" style="margin-top:6px;">${tplBolha(est)}</div></details>`:''}
-        ${t.rejected_reason && t.rejected_reason!=='NONE'?`<div style="color:var(--bad);font-size:11.5px;margin-top:3px;">motivo: ${escapeHtml(t.rejected_reason)}</div>`:''}</span>
-      <span class="tag ${st[0]}" style="margin-left:auto;">${st[1]}</span></div>`;
+      <span class="flex-1 minw-0"><strong>${escapeHtml(t.name)}</strong> <span class="muted">${t.language||''} ${t.category?'· '+t.category:''}</span>
+        ${est.corpo?`<details class="mt-3"><summary class="muted cur-pointer">${escapeHtml(est.corpo).slice(0,110)}…</summary><div class="tpl-previa mt-6">${tplBolha(est)}</div></details>`:''}
+        ${t.rejected_reason && t.rejected_reason!=='NONE'?`<div class="c-bad fs-s mt-3">motivo: ${escapeHtml(t.rejected_reason)}</div>`:''}</span>
+      <span class="tag ${st[0]} ml-auto">${st[1]}</span></div>`;
   }).join('') : '<div class="muted">Nenhum template.</div>';
   tplPreview();
 }
@@ -1309,14 +1495,14 @@ function tplBolha(est, v){
   v = v || {};
   const cab = est.cabecalho;
   let h = '';
-  if(cab && cab.formato==='TEXT') h += `<div style="font-weight:700;margin-bottom:4px;">${_waFmt(_subst(cab.texto,[v.cabecalho]))}</div>`;
+  if(cab && cab.formato==='TEXT') h += `<div class="fw-700 mb-4">${_waFmt(_subst(cab.texto,[v.cabecalho]))}</div>`;
   else if(cab){
     const ico = {IMAGE:'ti-photo', VIDEO:'ti-video', DOCUMENT:'ti-file-type-pdf'}[cab.formato]||'ti-file';
     h += v.midiaHtml ? `<div class="tpl-midia">${v.midiaHtml}</div>`
-      : `<div class="tpl-midia"><i class="ti ${ico}" style="font-size:22px;"></i>${cab.formato.toLowerCase()}</div>`;
+      : `<div class="tpl-midia"><i class="ti ${ico} fs-22"></i>${cab.formato.toLowerCase()}</div>`;
   }
   h += `<div>${_waFmt(_subst(est.corpo, v.corpo)) || '<span class="muted">(escreva o corpo da mensagem)</span>'}</div>`;
-  if(est.rodape) h += `<div class="muted" style="margin-top:5px;font-size:11.5px;">${escapeHtml(est.rodape)}</div>`;
+  if(est.rodape) h += `<div class="muted mt-5 fs-s">${escapeHtml(est.rodape)}</div>`;
   if((est.botoes||[]).length) h += `<div class="tpl-bts">${est.botoes.map(b=>{
     const rot = b.tipo==='COPY_CODE' ? 'Copiar código' : (b.texto||'…');
     const tip = b.tipo==='URL' ? _subst(b.url,[ (v.botoes||{})[b.index] ]) : (b.tipo==='PHONE_NUMBER' ? b.telefone : (b.tipo==='COPY_CODE' ? (v.botoes||{})[b.index]||'' : ''));
@@ -1368,12 +1554,12 @@ function tplBotoesRender(){
   const ROT = {QUICK_REPLY:'Resposta rápida', URL:'Link', PHONE_NUMBER:'Ligar', COPY_CODE:'Copiar cupom'};
   const inp = (i,campo,ph,max) => `<input value="${escapeHtml(TPL_BOTOES[i][campo]||'')}" ${max?`maxlength="${max}"`:''} placeholder="${ph}" oninput="tplBotao(${i},'${campo}',this.value)">`;
   $('#tplBotoes').innerHTML = TPL_BOTOES.map((b,i)=>`<div class="tpl-botao-ed">
-    <span class="chip" style="margin:0;"><i class="ti ${TPL_BT_ICO[b.tipo]}"></i> ${ROT[b.tipo]}</span>
+    <span class="chip m-0"><i class="ti ${TPL_BT_ICO[b.tipo]}"></i> ${ROT[b.tipo]}</span>
     ${b.tipo==='COPY_CODE' ? inp(i,'exemplo','Código do cupom (ex.: FEQ15)',15)+'<span></span><span></span>'
       : inp(i,'texto','Texto do botão',25)
         + (b.tipo==='URL' ? inp(i,'url','https://… (termine com {{1}} p/ link dinâmico)') + inp(i,'exemplo','exemplo do final do link')
           : b.tipo==='PHONE_NUMBER' ? inp(i,'telefone','+55 19 3521-3911') + '<span></span>' : '<span></span><span></span>')}
-    <button class="btn btn-g" style="padding:5px 9px;" onclick="tplBotaoX(${i})" title="Remover"><i class="ti ti-x"></i></button></div>`).join('');
+    <button class="btn btn-g p-5-9" onclick="tplBotaoX(${i})" title="Remover"><i class="ti ti-x"></i></button></div>`).join('');
   tplPreview();
 }
 // ordem que a Meta exige (e que o servidor aplica): respostas rápidas antes das ações
@@ -1395,7 +1581,7 @@ function tplPreview(){
   const est = {cabecalho: fmt ? {formato: fmt, texto: headTxt} : null, corpo, rodape: (($('#tplFoot')||{}).value||'').trim(),
                botoes: bts.map((b,i)=>({...b, index:i}))};
   const midiaHtml = TPL_MIDIA ? (fmt==='IMAGE' ? `<img src="${TPL_MIDIA.url}">` : fmt==='VIDEO' ? `<video src="${TPL_MIDIA.url}" muted></video>`
-                                : `<i class="ti ti-file-type-pdf" style="font-size:22px;"></i>${escapeHtml(TPL_MIDIA.nome||'')}`) : '';
+                                : `<i class="ti ti-file-type-pdf fs-22"></i>${escapeHtml(TPL_MIDIA.nome||'')}`) : '';
   const p = $('#tplPrevia'); if(!p) return;
   p.innerHTML = tplBolha(est, {corpo: vars.map((v,i)=>(($('#tplEx'+i)||{}).value||'').trim()),
     cabecalho: (($('#tplHeadEx')||{}).value||'').trim(), midiaHtml,
@@ -1417,9 +1603,9 @@ async function criarTemplate(){
   };
   $('#tplOut').innerHTML = '<span class="chip t-acc"><i class="ti ti-loader"></i> enviando para a Meta…</span>';
   const r = await api('/api/templates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok){ $('#tplOut').innerHTML = `<div class="row t-bad" style="background:var(--bad-bg);"><i class="ti ti-ban"></i><span>${escapeHtml(r.erro||'falhou')}</span></div>`; return; }
-  if(r.status==='dry_run'){ $('#tplOut').innerHTML = `<div class="row t-warn" style="background:var(--warn-bg);"><i class="ti ti-flask"></i><span>Validado, mas <strong>nada foi criado</strong>: ${escapeHtml(r.aviso||'')}</span></div>`; return; }
-  $('#tplOut').innerHTML = `<div class="row t-ok" style="background:var(--ok-bg);"><i class="ti ti-circle-check"></i><span><strong>${escapeHtml(r.nome)}</strong> enviado — status <strong>${escapeHtml(r.status)}</strong>. A Meta costuma revisar em minutos; atualize a lista para ver.</span></div>`;
+  if(!r.ok){ $('#tplOut').innerHTML = `<div class="row t-bad bg-bad-bg"><i class="ti ti-ban"></i><span>${escapeHtml(r.erro||'falhou')}</span></div>`; return; }
+  if(r.status==='dry_run'){ $('#tplOut').innerHTML = `<div class="row t-warn bg-warn-bg"><i class="ti ti-flask"></i><span>Validado, mas <strong>nada foi criado</strong>: ${escapeHtml(r.aviso||'')}</span></div>`; return; }
+  $('#tplOut').innerHTML = `<div class="row t-ok bg-ok-bg"><i class="ti ti-circle-check"></i><span><strong>${escapeHtml(r.nome)}</strong> enviado — status <strong>${escapeHtml(r.status)}</strong>. A Meta costuma revisar em minutos; atualize a lista para ver.</span></div>`;
   ['#tplNome','#tplCorpo','#tplFoot'].forEach(s=>{ const e=$(s); if(e) e.value=''; });
   $('#tplHeadFmt').value=''; tplHeadFmt(); TPL_BOTOES=[]; tplBotoesRender();
   const bx = $('#tplExemplos'); if(bx){ bx.innerHTML=''; bx.dataset.n=''; }
@@ -1467,11 +1653,11 @@ function campConteudo(){
   if(cab && cab.formato==='TEXT' && cab.n_vars) h += _seletorFonte('campCab', pad.cabecalho?'fixo':'curso', pad.cabecalho, 'Cabeçalho {{1}}');
   if(cab && ['IMAGE','VIDEO','DOCUMENT'].includes(cab.formato))
     h += `<div class="camp-var"><span class="muted">${{IMAGE:'Imagem',VIDEO:'Vídeo',DOCUMENT:'Documento'}[cab.formato]} do cabeçalho</span>
-      <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-        <label class="btn btn-g" style="padding:5px 10px;cursor:pointer;"><i class="ti ti-folder-open"></i> Escolher no computador
+      <span class="d-flex gap-6 ai-center fwrap-wrap">
+        <label class="btn btn-g p-5-10 cur-pointer"><i class="ti ti-folder-open"></i> Escolher no computador
           <input type="file" id="campMidiaArq" accept="${{IMAGE:'image/jpeg,image/png',VIDEO:'video/mp4,video/3gpp',DOCUMENT:'application/pdf'}[cab.formato]}"
                  style="display:none;" onchange="campSubirMidia(this,'${cab.formato}')"></label>
-        <span class="muted" id="campMidiaSt" style="font-size:11.5px;">${pad.midia ? 'usando o arquivo padrão do template' : 'nenhum arquivo'}</span>
+        <span class="muted fs-s" id="campMidiaSt">${pad.midia ? 'usando o arquivo padrão do template' : 'nenhum arquivo'}</span>
       </span>
       <input id="campMidia" value="${escapeHtml(pad.midia||'')}" placeholder="…ou cole um link https:// público" oninput="campPreviaRender()"></div>`;
   (est.botoes||[]).filter(b=>b.dinamico).forEach(b=>{
@@ -1543,7 +1729,7 @@ async function campPreview(){
   CAMP_AMOSTRA = (r.amostra||[])[0] || null; campPreviaRender();
   $('#campPreviewOut').innerHTML =
     `<span class="chip ${r.total?'t-ok':'t-warn'}"><i class="ti ti-users"></i> ${r.total} lead(s) correspondem a este filtro</span>` +
-    (r.aviso_tier?`<div class="row t-warn" style="background:var(--warn-bg);margin-top:8px;"><i class="ti ti-alert-triangle"></i><span>${escapeHtml(r.aviso_tier)}</span></div>`:'');
+    (r.aviso_tier?`<div class="row t-warn bg-warn-bg mt-8"><i class="ti ti-alert-triangle"></i><span>${escapeHtml(r.aviso_tier)}</span></div>`:'');
   return r.total;
 }
 async function campDisparar(){
@@ -1586,7 +1772,7 @@ async function campListar(){
       <div class="camp-topo"><span class="camp-nome">${escapeHtml(c.nome||c.template_nome)}</span>
         <span class="tag ${stCls}">${st}</span>
         <span class="muted">${c.template_nome} · ${c.total_alvo} alvo(s) · ${escapeHtml(c.criado_por||'')}</span>
-        ${c.status==='enviando'?`<button class="btn btn-g" style="margin-left:auto;padding:4px 9px;" onclick="campCancelar(${c.id})"><i class="ti ti-player-stop"></i> Cancelar</button>`:''}
+        ${c.status==='enviando'?`<button class="btn btn-g ml-auto p-4-9" onclick="campCancelar(${c.id})"><i class="ti ti-player-stop"></i> Cancelar</button>`:''}
       </div>
       <div class="camp-barras">
         ${campBarra('Enviado', g.enviado||0, c.total_alvo, 'enviado')}
@@ -1612,14 +1798,14 @@ function renderProposta(p){
     : (p.status==='esclarecer'
         ? `<span class="tag t-warn"><i class="ti ti-help"></i> precisa de esclarecimento</span>`
         : `<span class="tag t-bad"><i class="ti ti-ban"></i> ${p.status}</span>`);
-  const diff = (p.diff||[]).map(d=>`<div class="row"><i class="ti ti-arrow-right"></i><span><strong>${d.campo}</strong>: <span style="color:var(--bad);">${d.de??'—'}</span> → <span style="color:var(--ok);font-weight:700;">${d.para}</span></span></div>`).join('');
-  const imp = (p.impacto||[]).map(i=>`<div class="row t-acc" style="background:var(--info-bg);"><i class="ti ti-bolt"></i><span>${i}</span></div>`).join('');
+  const diff = (p.diff||[]).map(d=>`<div class="row"><i class="ti ti-arrow-right"></i><span><strong>${d.campo}</strong>: <span class="c-bad">${d.de??'—'}</span> → <span class="c-ok fw-700">${d.para}</span></span></div>`).join('');
+  const imp = (p.impacto||[]).map(i=>`<div class="row t-acc bg-info-bg"><i class="ti ti-bolt"></i><span>${i}</span></div>`).join('');
   const aprovar = p.status==='proposta'
-    ? `<div style="margin-top:10px;display:flex;gap:8px;"><button class="btn btn-p" onclick="aprovarProposta('${p.id}')"><i class="ti ti-check"></i> Aprovar e aplicar</button><button class="btn btn-g" onclick="api('/api/injetor/${p.id}/rejeitar',{method:'POST'}).then(()=>{$('#injout').innerHTML='';carregar();})">Rejeitar</button></div>`
+    ? `<div class="mt-10 d-flex gap-8"><button class="btn btn-p" onclick="aprovarProposta('${p.id}')"><i class="ti ti-check"></i> Aprovar e aplicar</button><button class="btn btn-g" onclick="api('/api/injetor/${p.id}/rejeitar',{method:'POST'}).then(()=>{$('#injout').innerHTML='';carregar();})">Rejeitar</button></div>`
     : '';
-  $('#injout').innerHTML = `<div style="margin:4px 0 8px;">${head} <span class="muted">${p.alvo||''} · ${p.tipo||''}</span></div>
-    ${diff?('<p class="muted" style="margin:8px 2px 4px;">Diff proposto</p>'+diff):''}
-    <p class="muted" style="margin:10px 2px 4px;">Relatório de impacto</p>${imp}${aprovar}`;
+  $('#injout').innerHTML = `<div class="m-4-0-8">${head} <span class="muted">${p.alvo||''} · ${p.tipo||''}</span></div>
+    ${diff?('<p class="muted m-8-2-4">Diff proposto</p>'+diff):''}
+    <p class="muted m-10-2-4">Relatório de impacto</p>${imp}${aprovar}`;
 }
 
 async function aprovarProposta(pid){
@@ -1628,10 +1814,10 @@ async function aprovarProposta(pid){
     // oferecimento: sem 'versao' (é diff+cursos_metas+publicação, não só versionamento do jsonld)
     const msg = r.versao ? `Aplicado e versionado (${r.versao.versao}). Ontologia recarregada.`
       : `Ontologia atualizada${r.lp?' e LP republicada':''}.${r.aviso?' ⚠️ '+r.aviso:''}`;
-    $('#injout').innerHTML = `<div class="row t-ok" style="background:var(--ok-bg);"><i class="ti ti-circle-check"></i><span>${msg}</span></div>`;
+    $('#injout').innerHTML = `<div class="row t-ok bg-ok-bg"><i class="ti ti-circle-check"></i><span>${msg}</span></div>`;
     carregar();
   }
-  else { $('#injout').innerHTML = `<div class="row t-bad" style="background:var(--bad-bg);"><i class="ti ti-ban"></i><span>${r.erro}</span></div>`; }
+  else { $('#injout').innerHTML = `<div class="row t-bad bg-bad-bg"><i class="ti ti-ban"></i><span>${r.erro}</span></div>`; }
 }
 
 async function ofCursosCarregar(){
@@ -1672,15 +1858,15 @@ async function inCarregar(){
     const aberta = IN_ABERTA === i.card_id;
     const feita = i.status === 'transcrita';
     return `
-    <div class="g sec" style="padding:12px 14px;margin-bottom:10px;">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <div class="g sec p-12-14 mb-10">
+      <div class="d-flex ai-center gap-10 fwrap-wrap">
         <i class="ti ti-file-text"></i>
         <strong>${escapeHtml(i.nome||'(sem nome)')}</strong>
         <span class="muted">${fmtTel(i.telefone)} · ${escapeHtml(i.email||'')}</span>
         <span class="chip ${feita?'t-ok':'t-warn'}">${feita?'transcrita':'a transcrever'}</span>
         <span class="chip t-acc">${escapeHtml(i.curso)}/${escapeHtml(i.turma||'')}</span>
         <span class="muted">${(i.criado||'').slice(0,16).replace('T',' ')}</span>
-        <span style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="ml-auto d-flex gap-6 fwrap-wrap">
           <button class="btn btn-g" onclick="inAlternar('${i.card_id}')">
             <i class="ti ti-${aberta?'chevron-up':'chevron-down'}"></i> ${aberta?'ocultar':'ver ficha'}</button>
           <button class="btn btn-g" onclick="abrirConversa('${i.card_id}')"><i class="ti ti-messages"></i> conversa</button>
@@ -1689,8 +1875,8 @@ async function inCarregar(){
           <button class="btn btn-g" onclick="inTranscrita('${i.card_id}')"><i class="ti ti-check"></i> Transcrita</button>`}
         </span>
       </div>
-      ${i.robo_obs ? `<div class="muted" style="margin-top:6px;font-size:12.5px;"><i class="ti ti-robot"></i> ${escapeHtml(i.robo_obs)}</div>` : ''}
-      ${i.link_extecamp ? `<div style="margin-top:4px;font-size:12.5px;"><a href="${escapeHtml(i.link_extecamp)}" target="_blank" rel="noopener">link de continuidade do lead</a></div>` : ''}
+      ${i.robo_obs ? `<div class="muted mt-6 fs-m"><i class="ti ti-robot"></i> ${escapeHtml(i.robo_obs)}</div>` : ''}
+      ${i.link_extecamp ? `<div class="mt-4 fs-m"><a href="${escapeHtml(i.link_extecamp)}" target="_blank" rel="noopener">link de continuidade do lead</a></div>` : ''}
       ${aberta ? inFicha(i) : ''}
     </div>`;
   }).join('');
@@ -1702,11 +1888,11 @@ async function inCarregar(){
 const IN_VALOR_LONGO = 40;
 
 function inFicha(i){
-  if(!i.grupos || !i.grupos.length) return '<div class="muted" style="margin-top:8px;">Ficha vazia.</div>';
-  return `<div style="margin-top:10px;display:grid;gap:16px;">` + i.grupos.map(gr=>`
+  if(!i.grupos || !i.grupos.length) return '<div class="muted mt-8">Ficha vazia.</div>';
+  return `<div class="mt-10 d-grid gap-16">` + i.grupos.map(gr=>`
     <div>
-      <div class="muted" style="font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">${escapeHtml(gr.titulo)}</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px 16px;align-items:start;">
+      <div class="muted fs-s tt-uppercase ls-d08em mb-6">${escapeHtml(gr.titulo)}</div>
+      <div class="d-grid cols-repeat-auto-fill-minmax-190-1fr gap-10-16 ai-start">
         ${gr.itens.map(it=>{
           const valor = String(it.valor);
           const largo = valor.length > IN_VALOR_LONGO;
@@ -1716,10 +1902,10 @@ function inFicha(i){
           // altura de ninguém ao lado.
           return `
           <div style="min-width:0;${largo?'grid-column:1/-1;':''}">
-            <div class="muted" style="font-size:11.5px;margin-bottom:2px;">${escapeHtml(it.rotulo)}</div>
-            <div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;">
-              <strong style="font-size:12.5px;line-height:1.35;word-break:break-word;">${escapeHtml(valor)}</strong>
-              <button class="btn btn-g" style="padding:1px 5px;font-size:10.5px;flex-shrink:0;"
+            <div class="muted fs-s mb-2">${escapeHtml(it.rotulo)}</div>
+            <div class="d-flex ai-flex-start gap-6 fwrap-wrap">
+              <strong class="fs-m lh-1d35 wb-break-word">${escapeHtml(valor)}</strong>
+              <button class="btn btn-g p-1-5 fs-xs shrink-0"
                       onclick="inCopiar(this,'${escapeHtml(valor).replace(/'/g,"\\'")}')">copiar</button>
             </div>
           </div>`;
@@ -1799,7 +1985,7 @@ async function ntCarregar(){
 // Dúvidas, então o que se fazia lá tem de dar para fazer aqui.
 function _ntAcoes(n){
   const b = (cls, onclick, ico, txt, title='') =>
-    `<button class="btn ${cls}" style="padding:5px 10px;" onclick="${onclick}" title="${title}"><i class="ti ${ico}"></i>${txt?' '+txt:''}</button>`;
+    `<button class="btn ${cls} p-5-10" onclick="${onclick}" title="${title}"><i class="ti ${ico}"></i>${txt?' '+txt:''}</button>`;
   const abrir = n.card_id ? b('btn-g', `abrirConversa('${n.card_id}')`, 'ti-messages', 'abrir') : '';
   if(n.fonte==='inscricao') return b('btn-p', "irPara('inscricoes')", 'ti-arrow-right', 'ficha') + abrir;
   if(n.fonte==='alerta') return abrir + b('btn-g', `ntLer(${n.id})`, 'ti-check', '', 'Marcar como lido');
@@ -1817,7 +2003,7 @@ function ntRender(){
   const pf = NT_DADOS.por_fonte || {};
   $('#ntFiltros').innerHTML = NT_CATS.map(([k,rot]) => {
     const q = k ? (pf[k]||0) : NT_DADOS.itens.length;
-    return `<button class="btn ${NT_FILTRO===k?'btn-p':'btn-g'}" style="padding:4px 10px;" onclick="ntFiltrar('${k}')">${rot}${q?` <span class="tag">${q}</span>`:''}</button>`;
+    return `<button class="btn ${NT_FILTRO===k?'btn-p':'btn-g'} p-4-10" onclick="ntFiltrar('${k}')">${rot}${q?` <span class="tag">${q}</span>`:''}</button>`;
   }).join('');
   const res = $('#ntResumo'); if(res) res.textContent = '';
   const cx = $('#ntLista'); if(!cx) return;
@@ -1829,24 +2015,24 @@ function ntRender(){
   cx.innerHTML = itens.length ? itens.map(n=>{
     const e = NT_ICONE[n.tipo] || {i:'ti-bell', c:'t-acc', rot:n.tipo};
     const extra = n.tipo==='duvida' ? `
-        ${n.contexto?`<div class="muted" style="margin:4px 0 0;">lead perguntou: "${escapeHtml(n.contexto)}"</div>`:''}
-        <textarea id="dvr-${n.ref}" rows="2" placeholder="Escreva a informação da coordenação…" style="margin-top:8px;"></textarea>
-        <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
-          <button class="btn btn-p" style="padding:5px 10px;" onclick="responderDuvida(${n.ref})"><i class="ti ti-send"></i> Responder e enviar ao lead</button>
-          <button class="btn btn-g" style="padding:5px 10px;" onclick="paraInjetor(${n.ref})" title="Dado de catálogo (preço/data/carga)? Atualize a ontologia.">É dado de catálogo → Injetor</button>
-          <button class="btn btn-g" style="padding:5px 10px;" onclick="descartarDuvida(${n.ref})"><i class="ti ti-trash"></i> Descartar</button>
+        ${n.contexto?`<div class="muted m-4-0-0">lead perguntou: "${escapeHtml(n.contexto)}"</div>`:''}
+        <textarea id="dvr-${n.ref}" rows="2" placeholder="Escreva a informação da coordenação…" class="mt-8"></textarea>
+        <div class="d-flex gap-8 mt-6 fwrap-wrap">
+          <button class="btn btn-p p-5-10" onclick="responderDuvida(${n.ref})"><i class="ti ti-send"></i> Responder e enviar ao lead</button>
+          <button class="btn btn-g p-5-10" onclick="paraInjetor(${n.ref})" title="Dado de catálogo (preço/data/carga)? Atualize a ontologia.">É dado de catálogo → Injetor</button>
+          <button class="btn btn-g p-5-10" onclick="descartarDuvida(${n.ref})"><i class="ti ti-trash"></i> Descartar</button>
         </div>`
-      : n.tipo==='proposta' && n.mensagem ? `<div class="g" style="padding:8px 10px;margin-top:6px;white-space:pre-wrap;font-size:12.5px;">${escapeHtml(n.mensagem)}</div>` : '';
+      : n.tipo==='proposta' && n.mensagem ? `<div class="g p-8-10 mt-6 ws-pre-wrap fs-m">${escapeHtml(n.mensagem)}</div>` : '';
     return `
-    <div class="row" style="align-items:flex-start;">
+    <div class="row ai-flex-start">
       <i class="ti ${e.i}"></i>
-      <span style="min-width:0;flex:1;">
+      <span class="minw-0 flex-1">
         <span class="chip ${e.c}">${escapeHtml(e.rot||n.tipo||'')}</span>
         ${escapeHtml(n.texto||'')}
         <span class="muted">${(n.ts||'').slice(0,16).replace('T',' ')}</span>
         ${extra}
       </span>
-      <span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">${_ntAcoes(n)}</span>
+      <span class="d-flex gap-6 fwrap-wrap jc-flex-end">${_ntAcoes(n)}</span>
     </div>`;
   }).join('') : '<div class="muted">Nada esperando por você. 🎉</div>';
 }
@@ -1892,49 +2078,49 @@ async function otCarregar(){
     <i class="ti ti-${g.liberado?'player-play':'eye'}"></i> modo ${g.modo}</span>`;
   const pct = (n,d)=> d ? Math.min(100, Math.round(100*n/d)) : 0;
   const barra = (n,d,rot)=>`
-    <div style="margin:4px 0 10px;">
-      <div style="display:flex;justify-content:space-between;font-size:11.5px;" class="muted">
+    <div class="m-4-0-10">
+      <div class="muted d-flex jc-space-between fs-s">
         <span>${rot}</span><span>${n} / ${d}</span></div>
-      <div style="height:6px;background:var(--surface-2);border:1px solid var(--border);">
+      <div class="h-6 bg-surface-2 bd-1-solid-border">
         <div style="height:100%;width:${pct(n,d)}%;background:var(--guara);"></div></div>
     </div>`;
   cx.innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;">
+    <div class="d-grid cols-repeat-auto-fit-minmax-260-1fr gap-14">
       <div>
-        <h4 style="margin:0 0 6px;">Gate de liberação</h4>
+        <h4 class="m-0-0-6">Gate de liberação</h4>
         ${barra(g.episodios, g.episodios_necessarios, 'episódios com desfecho')}
         ${barra(g.conversoes, g.conversoes_necessarias, 'conversões observadas')}
-        <p class="muted" style="font-size:11.5px;margin:0;">${escapeHtml(g.nota||'')}</p>
+        <p class="muted fs-s m-0">${escapeHtml(g.nota||'')}</p>
       </div>
       <div>
-        <h4 style="margin:0 0 6px;">Objetivo</h4>
-        <div class="row" style="padding:5px 0;"><span>ganho (inscritos/meta)</span>
-          <strong style="margin-left:auto;">${o.j_ganho}</strong></div>
-        <div class="row" style="padding:5px 0;"><span>custo (CPL/alvo)</span>
-          <strong style="margin-left:auto;">${o.cpl_disponivel ? o.j_custo : '—'}</strong></div>
-        ${o.cpl_disponivel ? '' : `<p class="muted" style="font-size:11.5px;margin:6px 0 0;">
+        <h4 class="m-0-0-6">Objetivo</h4>
+        <div class="row p-5-0"><span>ganho (inscritos/meta)</span>
+          <strong class="ml-auto">${o.j_ganho}</strong></div>
+        <div class="row p-5-0"><span>custo (CPL/alvo)</span>
+          <strong class="ml-auto">${o.cpl_disponivel ? o.j_custo : '—'}</strong></div>
+        ${o.cpl_disponivel ? '' : `<p class="muted fs-s m-6-0-0">
           <i class="ti ti-alert-triangle"></i> ${escapeHtml(o.motivo_sem_cpl||'')}</p>`}
       </div>
       <div>
-        <h4 style="margin:0 0 6px;">Variantes (Thompson)</h4>
+        <h4 class="m-0-0-6">Variantes (Thompson)</h4>
         ${(b.bracos||[]).length ? b.bracos.map(x=>`
-          <div class="row" style="padding:5px 0;">
+          <div class="row p-5-0">
             <span>${escapeHtml(x.variante)}</span>
-            <span class="muted" style="margin-left:auto;">${x.sucessos}/${x.n}</span>
-            <strong style="min-width:64px;text-align:right;">${(100*x.media_posterior).toFixed(1)}%
-              <span class="muted" style="font-weight:400;">±${(100*x.desvio).toFixed(1)}</span></strong>
+            <span class="muted ml-auto">${x.sucessos}/${x.n}</span>
+            <strong class="minw-64 ta-right">${(100*x.media_posterior).toFixed(1)}%
+              <span class="muted fw-400">±${(100*x.desvio).toFixed(1)}</span></strong>
           </div>`).join('') : '<div class="muted">Sem episódios ainda.</div>'}
-        ${r.sugestao_sombra ? `<p class="muted" style="font-size:11.5px;margin:6px 0 0;">
+        ${r.sugestao_sombra ? `<p class="muted fs-s m-6-0-0">
           escolha em sombra agora: <strong>${escapeHtml(r.sugestao_sombra.escolhida)}</strong></p>` : ''}
       </div>
     </div>
-    <div style="margin-top:12px;">
-      <h4 style="margin:0 0 6px;">Por curso</h4>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;">
+    <div class="mt-12">
+      <h4 class="m-0-0-6">Por curso</h4>
+      <div class="d-grid cols-repeat-auto-fill-minmax-210-1fr gap-8">
         ${(o.por_curso||[]).map(c=>`
-          <div class="g sec" style="padding:8px 10px;">
+          <div class="g sec p-8-10">
             <strong>${escapeHtml(c.curso)}</strong>
-            <div class="muted" style="font-size:11.5px;">
+            <div class="muted fs-s">
               ${c.fichas_etapa2} ficha(s) · meta ${c.meta}<br>
               CPL ${c.cpl ? 'R$ '+c.cpl : '<em>sem dado</em>'}</div>
           </div>`).join('')}
@@ -1983,13 +2169,13 @@ async function renderKanban(){
 }
 function kbCard(c){
   const b = [];
-  if(c.precisa_voce) b.push('<span class="chip t-warn" style="margin:0;"><i class="ti ti-hand-stop"></i> precisa de você</span>');
-  if(c.proposta) b.push('<span class="chip t-acc" style="margin:0;"><i class="ti ti-robot"></i> proposta pronta</span>');
-  else if(c.aguardando) b.push('<span class="chip t-acc" style="margin:0;">aguardando lead</span>');
-  if(c.optout) b.push('<span class="chip t-bad" style="margin:0;">opt-out</span>');
-  if(c.curso_encerrado) b.push('<span class="chip t-bad" style="margin:0;">curso encerrado</span>');
+  if(c.precisa_voce) b.push('<span class="chip t-warn m-0"><i class="ti ti-hand-stop"></i> precisa de você</span>');
+  if(c.proposta) b.push('<span class="chip t-acc m-0"><i class="ti ti-robot"></i> proposta pronta</span>');
+  else if(c.aguardando) b.push('<span class="chip t-acc m-0">aguardando lead</span>');
+  if(c.optout) b.push('<span class="chip t-bad m-0">opt-out</span>');
+  if(c.curso_encerrado) b.push('<span class="chip t-bad m-0">curso encerrado</span>');
   const extra = (c.cursos||[]).length - 1;   // além do ativo
-  const cursoTxt = c.curso + (extra>0?` <span class="chip t-acc" style="margin:0;padding:1px 6px;" title="${escapeHtml((c.cursos||[]).join(', '))}">+${extra}</span>`:'');
+  const cursoTxt = c.curso + (extra>0?` <span class="chip t-acc m-0 p-1-6" title="${escapeHtml((c.cursos||[]).join(', '))}">+${extra}</span>`:'');
   const utm = c.utm||{};
   const origem = utm.utm_source || (utm.gclid ? 'google' : (utm.fbclid ? 'meta' : ''));
   const campanha = utm.utm_campaign || '';
@@ -1999,10 +2185,10 @@ function kbCard(c){
     c.telefone ? `<div class="kb-contato"><i class="ti ti-phone"></i>${escapeHtml(fmtTel(c.telefone))}</div>` : '',
     c.email ? `<div class="kb-contato"><i class="ti ti-mail"></i>${escapeHtml(c.email)}</div>` : '',
   ].join('');
-  if(origem) b.push(`<span class="chip" style="margin:0;background:var(--info-bg);" title="${escapeHtml(campanha||origem)}"><i class="ti ti-target-arrow"></i> ${escapeHtml(origem)}</span>`);
-  if(c.tem_notas) b.push('<span class="chip" style="margin:0;background:var(--warn-bg);" title="tem notas"><i class="ti ti-notes"></i></span>');
+  if(origem) b.push(`<span class="chip m-0 bg-info-bg" title="${escapeHtml(campanha||origem)}"><i class="ti ti-target-arrow"></i> ${escapeHtml(origem)}</span>`);
+  if(c.tem_notas) b.push('<span class="chip m-0 bg-warn-bg" title="tem notas"><i class="ti ti-notes"></i></span>');
   return `<div class="kb-card" data-id="${escapeHtml(c.id)}" onclick="kbClique('${c.id}')">
-    <div class="kb-nome"><span class="conv-ava" style="width:22px;height:22px;font-size:10.5px;">${escapeHtml(c.iniciais)}</span>${escapeHtml(c.nome || (c.telefone?fmtTel(c.telefone):'') || '(sem nome)')}</div>
+    <div class="kb-nome"><span class="conv-ava w-22 h-22 fs-xs">${escapeHtml(c.iniciais)}</span>${escapeHtml(c.nome || (c.telefone?fmtTel(c.telefone):'') || '(sem nome)')}</div>
     <div class="kb-sub">${cursoTxt} · ${c.ha}</div>
     ${contato}
     ${b.length?`<div class="kb-badges">${b.join('')}</div>`:''}
@@ -2163,7 +2349,7 @@ async function setModo(id, modo){
 async function reativarLead(id){
   const r = await api('/api/leads/'+id+'/reativar',{method:'POST'});
   if(r.envio && !r.envio.ok){ marcarErro(id, {}, 'não reativado — '+(r.envio.motivo||'')); return; }
-  CONV_ERRO = {id, html:'<div class="conv-blocked" style="background:var(--ok-bg);"><i class="ti ti-check"></i> Reengajamento enviado.</div>'};
+  CONV_ERRO = {id, html:'<div class="conv-blocked bg-ok-bg"><i class="ti ti-check"></i> Reengajamento enviado.</div>'};
   aposAcao();
 }
 // Iniciar/reiniciar a conversa a qualquer momento — cobre o lead que nunca recebeu
@@ -2173,7 +2359,7 @@ async function reativarLead(id){
 async function conversaNova(id){
   const r = await api('/api/conversas/'+id+'/nova',{method:'POST'});
   if(r.envio && !r.envio.ok){ marcarErro(id, {}, 'não enviado — '+(r.envio.motivo||r.envio.erro||'')); return; }
-  CONV_ERRO = {id, html:'<div class="conv-blocked" style="background:var(--ok-bg);"><i class="ti ti-check"></i> Conversa iniciada.</div>'};
+  CONV_ERRO = {id, html:'<div class="conv-blocked bg-ok-bg"><i class="ti ti-check"></i> Conversa iniciada.</div>'};
   aposAcao();
 }
 
@@ -2192,14 +2378,14 @@ function renderListaConv(){
     <div class="conv-item ${c.id===CONV_ABERTA?'on':''} ${c.nao_lidas?'nao-lida':''}" onclick="abrirConversa('${c.id}')">
       <div class="conv-ava">${escapeHtml(c.iniciais)}</div>
       <div class="conv-meta">
-        <div class="conv-nome"><span>${escapeHtml(c.lead || (c.telefone?fmtTel(c.telefone):'') || c.id)}</span><span class="muted" style="font-size:10.5px;">${c.ha}</span></div>
-        <div class="conv-prev">${c.pendente?'<i class="ti ti-robot" style="color:var(--guara);"></i> proposta pronta para aprovação':(escapeHtml(c.preview)||'(sem mensagens)')}</div>
+        <div class="conv-nome"><span>${escapeHtml(c.lead || (c.telefone?fmtTel(c.telefone):'') || c.id)}</span><span class="muted fs-xs">${c.ha}</span></div>
+        <div class="conv-prev">${c.pendente?'<i class="ti ti-robot c-guara"></i> proposta pronta para aprovação':(escapeHtml(c.preview)||'(sem mensagens)')}</div>
       </div>
       ${c.nao_lidas
         ? `<span class="conv-badge" title="${c.nao_lidas} mensagem(ns) do lead que você ainda não leu">${c.nao_lidas>99?'99+':c.nao_lidas}</span>`
         : ((c.aguardando||c.pendente)?'<div class="conv-dot" title="aguardando você"></div>':'')}
-      ${c.optout?'<span class="chip t-bad" style="margin:0;">opt-out</span>':''}
-    </div>`).join('') : '<div class="muted" style="padding:16px;text-align:center;">Nenhuma conversa ainda.</div>';
+      ${c.optout?'<span class="chip t-bad m-0">opt-out</span>':''}
+    </div>`).join('') : '<div class="muted p-16 ta-center">Nenhuma conversa ainda.</div>';
   // total na aba: some as não lidas de TODAS as conversas, não só das filtradas pela busca
   const total = CONV_LISTA.reduce((s,c)=>s+(c.nao_lidas||0),0);
   const bc = document.getElementById('cvCount');
@@ -2217,7 +2403,7 @@ async function abrirConversa(id){
 function fecharConversa(){
   CONV_ABERTA = null; CONV_CHROME_ID = null;
   document.querySelector('.conv-shell').classList.remove('chat-open');
-  $('#convMain').innerHTML = '<div class="muted" style="margin:auto;text-align:center;"><i class="ti ti-message-2" style="font-size:26px;display:block;margin-bottom:6px;"></i>Selecione uma conversa</div>';
+  $('#convMain').innerHTML = '<div class="muted m-auto ta-center"><i class="ti ti-message-2 fs-26 d-block mb-6"></i>Selecione uma conversa</div>';
   renderListaConv();
 }
 
@@ -2254,15 +2440,15 @@ function bolhaConteudo(t){
     // texto é JSON estruturado (ver extrair_mensagem em whatsapp.py), não fala do lead
     let lista = []; try { lista = JSON.parse(t.texto || '[]'); } catch(e) {}
     return lista.map(c => `<div class="contato-card"><i class="ti ti-id-badge-2"></i>
-      <div><strong>${escapeHtml(c.nome)}</strong>${c.telefone?`<div class="muted" style="font-size:12.5px;">${escapeHtml(c.telefone)}</div>`:''}</div></div>`
+      <div><strong>${escapeHtml(c.nome)}</strong>${c.telefone?`<div class="muted fs-m">${escapeHtml(c.telefone)}</div>`:''}</div></div>`
     ).join('') || '<i class="muted">(contato sem dados)</i>';
   }
   const cap = t.texto ? `<div style="margin-top:${t.media_id?'5px':'0'};">${escapeHtml(t.texto)}</div>` : '';
   if(t.media_id){
     const src='/api/media/'+encodeURIComponent(t.media_id);
-    if(t.tipo==='image'||t.tipo==='sticker') return `<img src="${src}" style="max-width:230px;max-height:280px;border-radius:var(--r-s);display:block;cursor:pointer;" onclick="window.open('${src}')">${cap}${leituraAuto(t)}`;
-    if(t.tipo==='audio') return `<audio controls preload="none" src="${src}" style="height:40px;max-width:232px;"></audio>${cap}${leituraAuto(t)}`;
-    if(t.tipo==='video') return `<video controls preload="none" src="${src}" style="max-width:240px;border-radius:var(--r-s);display:block;"></video>${cap}`;
+    if(t.tipo==='image'||t.tipo==='sticker') return `<img src="${src}" class="maxw-230 maxh-280 r-r-s d-block cur-pointer" onclick="window.open('${src}')">${cap}${leituraAuto(t)}`;
+    if(t.tipo==='audio') return `<audio controls preload="none" src="${src}" class="h-40 maxw-232"></audio>${cap}${leituraAuto(t)}`;
+    if(t.tipo==='video') return `<video controls preload="none" src="${src}" class="maxw-240 r-r-s d-block"></video>${cap}`;
     return `<a href="${src}" target="_blank"><i class="ti ti-paperclip"></i> ${t.tipo==='document'?'documento':'anexo'}</a>${cap}`;
   }
   return t.texto ? escapeHtml(t.texto) : '<i class="muted">(sem conteúdo)</i>';
@@ -2288,25 +2474,24 @@ async function coletaSessao(){
   // o que se usa quando "o botão não fez nada".
   window.COLETA_TOKEN = r.token;
   cx.innerHTML = `
-    <div style="border:1px solid var(--border);border-radius:var(--r-s);padding:12px;background:var(--guara-bg);">
-      <p style="font-weight:800;margin:0 0 6px;">3. Instale o atalho na barra de favoritos</p>
-      <p class="muted" style="margin:0 0 9px;">Ele roda a coleta dentro da aba já logada do ADM Cursos.
+    <div class="bd-1-solid-border r-r-s p-12 bg-guara-bg">
+      <p class="fw-800 m-0-0-6">3. Instale o atalho na barra de favoritos</p>
+      <p class="muted m-0-0-9">Ele roda a coleta dentro da aba já logada do ADM Cursos.
         Validade: ${r.validade_horas}h.</p>
-      <p style="margin:0 0 6px;"><strong>Jeito rápido:</strong> arraste o botão abaixo para a barra de favoritos.</p>
+      <p class="m-0-0-6"><strong>Jeito rápido:</strong> arraste o botão abaixo para a barra de favoritos.</p>
       <a href="${r.bookmarklet}" onclick="alert('Não clique aqui: ARRASTE este botão para a barra de favoritos e clique nele já dentro do ADM Cursos.');return false;"
-         style="display:inline-block;background:var(--guara);color:#fff;font-weight:800;text-decoration:none;
-                border:1px solid var(--border);border-radius:var(--r-s);padding:8px 14px;box-shadow:var(--shadow);cursor:grab;">
+         class="d-inline-block bg-guara c-fff fw-800 td-none bd-1-solid-border r-r-s p-8-14 shadow-shadow cur-grab">
         ⬇ Coletar Extecamp</a>
-      <p style="margin:12px 0 6px;"><strong>Se arrastar não funcionar:</strong> copie o endereço abaixo e crie
+      <p class="m-12-0-6"><strong>Se arrastar não funcionar:</strong> copie o endereço abaixo e crie
         o favorito à mão (Favoritos → Gerenciar → Adicionar, e cole no campo de URL).</p>
-      <div style="display:flex;gap:8px;align-items:center;">
+      <div class="d-flex gap-8 ai-center">
         <input id="coletaHref" readonly value="${r.bookmarklet}"
-               style="flex:1;min-width:0;font-family:ui-monospace,monospace;font-size:11.5px;">
+               class="flex-1 minw-0 ff-ui-monospace-monospace fs-s">
         <button class="btn btn-g" onclick="coletaCopiar()"><i class="ti ti-copy"></i> Copiar</button>
         <button class="btn btn-g" onclick="coletaTestar()" title="Confere se a sessão de coleta está de pé">
           <i class="ti ti-plug-connected"></i> Testar</button>
       </div>
-      <p class="muted" id="coletaDiag" style="margin:8px 0 0;"></p>
+      <p class="muted m-8-0-0" id="coletaDiag"></p>
     </div>`;
 }
 
@@ -2348,26 +2533,26 @@ async function coletaCarregar(){
     ? 'Última coleta: ' + d.ultima_coleta.replace('T',' ')
     : 'Nenhuma coleta ainda — siga os passos acima.';
   $('#coletaCursos').innerHTML = (d.cursos||[]).length ? `
-    <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-      <tr style="text-align:left;"><th>Curso</th><th>Turma</th><th>Inscritos</th><th>Matriculados</th><th>Cancelados</th></tr>
-      ${d.cursos.map(c=>`<tr style="border-top:1px solid var(--border);">
+    <table class="w-100pc bcol-collapse fs-m">
+      <tr class="ta-left"><th>Curso</th><th>Turma</th><th>Inscritos</th><th>Matriculados</th><th>Cancelados</th></tr>
+      ${d.cursos.map(c=>`<tr class="bdt-1-solid-border">
         <td><strong>${escapeHtml(c.curso||'')}</strong></td><td>${escapeHtml(c.turma||'')}</td>
         <td>${c.inscritos||0}</td><td>${c.matriculados||0}</td><td>${c.cancelados||0}</td></tr>`).join('')}
     </table>` : '';
   $('#coletaFila').innerHTML = (d.fila||[]).length ? d.fila.map(g=>`
-    <div style="border:1px solid var(--border);border-radius:var(--r-s);margin-bottom:10px;overflow:hidden;">
-      <div style="padding:8px 11px;background:var(--surface-2);border-bottom:1px solid var(--border);">
-        <span class="chip ${coletaChip(g.taxa)}" style="margin:0;">${g.leads.length}</span>
-        <strong style="margin-left:6px;">${escapeHtml(g.situacao||'')}</strong>
-        <div class="muted" style="margin-top:3px;">${escapeHtml(g.acao||'')}</div>
+    <div class="bd-1-solid-border r-r-s mb-10 ov-hidden">
+      <div class="p-8-11 bg-surface-2 bdb-1-solid-border">
+        <span class="chip ${coletaChip(g.taxa)} m-0">${g.leads.length}</span>
+        <strong class="ml-6">${escapeHtml(g.situacao||'')}</strong>
+        <div class="muted mt-3">${escapeHtml(g.acao||'')}</div>
       </div>
-      <div style="padding:6px 11px;">
-        ${g.leads.map(l=>`<div style="display:flex;gap:8px;align-items:center;padding:4px 0;border-top:1px solid var(--border);">
-          <span style="flex:1;">${escapeHtml(l.nome||'(sem nome)')}</span>
+      <div class="p-6-11">
+        ${g.leads.map(l=>`<div class="d-flex gap-8 ai-center p-4-0 bdt-1-solid-border">
+          <span class="flex-1">${escapeHtml(l.nome||'(sem nome)')}</span>
           <span class="muted">${escapeHtml(l.curso||'')}/${escapeHtml(l.turma||'')}</span>
-          ${l.telefone ? `<button class="btn btn-g" style="padding:3px 9px;font-size:11.5px;"
+          ${l.telefone ? `<button class="btn btn-g p-3-9 fs-s"
               onclick="abrirConversa('${l.card_id}');document.querySelector('.navi[data-sec=&quot;conversas&quot;]').click()">Conversa</button>`
-            : '<span class="chip t-warn" style="margin:0;" title="A Extecamp não informa telefone nesta tela">sem telefone</span>'}
+            : '<span class="chip t-warn m-0" title="A Extecamp não informa telefone nesta tela">sem telefone</span>'}
         </div>`).join('')}
       </div>
     </div>`).join('') : '<p class="muted">Sem fila — nada pendente na última coleta.</p>';
@@ -2404,7 +2589,7 @@ function pfCard(p){
   return `<div class="kb-card" data-id="${p.id}" onclick="pfAbrirForm(${p.id})">
     <div class="kb-nome">${escapeHtml(p.nome||'(sem nome)')}</div>
     ${p.instituto?`<div class="pf-linha"><i class="ti ti-building-bank"></i>${escapeHtml(p.instituto)}</div>`:''}
-    ${cursos.length?`<div class="kb-badges">${cursos.map(c=>`<span class="chip t-acc" style="margin:0;padding:1px 6px;">${escapeHtml(c)}</span>`).join('')}</div>`:''}
+    ${cursos.length?`<div class="kb-badges">${cursos.map(c=>`<span class="chip t-acc m-0 p-1-6">${escapeHtml(c)}</span>`).join('')}</div>`:''}
     ${p.ultimo_contato?`<div class="pf-linha"><i class="ti ti-calendar-event"></i>último contato ${escapeHtml(dataBr(p.ultimo_contato))}</div>`:''}
     ${wa}
   </div>`;
@@ -2459,13 +2644,13 @@ async function pfAcessoCarregar(){
   $('#pfAcesso').classList.remove('hidden');
   $('#pfAcessoLista').innerHTML =
     `<div class="pf-acesso-item"><strong>${escapeHtml(d.master)}</strong>
-       <span class="chip t-ok" style="margin:0;">você · master</span></div>`
+       <span class="chip t-ok m-0">você · master</span></div>`
     + (d.concedidos.map(c=>`<div class="pf-acesso-item">
         <strong>${escapeHtml(c.usuario)}</strong>
-        <span class="muted" style="font-size:11.5px;">liberado por ${escapeHtml(c.concedido_por)}</span>
-        <button class="btn btn-g" style="margin-left:auto;padding:3px 9px;font-size:12.5px;"
+        <span class="muted fs-s">liberado por ${escapeHtml(c.concedido_por)}</span>
+        <button class="btn btn-g ml-auto p-3-9 fs-m"
           onclick="pfRevogar('${escapeHtml(c.usuario)}')">Revogar</button></div>`).join('')
-       || '<p class="muted" style="margin:6px 0 0;">Ninguém além de você tem acesso.</p>');
+       || '<p class="muted m-6-0-0">Ninguém além de você tem acesso.</p>');
   $('#pfAcessoUsuario').innerHTML = d.disponiveis.length
     ? d.disponiveis.map(u=>`<option>${escapeHtml(u)}</option>`).join('')
     : '<option value="">— todos os usuários ativos já têm acesso —</option>';
@@ -2504,7 +2689,7 @@ async function enviarReacao(cardId, wamid, emoji){
 }
 function statusGlyph(t){   // ✓ enviado · ✓✓ entregue · ✓✓ azul lido · ! falhou (só msgs do agente)
   if(t.papel!=='agente'||!t.status) return '';
-  if(t.status==='falhou') return ' <i class="ti ti-alert-circle" style="color:var(--bad);" title="não entregue"></i>';
+  if(t.status==='falhou') return ' <i class="ti ti-alert-circle c-bad" title="não entregue"></i>';
   const g = {enviado:['ti-check',''], entregue:['ti-checks',''], lido:['ti-checks','color:var(--info);']}[t.status];
   return g ? ` <i class="ti ${g[0]}" style="${g[1]}" title="${t.status}"></i>` : '';
 }
@@ -2523,27 +2708,27 @@ function renderThread(d){
 function renderChrome(d){
   $('#convMain').innerHTML = `
     <div class="conv-head">
-      <div style="display:flex;align-items:center;gap:10px;">
+      <div class="d-flex ai-center gap-10">
         <button class="conv-back" onclick="fecharConversa()" title="Voltar"><i class="ti ti-arrow-left"></i></button>
         <div class="conv-ava">${escapeHtml(d.iniciais)}</div>
-        <div><div style="font-weight:500;font-size:13.5px;">${escapeHtml(d.lead || (d.telefone?fmtTel(d.telefone):'') || d.id)}</div>
-        <div class="muted"><span id="convCurso">${d.curso}</span> · <span id="convEstado">${d.estado}</span>${d.optout?' · <span style="color:var(--bad);">opt-out</span>':''}</div></div>
-        <div style="margin-left:auto;display:flex;gap:6px;align-items:center;">
-          <button class="btn ${d.modo==='manual'?'btn-p':'btn-g'}" style="padding:6px 10px;" title="${d.modo==='manual'?'Modo manual: o agente NÃO responde — clique para voltar ao automático':'Modo automático: o agente propõe respostas — clique para assumir a conversa manualmente'}" onclick="setModo('${d.id}','${d.modo==='manual'?'auto':'manual'}')"><i class="ti ti-${d.modo==='manual'?'hand-stop':'robot'}"></i> ${d.modo==='manual'?'Manual':'Auto'}</button>
-          <select id="convFaseSel" title="mover fase" style="width:auto;padding:5px 8px;font-size:12.5px;" onchange="moverFase('${d.id}',this.value)">
+        <div><div class="fw-500 fs-l">${escapeHtml(d.lead || (d.telefone?fmtTel(d.telefone):'') || d.id)}</div>
+        <div class="muted"><span id="convCurso">${d.curso}</span> · <span id="convEstado">${d.estado}</span>${d.optout?' · <span class="c-bad">opt-out</span>':''}</div></div>
+        <div class="ml-auto d-flex gap-6 ai-center">
+          <button class="btn ${d.modo==='manual'?'btn-p':'btn-g'} p-6-10" title="${d.modo==='manual'?'Modo manual: o agente NÃO responde — clique para voltar ao automático':'Modo automático: o agente propõe respostas — clique para assumir a conversa manualmente'}" onclick="setModo('${d.id}','${d.modo==='manual'?'auto':'manual'}')"><i class="ti ti-${d.modo==='manual'?'hand-stop':'robot'}"></i> ${d.modo==='manual'?'Manual':'Auto'}</button>
+          <select id="convFaseSel" title="mover fase" class="w-auto p-5-8 fs-m" onchange="moverFase('${d.id}',this.value)">
             ${(window.FASES||['Lead','Prospect','Inscrito','Matriculado','Em espera','Perdido']).map(f=>`<option ${f===d.fase?'selected':''}>${escapeHtml(f)}</option>`).join('')}
           </select>
-          <button class="btn btn-g" style="padding:6px 10px;" title="Enviar reengajamento" onclick="reativarLead('${d.id}')"><i class="ti ti-refresh"></i></button>
-          <button class="btn btn-g" style="padding:6px 10px;" title="Iniciar/reiniciar a conversa (envia a mensagem de abertura, com ou sem histórico)" onclick="conversaNova('${d.id}')"><i class="ti ti-message-plus"></i></button>
+          <button class="btn btn-g p-6-10" title="Enviar reengajamento" onclick="reativarLead('${d.id}')"><i class="ti ti-refresh"></i></button>
+          <button class="btn btn-g p-6-10" title="Iniciar/reiniciar a conversa (envia a mensagem de abertura, com ou sem histórico)" onclick="conversaNova('${d.id}')"><i class="ti ti-message-plus"></i></button>
         </div>
       </div>
     </div>
-    <div id="convCursos" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 14px;border-bottom:1px solid var(--border);background:var(--surface-2);font-size:12.5px;flex-shrink:0;"></div>
+    <div id="convCursos" class="ai-center gap-6 fwrap-wrap p-7-14 bdb-1-solid-border bg-surface-2 fs-m shrink-0" style="display:flex;"></div>
     <div id="convFicha" class="conv-ficha"></div>
     <div class="conv-thread" id="convThread"></div>
     <div id="convErro"></div>
     ${d.optout
-      ? '<div class="conv-blocked" style="margin:0 11px 11px;"><i class="ti ti-ban"></i> Lead em opt-out — não é possível enviar mensagens.</div>'
+      ? '<div class="conv-blocked m-0-11-11"><i class="ti ti-ban"></i> Lead em opt-out — não é possível enviar mensagens.</div>'
       : `${d.modo==='manual'?'<div class="conv-manual-nota"><i class="ti ti-hand-stop"></i> Modo manual — o agente não responde nesta conversa. Você conduz pelo campo abaixo.</div>':''}
          <div id="convTpl" class="conv-tpl hidden"></div>
          <div id="convContato" class="conv-tpl hidden"></div>
@@ -2583,11 +2768,11 @@ function convInscricao(d){
         <i class="ti ti-chevron-right" id="convIncSeta"></i>
         <i class="ti ti-file-text"></i>
         <span>Ficha de inscrição · ${escapeHtml(i.curso)}/${escapeHtml(i.turma||'')}</span>
-        <span class="chip ${feita?'t-ok':'t-warn'}" style="margin-left:auto;">${feita?'transcrita':'a transcrever'}</span>
+        <span class="chip ${feita?'t-ok':'t-warn'} ml-auto">${feita?'transcrita':'a transcrever'}</span>
       </button>
-      <div id="convInc" class="hidden" style="padding:8px 12px 12px;">
+      <div id="convInc" class="hidden p-8-12-12">
         ${inFicha(i)}
-        ${feita?'':`<button class="btn btn-p" style="margin-top:10px;" onclick="inTranscrita('${d.id}')">
+        ${feita?'':`<button class="btn btn-p mt-10" onclick="inTranscrita('${d.id}')">
           <i class="ti ti-check"></i> Marcar como transcrita na Extecamp</button>`}
       </div>
     </div>`;
@@ -2616,10 +2801,10 @@ function renderFicha(d){
       <span class="conv-dado"><i class="ti ti-phone"></i>${zap}</span>
       <span class="conv-dado"><i class="ti ti-mail"></i>${email
         ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>`
-        : `<button class="btn btn-g" style="padding:2px 8px;font-size:11.5px;" onclick="pedirEmail('${d.id}')">+ e-mail</button>`}</span>
+        : `<button class="btn btn-g p-2-8 fs-s" onclick="pedirEmail('${d.id}')">+ e-mail</button>`}</span>
       ${d.criado?`<span class="conv-dado muted"><i class="ti ti-calendar"></i>desde ${(d.criado||'').slice(0,10).split('-').reverse().join('/')}</span>`:''}
-      ${origem?`<span class="chip" style="margin:0;background:var(--info-bg);" title="${escapeHtml(detalhe||origem)}"><i class="ti ti-target-arrow"></i> ${escapeHtml(origem)}</span>`
-              :'<span class="muted" style="font-size:11.5px;">sem UTM (lead anterior à captura)</span>'}
+      ${origem?`<span class="chip m-0 bg-info-bg" title="${escapeHtml(detalhe||origem)}"><i class="ti ti-target-arrow"></i> ${escapeHtml(origem)}</span>`
+              :'<span class="muted fs-s">sem UTM (lead anterior à captura)</span>'}
     </div>
     <div>
       <button class="conv-notas-topo" id="convNotasBtn" onclick="alternarNotas()"
@@ -2627,7 +2812,7 @@ function renderFicha(d){
         <i class="ti ti-chevron-right" id="convNotasSeta"></i>
         <i class="ti ti-notes"></i>
         <span id="convNotasResumo">${resumoNotas(d.notas)}</span>
-        <span id="convNotasEstado" class="muted" style="font-size:10.5px;margin-left:auto;"></span>
+        <span id="convNotasEstado" class="muted fs-xs ml-auto"></span>
       </button>
       <textarea id="convNotas" class="hidden" placeholder="O que é útil lembrar deste lead…"
                 onblur="salvarNotas('${d.id}')">${escapeHtml(d.notas||'')}</textarea>
@@ -2679,11 +2864,11 @@ async function pedirEmail(id){
 function barraCursosHTML(d){
   const cursos = d.cursos || [d.curso];
   const chips = cursos.map(c => c===d.curso
-    ? `<span class="chip t-acc" style="margin:0;" title="curso ativo — o agente conversa este">${c} ★</span>`
-    : `<span class="chip" style="margin:0;background:var(--surface-2);cursor:pointer;" title="tornar ativo" onclick="tornarAtivo('${d.id}','${c}')">${c}</span>`).join(' ');
+    ? `<span class="chip t-acc m-0" title="curso ativo — o agente conversa este">${c} ★</span>`
+    : `<span class="chip m-0 bg-surface-2 cur-pointer" title="tornar ativo" onclick="tornarAtivo('${d.id}','${c}')">${c}</span>`).join(' ');
   const opts = (window.CURSOS_ALL||[]).filter(x=>!cursos.includes(x)).map(x=>`<option value="${x}">${x}</option>`).join('');
   return `<span class="muted">Interesse:</span> ${chips}
-    <select onchange="addInteresse('${d.id}',this.value)" style="width:auto;padding:3px 7px;font-size:11.5px;margin-left:2px;"><option value="">+ curso…</option>${opts}</select>`;
+    <select onchange="addInteresse('${d.id}',this.value)" class="w-auto p-3-7 fs-s ml-2"><option value="">+ curso…</option>${opts}</select>`;
 }
 async function addInteresse(id, curso){
   if(!curso) return;
@@ -2727,22 +2912,22 @@ function renderMensagens(d){
       ${bolhaConteudo(t)}<div class="conv-ts">${eu?'Vinícius · ':''}${(t.ts||'').slice(11,16)}${statusGlyph(t)}</div>${reagirBtn}${badge}</div>`;
   }).join('');
   const prop = d.proposta?`
-    <div class="bubble b-ag" style="align-self:flex-end;border-style:dashed;">
-      <div style="font-size:11.5px;color:var(--guara);margin-bottom:4px;"><i class="ti ti-robot"></i> proposta · aguardando você</div>${escapeHtml(d.proposta)}
-      <div style="margin-top:6px;"><span class="chip t-ok"><i class="ti ti-check"></i> revisor ok</span></div>
-      <div style="margin-top:8px;display:flex;gap:7px;">
-        <button class="btn btn-p" style="padding:6px 11px;" onclick="aprovarMsg('${d.id}')"><i class="ti ti-send"></i> Aprovar</button>
-        <button class="btn btn-g" style="padding:6px 11px;" onclick="editarMsg('${d.id}')">Editar</button>
-        <button class="btn btn-g" style="padding:6px 11px;color:var(--bad);" onclick="api('/api/conversas/${d.id}/recusar',{method:'POST'}).then(aposAcao)">Recusar</button>
+    <div class="bubble b-ag as-flex-end bds-dashed">
+      <div class="fs-s c-guara mb-4"><i class="ti ti-robot"></i> proposta · aguardando você</div>${escapeHtml(d.proposta)}
+      <div class="mt-6"><span class="chip t-ok"><i class="ti ti-check"></i> revisor ok</span></div>
+      <div class="mt-8 d-flex gap-7">
+        <button class="btn btn-p p-6-11" onclick="aprovarMsg('${d.id}')"><i class="ti ti-send"></i> Aprovar</button>
+        <button class="btn btn-g p-6-11" onclick="editarMsg('${d.id}')">Editar</button>
+        <button class="btn btn-g p-6-11 c-bad" onclick="api('/api/conversas/${d.id}/recusar',{method:'POST'}).then(aposAcao)">Recusar</button>
       </div></div>`:'';
   const perto = th.scrollHeight - th.scrollTop - th.clientHeight < 80;   // usuário estava perto do fim?
   // Lead sem NENHUMA mensagem (ex.: só entregou a ficha da etapa 2, nunca falou no
   // WhatsApp) — a tela vazia já oferece o botão de abrir a conversa, em vez de o
   // operador precisar descobrir sozinho que precisa ir ao ícone de template.
   const vazio = d.optout
-    ? '<div class="muted" style="margin:auto;">Sem mensagens ainda.</div>'
-    : `<div class="muted" style="margin:auto;text-align:center;">
-         <div style="margin-bottom:8px;">Sem mensagens ainda.</div>
+    ? '<div class="muted m-auto">Sem mensagens ainda.</div>'
+    : `<div class="muted m-auto ta-center">
+         <div class="mb-8">Sem mensagens ainda.</div>
          <button class="btn btn-p" onclick="conversaNova('${d.id}')"><i class="ti ti-message-plus"></i> Iniciar conversa</button>
        </div>`;
   th.innerHTML = (fios || vazio) + prop;
@@ -2881,15 +3066,15 @@ async function toggleTpl(id){
   const box = $('#convTpl'); if(!box) return;
   if(!box.classList.contains('hidden')){ box.classList.add('hidden'); box.innerHTML=''; return; }
   const rol = await api('/api/conversas/'+id+'/templates');
-  if(!Array.isArray(rol) || !rol.length){ box.innerHTML = '<div class="muted" style="padding:4px 2px;">Nenhum template aprovado disponível.</div>'; box.classList.remove('hidden'); return; }
+  if(!Array.isArray(rol) || !rol.length){ box.innerHTML = '<div class="muted p-4-2">Nenhum template aprovado disponível.</div>'; box.classList.remove('hidden'); return; }
   window.TPL_ROL = rol;
-  const aviso = rol[0].verificado ? '' : '<span class="chip t-warn" style="margin:0 0 0 6px;" title="Sem verificação ao vivo com a Meta (dev/sem token)">não verificado</span>';
+  const aviso = rol[0].verificado ? '' : '<span class="chip t-warn m-0-0-0-6" title="Sem verificação ao vivo com a Meta (dev/sem token)">não verificado</span>';
   box.innerHTML = `<div class="conv-tpl-top"><strong>Template aprovado</strong>${aviso}
       <button class="conv-tpl-x" onclick="toggleTpl('${id}')" title="Fechar">✕</button></div>
     <select id="tplSel" onchange="renderTplParams('${id}')">${rol.map((t,i)=>`<option value="${i}">${escapeHtml(t.titulo)}</option>`).join('')}</select>
-    <div id="tplDesc" class="muted" style="margin:5px 2px;"></div>
+    <div id="tplDesc" class="muted m-5-2"></div>
     <div id="tplParams"></div>
-    <button class="btn btn-p" style="margin-top:6px;" onclick="enviarTemplate('${id}')"><i class="ti ti-send"></i> Enviar template</button>`;
+    <button class="btn btn-p mt-6" onclick="enviarTemplate('${id}')"><i class="ti ti-send"></i> Enviar template</button>`;
   box.classList.remove('hidden');
   renderTplParams(id);
 }
@@ -2899,7 +3084,7 @@ function renderTplParams(id){
   const pp = $('#tplParams'); if(!pp) return;
   pp.innerHTML = t.params.map((p,i)=>`<label class="tpl-campo"><span class="muted">${escapeHtml(p.rotulo)}</span>
     <input id="tplP${i}" value="${escapeHtml(p.valor||'')}"></label>`).join('') ||
-    '<div class="muted" style="margin:2px;">Sem variáveis — envia como está.</div>';
+    '<div class="muted m-2">Sem variáveis — envia como está.</div>';
 }
 async function enviarTemplate(id){
   const t = (window.TPL_ROL||[])[+($('#tplSel')||{}).value || 0]; if(!t) return;
@@ -2927,7 +3112,7 @@ function toggleContato(id){
   const opcoes = curso.startsWith('ECO') ? CONTATOS_UI_IE : CONTATOS_UI_FEQ;
   box.innerHTML = `<div class="conv-tpl-top"><strong>Compartilhar contato</strong>
       <button class="conv-tpl-x" onclick="toggleContato('${id}')" title="Fechar">✕</button></div>
-    ${opcoes.map(c=>`<div class="row" style="cursor:pointer;" onclick="enviarContato('${id}','${c.chave}')">
+    ${opcoes.map(c=>`<div class="row cur-pointer" onclick="enviarContato('${id}','${c.chave}')">
       <i class="ti ti-id-badge-2"></i><span><strong>${c.rotulo}</strong><br><span class="muted">${c.sub}</span></span></div>`).join('')}`;
   box.classList.remove('hidden');
 }
@@ -3033,8 +3218,8 @@ async function usrListar(){
     <div class="row"><i class="ti ti-user"></i><strong>${u.usuario}</strong>
       <span class="chip ${u.papel==='supervisor'?'t-warn':'t-acc'}">${u.papel}</span>
       ${u.ativo? '' : '<span class="chip t-bad">desativado</span>'}
-      <span class="muted" style="margin-left:auto;">${(u.criado||'').slice(0,10)}</span>
-      ${u.ativo? `<button class="btn btn-g" style="padding:4px 9px;color:var(--bad);" onclick="api('/api/usuarios/${u.usuario}/desativar',{method:'POST'}).then(usrListar)">Desativar</button>`:''}
+      <span class="muted ml-auto">${(u.criado||'').slice(0,10)}</span>
+      ${u.ativo? `<button class="btn btn-g p-4-9 c-bad" onclick="api('/api/usuarios/${u.usuario}/desativar',{method:'POST'}).then(usrListar)">Desativar</button>`:''}
     </div>`).join('') : '<div class="muted">Nenhum usuário criado — o acesso operador/operador (bootstrap) está ativo. Crie o seu primeiro usuário.</div>';
 }
 async function usrCriar(){
