@@ -69,8 +69,9 @@ WantedBy=multi-user.target
 
 ## 5. HTTPS (Caddy)
 
-Acrescente um bloco ao `/etc/caddy/Caddyfile` (sem alterar os existentes) e rode
-`sudo systemctl reload caddy`; o certificado sai automaticamente:
+Crie um arquivo próprio **`/etc/caddy/<seu-app>.caddy`** (o `Caddyfile` principal é reescrito
+a cada deploy da Atena e já importa `/etc/caddy/*.caddy`) e rode `sudo systemctl reload caddy`;
+o certificado sai automaticamente:
 
 ```
 seu.dominio.com.br {
