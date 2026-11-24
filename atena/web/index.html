@@ -91,7 +91,7 @@ body{margin:0;min-height:100vh;color:var(--text);
  border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;
  backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);box-shadow:var(--shadow);}
 .theme-tgl:hover{background:var(--surface-2);}
-.layout{display:grid;grid-template-columns:178px 1fr;gap:18px;}
+.layout{display:grid;grid-template-columns:196px 1fr;gap:18px;}
 .layout>main{min-width:0;} /* sem isto o 1fr cresce com o kanban em vez de deixá-lo rolar */
 .nav{padding:10px 9px;align-self:start;position:sticky;top:22px;}
 .navi{display:flex;align-items:center;gap:9px;padding:10px 13px;border-radius:var(--r-pill);font-size:13.5px;font-weight:500;
@@ -100,6 +100,9 @@ body{margin:0;min-height:100vh;color:var(--text);
 .navi:hover{background:var(--surface-2);}
 .navi.on{background:var(--guara);color:#fff;font-weight:700;box-shadow:var(--shadow);}
 .navi i{font-size:18px;}
+/* Contador no menu: compacto, sem estourar a pílula; no item ativo vira branco sobre laranja. */
+.navi .tag{padding:2px 7px;min-width:20px;text-align:center;font-size:10.5px;line-height:1.4;flex-shrink:0;}
+.navi.on .tag{background:#fff;color:var(--guara);}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px;}
 .card{padding:13px 15px;}
 .lab{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0;}
