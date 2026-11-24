@@ -90,23 +90,19 @@
     fbq("track", "ViewContent", { content_ids: [CFG.curso], content_name: CFG.curso });
   }
 
-  // ---- Google: GTM da campanha + tag do Google Ads em toda LP -----------------
+  // ---- Google Ads em toda LP ----------------------------------------------------
+  // O GTM da campanha (GTM-PV565RMB) NÃO é carregado aqui: vem do <head> do site
+  // inteiro (plugin GTM4WP). Carregar de novo duplicaria as tags "All Pages".
   // gtag('config', AW-...) já faz o papel do "vinculador de conversões" (guarda o
   // gclid do clique em cookie _gcl_aw). A conversão em si só sai na etapa 2.
   // O dataLayer é o mesmo das tags que o <head> do site já carrega — só empilha.
   window.dataLayer = window.dataLayer || [];
   if (!window.gtag) window.gtag = function () { window.dataLayer.push(arguments); };
-  function carregar(src) {
-    var s = document.createElement("script"); s.async = true; s.src = src;
-    document.head.appendChild(s);
-  }
-  if (CFG.gtm) {
-    window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-    carregar("https://www.googletagmanager.com/gtm.js?id=" + CFG.gtm);
-  }
   var GADS = (CFG.gads_conversao || "").split("/")[0];   // "AW-123/rotulo" -> "AW-123"
   if (GADS) {
-    carregar("https://www.googletagmanager.com/gtag/js?id=" + GADS);
+    var sg = document.createElement("script"); sg.async = true;
+    sg.src = "https://www.googletagmanager.com/gtag/js?id=" + GADS;
+    document.head.appendChild(sg);
     gtag("js", new Date());
     gtag("config", GADS);
   }
