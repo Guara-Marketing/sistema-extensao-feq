@@ -302,6 +302,14 @@ decodificado = base64.b64decode(b64).decode()
 check("/webhook/ponte" in decodificado and "/webhook/inscricao" in decodificado
       and '"curso": "FEQ-0480"' in decodificado and "&&" in decodificado,
       "webhooks das duas etapas injetados no payload base64 (decodificado corretamente)")
+check('"gtm": "GTM-PV565RMB"' in decodificado
+      and '"gads_conversao": "AW-18565429818/1LKxCNi31bYdELr015RF"' in decodificado
+      and 'gtag("config", GADS)' in decodificado,
+      "LP carrega GTM da campanha + gtag do Google Ads (vinculador de conversões) em toda LP")
+_e2 = decodificado[decodificado.index('formE2.addEventListener'):]
+check(_e2.index('send_to: CFG.gads_conversao') < _e2.index('fetch(CFG.webhook_inscricao')
+      and "transaction_id: LEAD.event_id" in _e2,
+      "conversão Google Ads sai só na etapa 2 concluída, com transaction_id = event_id (dedup)")
 check(ponte.render(g5, FakeOnt(), "FEQ-9999") is None, "curso fora do cursos_metas não renderiza")
 
 # --- payload do bridge-logic ({whatsapp, curso_id}) é aceito ---------------------

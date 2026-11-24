@@ -53,6 +53,10 @@ LOGO_URL_DEFAULT = ("https://cursos-extensao.feq.unicamp.br/wp-content/uploads/"
                     "2021/04/logo-redmencionado-300x70.png")
 HERO_BG_URL_DEFAULT = "https://www.feq.unicamp.br/wp-content/uploads/2024/10/Group-103.png"
 GTM_ID_DEFAULT = "GTM-WPXLCWJ"   # já instalado no <head> do site (head code do usuário)
+# Google Ads da campanha (24/11/2026): GTM próprio + conversão "inscrição concluída",
+# carregados pelo bridge-logic.js em toda LP (IDs públicos, não segredo).
+GTM_LP_DEFAULT = "GTM-PV565RMB"
+GADS_CONVERSAO_DEFAULT = "AW-18565429818/1LKxCNi31bYdELr015RF"
 _UPLOADS = "https://cursos-extensao.feq.unicamp.br/wp-content/uploads"
 
 # Logos das empresas onde os alunos formados trabalham — arquivos que a própria FEQ
@@ -1287,7 +1291,9 @@ def _bridge_bootstrap(tokens, webhook_url, pixel_id, aberto=True):
         # etapa 2 mora ao lado da etapa 1 no mesmo host (o webhook_url já traz o
         # host público do hub — derivar daqui evita uma segunda variável de ambiente)
         "webhook_inscricao": webhook_url.replace("/webhook/ponte", "/webhook/inscricao"),
-        "pixel": pixel_id}) + ";"
+        "pixel": pixel_id,
+        "gtm": os.environ.get("GROWTH_GTM_LP") or GTM_LP_DEFAULT,
+        "gads_conversao": os.environ.get("GOOGLE_ADS_CONVERSAO") or GADS_CONVERSAO_DEFAULT}) + ";"
     completo = config_js + (_WEB / "bridge-logic.js").read_text()
     return base64.b64encode(completo.encode()).decode()
 
