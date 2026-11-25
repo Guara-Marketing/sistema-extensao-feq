@@ -31,7 +31,7 @@ ENTRADA = """<form method="POST" action="https://ins.extecamp.unicamp.br/inscric
 <input type="hidden" name="primeira" value="PRIMEIRA"><input type="hidden" name="cont" value="0"></form>"""
 BUSCA = """<form name="form1" method="post" action="procura_aluno.php?id=1">
 <input type="text" name="rg" value=""><input type="hidden" name="sigla" value="FEQ-0480">
-<input type="hidden" name="primeira" value="SEGUNDA"><input type="hidden" name="cont" value="1">
+<input type="hidden" name="primeira" value="SEGUNDA"><input type="hidden" name="cont" value="1"><input type="hidden" name="csrf_token" value="tok">
 <button type="submit">Localizar meu cadastro</button></form>
 <form name="form2" method="post" action="inscricao.php?id1=&id2=%81g"><input type="hidden" name="csrf_token" value="tok"><button type="submit">Fazer primeiro cadastro</button></form>"""
 NAO_ACHOU = BUSCA + "<p>Atenção: Documento não localizado ou incorreto.</p>"
@@ -147,6 +147,8 @@ class FakeExtecamp:
                 return R("Requisição inválida.", status=403)
             return R(ficha_html(self.pref) if "id1=%F1" in url else ficha_html())
         if "inscricao.php?id=1" in url:
+            if (data or {}).get("csrf_token") != "tok":   # a ficha não traz o token, mas o exige
+                return R("Requisição inválida.", status=403)
             self.envio = data
             if self.final == "ok":
                 self.inscrito = True

@@ -500,7 +500,9 @@ def _localizar(http, url_curso, ficha):
             f"primeiro cadastro desta turma não é a ficha de sempre ({', '.join(acoes) or 'sem form'})"
     variantes = variantes_documento((ficha or {}).get("doc_numero"), (ficha or {}).get("doc_emissor"),
                                     (ficha or {}).get("cpf"))
-    out = {"ex_aluno": False, "ficha_html": None, "novo": novo, "query": None, "n": len(variantes)}
+    out = {"ex_aluno": False, "ficha_html": None, "novo": novo, "query": None, "n": len(variantes),
+           # um token por sessão; a ficha final não o traz, mas o POST dela o exige (25/11/2026)
+           "csrf": (busca["campos"].get("csrf_token") or {}).get("valor")}
     for doc in variantes:
         base = {k: c["valor"] for k, c in busca["campos"].items()}
         resp = _texto(http.post(urljoin(BASE, busca["action"]), {**base, "rg": doc}))
@@ -576,6 +578,8 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
     cidades = {"pf_cid": _cidades(http, uf_res)}
     cidades["pj_cid"] = cidades["pf_cid"] if desejado.get("pj_est") == uf_res else _cidades(http, desejado.get("pj_est"))
     payload, pend = preencher(form, desejado, cidades, ex_aluno=ex_aluno)
+    if loc.get("csrf"):
+        payload.setdefault("csrf_token", loc["csrf"])
     out["pendencias"] += pend
     out["campos_preenchidos"] = sorted(k for k, v in payload.items() if v)
     if pend:

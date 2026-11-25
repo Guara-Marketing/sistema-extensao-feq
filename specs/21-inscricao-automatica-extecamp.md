@@ -34,7 +34,9 @@ não HTTP), que o robô segue para chegar à ficha pré-preenchida. Tela desconh
 token (403 "Requisição inválida"). Por isso: o "primeiro cadastro" é enviado com os campos
 do form2 (o token junto), e o ex-aluno abre a ficha pelo form `inscricao.php?id1=…` que vem
 na página pós-data (mesmo `id1` do `location.href`, sem o `id5` vazio), não pelo redirect.
-Sem esse form, o robô ainda tenta o GET antigo. A ficha final não traz token (visto em 25/11).
+Sem esse form, o robô ainda tenta o GET antigo. A ficha final **não traz** o token, mas o
+POST dela o exige (403 sem ele, 1ª tentativa do Vagner): o token é um por sessão, então o
+robô repete no envio final o da tela de busca.
 
 **Primeira tentativa real (06/11/2026, FEQ-1150/001, Enzo):** primeiro cadastro, 47 campos,
 e a Extecamp devolveu a ficha com "ATENÇÃO: Favor verificar os campos em destaque" — mas
