@@ -134,10 +134,19 @@ Com o reCAPTCHA, quem envia a ficha é uma pessoa; o robô faz a leitura e o ope
    área de transferência ("Copiar dados") e são colados num `prompt` na página da Extecamp.
 3. O script preenche (UF antes, espera a lista de cidades carregar por AJAX), contorna em
    verde, lista o que não conseguiu e rola até o captcha. **Nunca envia.** Ficha já com nome
-   de outra pessoa (ex-aluno) pede confirmação antes de preencher.
+   de outra pessoa (ex-aluno) pede confirmação antes de preencher. Na ficha real: campo
+   achado por `name` (a página repete `id` — `pf_email`, `celular`) e um par UF→cidade por
+   vez (o AJAX de cidades usa uma global `xmlHttp`; duas UFs juntas = cidade no spinner).
+   O captcha vale ~2 min: marcar e enviar em seguida.
 4. A pessoa marca o captcha e envia. **Já enviei: conferir** = `POST …/extecamp
    {"conferir": true}`: marca `robo_obs` como `ENVIADO pelo preenchimento assistido` e roda o
    modo conferência (acha a inscrição pela busca, marca Transcrita, CAPI, manda o link).
+
+Primeiro uso real (25/11/2026, Najara e Everton, FEQ-0670, primeiro cadastro): ambas
+inscritas. Depois do envio a Extecamp redireciona para `sistemas.extecamp.unicamp.br/
+termo_clicksign_desen/update.php`, que quebra com "email é obrigatório" (chega e-mail vazio
+à Clicksign) — defeito da Extecamp; a inscrição fica gravada, mas o termo provavelmente não
+foi gerado. Avisar a secretaria.
 
 ## Ativação
 1. Primeira inscrição real pelo botão, com um lead verdadeiro, conferindo no ADM Cursos.
