@@ -200,7 +200,8 @@ Extecamp. O Injetor ainda não edita esse campo (mudança direta no catálogo, v
 ## Certificação: nenhum curso é lato sensu (24/11/2026)
 Confirmado por Vitor: os cursos (inclusive a **formação de especialistas** — 0360, 0480,
 1000) são cursos de extensão regidos pela **Pró-Reitoria de Extensão** da Unicamp. **Não são
-pós-graduação lato sensu.** O documento emitido é amplamente aceito pelo mercado, mas **não tem
+pós-graduação lato sensu.** O documento emitido é **reconhecido pelo MEC, mas não como lato
+sensu**, e é amplamente aceito pelo mercado; **não tem
 a certificação exigida em concursos públicos** (não conta como título de especialização).
 - Prompt do cérebro: `cerebro._bloco_certificacao` — responde direto, sem `consultar_coordenacao`.
 - Revisor estrutural (passo 5): frase que fala de "lato sensu" ou "concurso" **sem negação** é

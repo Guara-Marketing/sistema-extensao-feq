@@ -320,8 +320,9 @@ def _bloco_certificacao(ctx):
     return (
         "CERTIFICAÇÃO / LATO SENSU: este é um curso de " + tipo + " da Unicamp, regido pela "
         "Pró-Reitoria de Extensão — NÃO é pós-graduação lato sensu (nem stricto sensu). O "
-        "documento (certificado ou declaração, conforme os dados) é emitido pela Unicamp e é "
-        "amplamente aceito pelo mercado de trabalho, mas NÃO tem a certificação exigida em "
+        "documento (certificado ou declaração, conforme os dados) é emitido pela Unicamp, é "
+        "reconhecido pelo MEC (mas NÃO como lato sensu) e amplamente aceito pelo mercado de "
+        "trabalho; NÃO tem a certificação exigida em "
         "concursos públicos (não conta como título de especialização lato sensu). Se o lead "
         "perguntar, responda isso direto e com honestidade — não é caso de "
         "consultar_coordenacao. Nunca chame o curso de 'pós-graduação', 'pós' ou 'lato sensu'.\n")

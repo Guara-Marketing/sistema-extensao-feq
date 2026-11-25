@@ -218,6 +218,8 @@ def test_negar_lato_sensu_aprovado():
     assert _ok("FEQ-0480", "Não é pós-graduação lato sensu: é formação de especialistas "
                            "da Pró-Reitoria de Extensão. O certificado não vale como título "
                            "em concurso público, mas é muito bem aceito pelo mercado.")
+    assert _ok("FEQ-0480", "É reconhecido pelo MEC, mas não como lato sensu.")
+    assert not _ok("FEQ-0480", "É reconhecido pelo MEC como lato sensu.")
 
 
 if __name__ == "__main__":
