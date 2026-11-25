@@ -24,7 +24,12 @@
       !confirm("Atena: esta ficha é de \"" + form.elements.pf_nome.value + "\", não de \"" + d.nome + "\".\n\nPreencher mesmo assim?")) return;
 
   var faltou = [], feitos = 0;
-  function el(n) { return form.elements[n]; }
+  // por NAME, não form.elements[n]: a ficha real repete id (id="pf_email" também no e-mail
+  // alternativo, id="celular" no select do DDD) e form.elements casa id também.
+  function el(n) {
+    var l = form.querySelectorAll('[name="' + n + '"]');
+    return l.length > 1 ? l : l[0];
+  }
   function marca(e) { (e.length && !e.tagName ? e[0] : e).style.outline = "2px solid #1a9e55"; }
   function por(n, v) {
     var e = el(n);
@@ -56,14 +61,17 @@
 
   var c = d.campos, cidades = ["pf_cid", "pj_cid"], ufs = ["pf_est", "pj_est"];
   Object.keys(c).forEach(function (n) { if (cidades.indexOf(n) < 0 && ufs.indexOf(n) < 0) por(n, c[n]); });
-  ufs.forEach(function (n) {
-    if (n in c) return por(n, c[n]);
-    // ex-aluno: UF já certa, mas a cidade muda -> a lista precisa estar carregada
-    if ((n.slice(0, 2) + "_cid") in c && el(n) && el(n).value) el(n).dispatchEvent(new Event("change", {bubbles: true}));
-  });
-  Promise.all(cidades.filter(function (n) { return n in c; }).map(function (n) {
-    return esperaOpcao(n, c[n], 8000).then(function () { por(n, c[n]); });
-  })).then(function () {
+  // UF -> cidade UM PAR POR VEZ: a página guarda o pedido AJAX numa global (xmlHttp);
+  // trocar as duas UFs juntas faz o 2º pedido engolir o 1º e a cidade fica no spinner.
+  function par(i) {
+    var uf = ufs[i], cid = cidades[i];
+    if (uf in c) por(uf, c[uf]);
+    else if (cid in c && el(uf) && el(uf).value)   // ex-aluno: UF já certa, cidade muda
+      el(uf).dispatchEvent(new Event("change", {bubbles: true}));
+    if (!(cid in c)) return Promise.resolve();
+    return esperaOpcao(cid, c[cid], 10000).then(function () { por(cid, c[cid]); });
+  }
+  par(0).then(function () { return par(1); }).then(function () {
     var cap = document.querySelector(".g-recaptcha");
     if (cap) cap.scrollIntoView({block: "center"});
     alert("Atena: " + feitos + " campo(s) preenchido(s) — contornados em verde." +
