@@ -30,11 +30,13 @@ certa → página com `<script>location.href='inscricao.php?id1=…'</script>` (
 não HTTP), que o robô segue para chegar à ficha pré-preenchida. Tela desconhecida = pendência.
 
 **CSRF (desde 25/11/2026, Vagner, FEQ-1150):** os forms da Extecamp passaram a levar um
-`csrf_token` oculto. `inscricao.php` recusa GET (405 "Método não permitido") e POST sem o
-token (403 "Requisição inválida"). Por isso: o "primeiro cadastro" é enviado com os campos
-do form2 (o token junto), e o ex-aluno abre a ficha pelo form `inscricao.php?id1=…` que vem
-na página pós-data (mesmo `id1` do `location.href`, sem o `id5` vazio), não pelo redirect.
-Sem esse form, o robô ainda tenta o GET antigo. A ficha final **não traz** o token, mas o
+`csrf_token` oculto. O "primeiro cadastro" (`inscricao.php?id1=` vazio) recusa GET (405) e
+POST sem o token (403 "Requisição inválida"): vai com os campos do form2 (o token junto).
+O ex-aluno abre a ficha pelo **GET do `location.href`** (200, ficha com o cadastro dele).
+**Nunca** por um form "parecido" da página pós-data: o "Fazer primeiro cadastro" dela tem o
+MESMO `id1` (só `id4` muda: F5 ex-aluno, F6 novo) e abre ficha EM BRANCO. Esse erro (de
+25/11 manhã até a correção à noite) fez o robô inscrever o Vagner às 11:10 como cadastro
+novo, com "Não informado" e nome encurtado — inscrição que depois sumiu. A ficha final **não traz** o token, mas o
 POST dela o exige (403 sem ele, 1ª tentativa do Vagner): o token é um por sessão, então o
 robô repete no envio final o da tela de busca.
 

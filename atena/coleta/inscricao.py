@@ -536,11 +536,10 @@ def _localizar(http, url_curso, ficha):
             out["query"] = alvo.split("?", 1)[-1]
             if "upload_foto" in alvo:           # a query ainda serve a _ja_inscrito
                 return {**out, "erro": _ERRO_FOTO}
-            # 25/11/2026 (Vagner, FEQ-1150): a Extecamp passou a exigir csrf_token. O GET do
-            # redirect dá 405; a ficha abre pelo form da mesma página (mesmo id1, sem o id5).
-            fx = next((f for f in formularios(html) if f["action"].split("&")[0] == alvo.split("&")[0]), None)
-            html = _texto(http.post(urljoin(BASE, fx["action"]), {k: c["valor"] for k, c in fx["campos"].items()})
-                          if fx else http.get(urljoin(BASE, alvo)))
+            # GET, como o navegador. NÃO abrir form "parecido" desta página: o "Fazer primeiro
+            # cadastro" tem o MESMO id1 (só id4 muda) e dá ficha EM BRANCO — foi assim que o
+            # Vagner virou cadastro duplicado com "Não informado" em 25/11/2026.
+            html = _texto(http.get(urljoin(BASE, alvo)))
         if not _form_com(html, "pf_nome"):
             return {**out, "erro": "ex-aluno: data de nascimento não aceita pela Extecamp"}
         out["ficha_html"] = html
