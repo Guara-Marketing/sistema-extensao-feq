@@ -96,6 +96,12 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
   alerta na Central com o motivo. O caso típico é "Termo já aceito": o lead já gerou o
   boleto e a página fica sem ação, então parece genérica (Enzo, 16/11/2026).
 - Lock por card: duas execuções simultâneas do mesmo lead são recusadas.
+- **reCAPTCHA no envio** (desde 25/11/2026 à tarde, Google reCAPTCHA v2 na ficha): o robô
+  **nunca** contorna captcha. Com `g-recaptcha`/`data-sitekey` na ficha, ele para ANTES do
+  POST final com a pendência "use o preenchimento assistido" — não marca `ENVIADO`. A
+  simulação continua valendo (ficha pronta, `captcha: true`).
+- Cidade digitada com a UF no fim ("Capão bonito SP", "… - SP", "…/SP", "… (SP)") casa com
+  a lista da Extecamp (Everton, 25/11/2026).
 - Ficha básica (spec 17, só CPF/nascimento/pagamento) não tem os obrigatórios → sempre
   pendência; esses cursos seguem na transcrição manual.
 - Desde 08/11/2026 a ficha **completa** da LP exige no navegador (`required`) tudo que o
@@ -116,6 +122,22 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
 - Falha → `inscricoes.robo_obs` + alerta `inscricao` na caixa de Notificações.
 - **Automático**: `INSCRICAO_AUTO=1` no `.env` faz o robô rodar em thread assim que a
   etapa 2 chega (`/webhook/inscricao`). Sem a flag, só pelo botão.
+
+## Preenchimento assistido (desde 25/11/2026)
+Com o reCAPTCHA, quem envia a ficha é uma pessoa; o robô faz a leitura e o operador só cola.
+1. Central → Inscrições → **Preencher assistido**: `GET /api/inscricoes/<card_id>/preenchimento`
+   roda a simulação e devolve o caminho (ex-aluno/primeiro cadastro), o documento que a busca
+   achou, a data de nascimento, a URL do curso e `dados` = só os campos que o robô mudaria
+   na ficha (sem `csrf_token`, que é da sessão do robô).
+2. O operador instala uma vez o favorito **Atena · preencher ficha**: ele injeta
+   `/inscricao/preenchedor.js` (rota pública, **sem dado nenhum**). Os dados do lead vão pela
+   área de transferência ("Copiar dados") e são colados num `prompt` na página da Extecamp.
+3. O script preenche (UF antes, espera a lista de cidades carregar por AJAX), contorna em
+   verde, lista o que não conseguiu e rola até o captcha. **Nunca envia.** Ficha já com nome
+   de outra pessoa (ex-aluno) pede confirmação antes de preencher.
+4. A pessoa marca o captcha e envia. **Já enviei: conferir** = `POST …/extecamp
+   {"conferir": true}`: marca `robo_obs` como `ENVIADO pelo preenchimento assistido` e roda o
+   modo conferência (acha a inscrição pela busca, marca Transcrita, CAPI, manda o link).
 
 ## Ativação
 1. Primeira inscrição real pelo botão, com um lead verdadeiro, conferindo no ADM Cursos.

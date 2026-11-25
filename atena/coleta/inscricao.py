@@ -321,7 +321,10 @@ def preencher(form, desejado, cidades=None, ex_aluno=False):
             payload[nome] = op
         elif nome in ("pf_cid", "pj_cid"):
             lista = cidades.get(nome) or []
-            payload[nome] = _escolher(lista, valor) or (valor if not lista else "")
+            # o lead às vezes escreve a UF junto ("Capão bonito SP", Everton 25/11/2026)
+            uf = payload.get(nome[:2] + "_est") or desejado.get(nome[:2] + "_est") or ""
+            sem_uf = re.sub(rf"[\s,/(-]+{re.escape(uf)}\)?\s*$", "", str(valor), flags=re.I) if uf else valor
+            payload[nome] = _escolher(lista, valor) or _escolher(lista, sem_uf) or (valor if not lista else "")
             if not payload[nome]:
                 pend.append(f"{nome}: cidade não encontrada na lista da UF")
         elif c["opcoes"] is not None and nome in _SELECTS_TEXTO:
@@ -474,6 +477,12 @@ def conferir_link(http, link, nome):
     return "a página do link não tem o botão do boleto da taxa"
 
 
+# 25/11/2026 (à tarde): Google reCAPTCHA no envio da ficha. O robô para ANTES de enviar;
+# a pessoa termina pelo preenchimento assistido (Central -> favorito na página da Extecamp).
+_CAPTCHA = re.compile(r'class="g-recaptcha"|data-sitekey=', re.I)
+_ERRO_CAPTCHA = ("a Extecamp pede reCAPTCHA no envio da ficha: o robô não envia — "
+                 "use o preenchimento assistido")
+
 _ERRO_FOTO = ("turma exige foto de rosto no cadastro (carteira estudantil) e o robô não "
               "envia foto — inscreva à mão")
 
@@ -509,6 +518,7 @@ def _localizar(http, url_curso, ficha):
         if _NAO_ACHOU.search(resp):
             continue
         out["ex_aluno"] = True
+        out["documento"] = doc
         if _form_com(resp, "pf_nome"):          # foi direto para a ficha
             out["ficha_html"] = resp
             return out
@@ -551,6 +561,7 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
 
     loc = _localizar(http, url_curso, ficha)
     out["documento_testado"] = loc.get("n")
+    out["documento"] = loc.get("documento")        # o que a busca achou (preenchimento assistido)
     ex_aluno = loc.get("ex_aluno", False)
     if ex_aluno:
         out["caminho"] = "ex-aluno"
@@ -582,10 +593,18 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
         payload.setdefault("csrf_token", loc["csrf"])
     out["pendencias"] += pend
     out["campos_preenchidos"] = sorted(k for k, v in payload.items() if v)
+    # Preenchimento assistido: só o que o robô MUDOU na ficha (o resto a página do
+    # operador já traz igual). Sem o token: é da sessão do robô, não da dele.
+    out["preenchimento"] = {k: v for k, v in payload.items() if k in form["campos"]
+                            and k != "csrf_token" and v != (form["campos"][k]["valor"] or "")}
+    out["captcha"] = bool(_CAPTCHA.search(ficha_html))
     if pend:
         return out
     if not valer:
         out["ok"] = True
+        return out
+    if out["captcha"]:      # nunca contornar: quem resolve captcha é gente (25/11/2026)
+        out["pendencias"].append(_ERRO_CAPTCHA)
         return out
     resp = http.post(urljoin(BASE, form["action"]), payload, allow_redirects=False)
     out["enviado"] = True

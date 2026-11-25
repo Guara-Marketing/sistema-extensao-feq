@@ -230,6 +230,9 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   (**ligado no VPS em 16/11/2026**; CPF com dígito verificador inválido vira pendência).
   Primeira inscrição real em 06/11/2026 (FEQ-1150, primeiro cadastro): a Extecamp respondeu
   "campos em destaque" e inscreveu mesmo assim — o robô confirma pela página `ok-inscricao_taxa`.
+  **25/11/2026: a Extecamp pôs `csrf_token` (tratado) e reCAPTCHA no envio da ficha.** O robô
+  não contorna captcha: para antes de enviar, e a inscrição segue pelo **preenchimento
+  assistido** (Central prepara, favorito cola na ficha, a pessoa marca o captcha e envia).
 
 - ✅ **VPS compartilhável** (06/11/2026): `atena/ops/recursos.py` vigia disco/RAM/swap/CPU a
   cada 10 min no tick de operações e alerta (Central + WhatsApp, 1 por tipo a cada 6h).

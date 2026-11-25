@@ -868,10 +868,59 @@ def _inscrever_extecamp(card_id, valer):
 def inscricao_robo(card_id):
     """Central: {"valer": false} = simulação (lê a Extecamp, não envia);
     {"valer": true} = inscreve de verdade e manda o link ao lead."""
-    valer = bool((request.get_json(silent=True) or {}).get("valer"))
+    corpo = request.get_json(silent=True) or {}
+    valer = bool(corpo.get("valer"))
+    if corpo.get("conferir"):    # o operador enviou pelo preenchimento assistido: só confere
+        ficha = GRW.get_inscricao(card_id)
+        if ficha and ficha.get("status") != "transcrita":
+            GRW.set_inscricao_robo(ficha["id"], "ENVIADO pelo preenchimento assistido (operador)")
+        valer = True
     if valer:
-        EST.log_acao(session.get("usuario", "operador"), "pediu inscrição automática na Extecamp", card_id)
+        EST.log_acao(session.get("usuario", "operador"), "pediu inscrição automática na Extecamp"
+                     if not corpo.get("conferir") else "enviou pelo preenchimento assistido", card_id)
     return jsonify(_inscrever_extecamp(card_id, valer))
+
+
+@app.route("/api/inscricoes/<card_id>/preenchimento")
+def inscricao_preenchimento(card_id):
+    """Preenchimento assistido (spec 21): o robô faz a leitura (busca, ficha, cidade,
+    parcelas) e devolve o que mudar na ficha; a PESSOA abre a Extecamp, cola os dados
+    pelo favorito, resolve o reCAPTCHA e envia. Só leitura na Extecamp."""
+    lead, ficha = EST.get_lead(card_id), GRW.get_inscricao(card_id)
+    if not lead or not ficha:
+        return jsonify({"ok": False, "pendencias": ["ficha ou lead inexistente"]}), 404
+    url = next((m["url"] for m in GRW.cursos() if m["curso"] == ficha["curso"]), None)
+    if not url:
+        return jsonify({"ok": False, "pendencias": [f"curso {ficha['curso']} sem link de inscrição"]})
+    dados = json.loads(ficha["dados_json"] or "{}")
+    try:
+        r = coleta_inscricao.inscrever(dados, lead, url, valer=False)
+    except Exception as e:
+        return jsonify({"ok": False, "pendencias": [f"falha técnica: {type(e).__name__}"]})
+    EST.log_acao(session.get("usuario", "operador"), "abriu o preenchimento assistido", card_id)
+    nasc = str(dados.get("nascimento") or "")
+    base = _base_coleta()
+    js = (f"(function(){{var s=document.createElement('script');"
+          f"s.src='{base}/inscricao/preenchedor.js?_='+Date.now();document.body.appendChild(s);}})()")
+    return jsonify({
+        "ok": bool(r.get("preenchimento")) or bool(r.get("ja_inscrito")),
+        "caminho": r.get("caminho"), "ja_inscrito": r.get("ja_inscrito"), "link": r.get("link"),
+        "documento": r.get("documento"), "url": url, "pendencias": r.get("pendencias") or [],
+        "nascimento": "/".join(reversed(nasc.split("-"))) if re.match(r"\d{4}-\d\d-\d\d$", nasc) else nasc,
+        # o que vai para a área de transferência e o favorito cola na ficha da Extecamp
+        "dados": {"atena": 1, "nome": lead.get("nome"), "curso": ficha["curso"],
+                  "ex_aluno": r.get("caminho") == "ex-aluno", "campos": r.get("preenchimento") or {}},
+        "bookmarklet": "javascript:" + quote(js, safe=""),
+    })
+
+
+@app.route("/inscricao/preenchedor.js")
+def inscricao_preenchedor_js():
+    """Script do favorito. Público e SEM dado nenhum: os dados do lead chegam pela
+    área de transferência do operador, colados num prompt na página da Extecamp."""
+    js = (WEB / "preenchedor-extecamp.js").read_text(encoding="utf-8")
+    return js, 200, {"Content-Type": "application/javascript; charset=utf-8",
+                     "Cache-Control": "no-store"}
 
 
 # ------------------------------------------------------ Central de Notificações

@@ -1842,6 +1842,7 @@ async function proporOferecimento(){
 // (que exigia sair daqui para conferir) e passou a ser "já transcrevi a ficha que ele
 // entregou?". O dado que faltava agora está no sistema.
 let IN_ABERTA = null;   // card_id da ficha expandida (sobrevive ao polling)
+const IN_ASSIST = {};   // card_id -> resposta do preenchimento assistido (painel aberto)
 
 async function inCarregar(){
   const f = $('#inFiltro') ? $('#inFiltro').value : 'recebida';
@@ -1871,12 +1872,14 @@ async function inCarregar(){
             <i class="ti ti-${aberta?'chevron-up':'chevron-down'}"></i> ${aberta?'ocultar':'ver ficha'}</button>
           <button class="btn btn-g" onclick="abrirConversa('${i.card_id}')"><i class="ti ti-messages"></i> conversa</button>
           ${feita?'':`<button class="btn btn-g" onclick="inRobo('${i.card_id}',false)" title="Lê a Extecamp e confere a ficha, sem enviar nada"><i class="ti ti-eye-check"></i> simular</button>
-          <button class="btn btn-p" onclick="inRobo('${i.card_id}',true)" title="O robô preenche e envia a inscrição na Extecamp e manda o link ao lead"><i class="ti ti-robot"></i> Inscrever na Extecamp</button>
+          <button class="btn btn-p" onclick="inAssistido('${i.card_id}')" title="O robô prepara os dados; você cola na ficha da Extecamp, marca o captcha e envia"><i class="ti ti-hand-click"></i> Preencher assistido</button>
+          <button class="btn btn-g" onclick="inRobo('${i.card_id}',true)" title="O robô preenche e envia sozinho (bloqueado enquanto a Extecamp pedir reCAPTCHA)"><i class="ti ti-robot"></i> Inscrever na Extecamp</button>
           <button class="btn btn-g" onclick="inTranscrita('${i.card_id}')"><i class="ti ti-check"></i> Transcrita</button>`}
         </span>
       </div>
       ${i.robo_obs ? `<div class="muted mt-6 fs-m"><i class="ti ti-robot"></i> ${escapeHtml(i.robo_obs)}</div>` : ''}
       ${i.link_extecamp ? `<div class="mt-4 fs-m"><a href="${escapeHtml(i.link_extecamp)}" target="_blank" rel="noopener">link de continuidade do lead</a></div>` : ''}
+      ${IN_ASSIST[i.card_id] ? inAssistPainel(i.card_id, IN_ASSIST[i.card_id]) : ''}
       ${aberta ? inFicha(i) : ''}
     </div>`;
   }).join('');
@@ -1923,6 +1926,58 @@ function inCopiar(btn, valor){
     const antes = btn.textContent; btn.textContent = 'copiado';
     setTimeout(()=>{ btn.textContent = antes; }, 900);
   });
+}
+
+// Preenchimento assistido (spec 21): desde 25/11/2026 a ficha da Extecamp pede reCAPTCHA
+// no envio. O robô faz a leitura (busca, cidade, parcelas); a pessoa cola os dados pelo
+// favorito, marca o captcha e envia. "Já enviei" faz o robô achar a inscrição e o link.
+async function inAssistido(id){
+  if(IN_ASSIST[id] && !IN_ASSIST[id].carregando){ delete IN_ASSIST[id]; inCarregar(); return; }
+  IN_ASSIST[id] = {carregando:true}; inCarregar();
+  IN_ASSIST[id] = await api('/api/inscricoes/'+id+'/preenchimento').catch(()=>({pendencias:['falha de rede']}));
+  inCarregar();
+}
+
+function inAssistPainel(id, r){
+  if(r.carregando) return `<div class="muted mt-8"><i class="ti ti-loader"></i> lendo a Extecamp (busca do cadastro e ficha)…</div>`;
+  const pend = (r.pendencias||[]).filter(p=>!/reCAPTCHA/.test(p));
+  const cp = v => `<code>${escapeHtml(v)}</code> <button class="btn btn-g p-1-5 fs-xs" onclick="inCopiar(this,'${escapeHtml(v).replace(/'/g,"\\'")}')">copiar</button>`;
+  if(r.ja_inscrito) return `<div class="mt-10 bd-1-solid-border r-r-s p-12 bg-guara-bg">
+      <p class="fw-800 m-0-0-6">Já está inscrito nesta turma da Extecamp.</p>
+      <button class="btn btn-p" onclick="inConferir('${id}')"><i class="ti ti-check"></i> Concluir e mandar o link ao lead</button></div>`;
+  if(!r.dados || !Object.keys(r.dados.campos||{}).length) return `<div class="mt-10 bd-1-solid-border r-r-s p-12">
+      <p class="fw-800 m-0-0-6">Não deu para preparar a ficha:</p>${(r.pendencias||['?']).map(p=>'<div>• '+escapeHtml(p)+'</div>').join('')}</div>`;
+  const ex = r.caminho === 'ex-aluno';
+  return `<div class="mt-10 bd-1-solid-border r-r-s p-12 bg-guara-bg fs-m">
+    <p class="fw-800 m-0-0-8">Preenchimento assistido · ${ex?'ex-aluno (cadastro encontrado)':'primeiro cadastro'}</p>
+    ${pend.length?`<div class="mb-10"><strong>Atenção, preencha à mão:</strong>${pend.map(p=>'<div>• '+escapeHtml(p)+'</div>').join('')}</div>`:''}
+    <ol class="m-0 d-grid gap-8">
+      <li>Só na primeira vez: arraste para a barra de favoritos →
+        <a href="${r.bookmarklet}" onclick="alert('Não clique aqui: ARRASTE este botão para a barra de favoritos.');return false;"
+           class="d-inline-block bg-guara c-fff fw-800 td-none bd-1-solid-border r-r-s p-1-5 cur-grab">⬇ Atena · preencher ficha</a>
+        <span class="muted">(se não arrastar: <a href="#" onclick="inCopiar(this,'${r.bookmarklet.replace(/'/g,"\\'")}');return false;">copie o endereço</a> e crie o favorito à mão)</span></li>
+      <li><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener">Abra a inscrição do curso na Extecamp</a>.</li>
+      <li>${ex ? `Clique em "Já fiz curso", busque o documento ${cp(r.documento||'')} e informe a data de nascimento ${cp(r.nascimento||'')}.`
+               : `Clique em "Fazer primeiro cadastro".`}</li>
+      <li>Na ficha: <button class="btn btn-p p-1-5" onclick="inCopiarDados(this,'${id}')"><i class="ti ti-copy"></i> Copiar dados</button>,
+        clique no favorito "Atena · preencher ficha" e cole (Cmd+V) na caixa que abrir.</li>
+      <li>Confira os campos em verde, marque "Não sou um robô" e clique em Finalizar.</li>
+      <li><button class="btn btn-p" onclick="inConferir('${id}')"><i class="ti ti-checks"></i> Já enviei: conferir</button>
+        <span class="muted">o robô acha a inscrição, marca a ficha e manda o link ao lead.</span></li>
+    </ol></div>`;
+}
+
+function inCopiarDados(btn, id){ inCopiar(btn, JSON.stringify(IN_ASSIST[id].dados)); }
+
+async function inConferir(id){
+  const r = await api('/api/inscricoes/'+id+'/extecamp',{method:'POST',
+    headers:{'Content-Type':'application/json'}, body:JSON.stringify({conferir:true})});
+  if(r.ok){
+    const av = r.aviso_lead||{};
+    delete IN_ASSIST[id];
+    alert('Inscrição confirmada na Extecamp ✓\n\n'+(av.ok?'Link enviado ao lead pelo WhatsApp.':'Link NÃO enviado ao lead: '+(av.motivo||'falha')+'\nO link está na ficha para envio manual.'));
+  } else alert('Ainda não vejo a inscrição na Extecamp:\n'+(r.pendencias||[]).map(p=>'• '+p).join('\n')+'\n\nSe a Extecamp mostrou a confirmação, espere um minuto e tente de novo.');
+  carregar();
 }
 
 // Robô de inscrição (spec 21). Simular só LÊ a Extecamp (busca o documento, carrega a

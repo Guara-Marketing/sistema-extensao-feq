@@ -318,4 +318,33 @@ r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
 check(r["ok"] and r.get("ja_inscrito") and fx.envio is None,
       "turma com foto no 1º cadastro: quem já está inscrito sai com o link, sem reenviar")
 
+print("reCAPTCHA no envio (25/11/2026) e preenchimento assistido")
+class _ComCaptcha(FakeExtecamp):
+    def post(self, url, data=None, **kw):
+        r = super().post(url, data, **kw)
+        if "inscricao.php?id1=" in url:
+            r.text = r.text.replace("<button type=\"submit\" name=\"cadastrar\">",
+                                    '<div class="g-recaptcha" data-sitekey="x"></div><button type="submit" name="cadastrar">')
+        return r
+
+
+fx = _ComCaptcha()
+r = I.inscrever(FICHA, LEAD, URL, valer=True, sessao=fx)
+check(not r["ok"] and fx.envio is None and not r["enviado"] and "reCAPTCHA" in r["pendencias"][-1],
+      "captcha: o robô para ANTES de enviar (nunca contorna) e diz para usar o assistido")
+fx = _ComCaptcha(docs={"MG-12.345.678"}, pref={"pf_nome": "MARIA DA SILVA TESTE"})
+r = I.inscrever(FICHA, LEAD, URL, valer=False, sessao=fx)
+pre = r.get("preenchimento") or {}
+check(r["ok"] and r["captcha"] and r["documento"] == "MG-12.345.678",
+      "simulação com captcha: ficha pronta e o documento que a busca achou (para o operador repetir)")
+check("csrf_token" not in pre and "pf_nome" not in pre and pre.get("pf_cid") == "Campinas"
+      and pre.get("forma_de_pagamento") == "19-866,09-B",
+      "assistido: só o que muda na ficha (nada do que a Extecamp já trouxe, nem o token do robô)")
+
+f = {"campos": {"pf_cid": {"valor": "", "req": True, "opcoes": []}}}
+lista = [("Capão Bonito", "Capão Bonito")]
+check(all(I.preencher(f, {"pf_est": "SP", "pf_cid": v}, {"pf_cid": lista})[0]["pf_cid"] == "Capão Bonito"
+          for v in ("Capão bonito SP", "Capão Bonito - SP", "Capão Bonito/SP", "Capão Bonito (SP)")),
+      "cidade com a UF no fim casa com a lista (Everton, 25/11/2026)")
+
 print(f"\n{ok} checks OK — inscrição Extecamp")
