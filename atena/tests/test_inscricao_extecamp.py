@@ -33,14 +33,17 @@ BUSCA = """<form name="form1" method="post" action="procura_aluno.php?id=1">
 <input type="text" name="rg" value=""><input type="hidden" name="sigla" value="FEQ-0480">
 <input type="hidden" name="primeira" value="SEGUNDA"><input type="hidden" name="cont" value="1">
 <button type="submit">Localizar meu cadastro</button></form>
-<form name="form2" method="post" action="inscricao.php?id1=&id2=%81g"><button type="submit">Fazer primeiro cadastro</button></form>"""
+<form name="form2" method="post" action="inscricao.php?id1=&id2=%81g"><input type="hidden" name="csrf_token" value="tok"><button type="submit">Fazer primeiro cadastro</button></form>"""
 NAO_ACHOU = BUSCA + "<p>Atenção: Documento não localizado ou incorreto.</p>"
 NASC = """<form method="post" action="procura_aluno.php?id=2"><input type="hidden" name="rg" value="X">
 <select name="dia_t"><option value="1">01</option><option value="17">17</option></select>
 <select name="mes_t"><option value="1">01</option><option value="5">05 </option></select>
 <select name="ano_t"><option value="2026">2026</option><option value="1990">1990</option></select></form>"""
-# como a Extecamp real (06/11/2026): data certa -> página com redirect em JS para a ficha
-NASC_OK = """<script>location.href='inscricao.php?id1=%F1&id2=%81g&id4=%F4&id5='</script>""" + BUSCA
+# como a Extecamp real (06/11/2026): data certa -> página com redirect em JS para a ficha.
+# Desde 25/11/2026 o GET desse redirect dá 405: a ficha abre pelo form com csrf_token
+# da mesma página (action = o redirect sem o id5 vazio).
+NASC_OK = """<script>location.href='inscricao.php?id1=%F1&id2=%81g&id4=%F4&id5='</script>
+<form method="post" action="inscricao.php?id1=%F1&id2=%81g&id4=%F4"><input type="hidden" name="csrf_token" value="tok"></form>""" + BUSCA
 
 
 def ficha_html(pref=None):
@@ -120,8 +123,8 @@ class FakeExtecamp:
                      + ("<b>10-11-2026 15:50</b>. Você é o 20° inscrito(a).</p>"
                         "<a href='ok-inscricao_taxa_gera_boleto.php?id=1&id1=%F1'>Aceito</a>" if self.inscrito
                         else ". Você é o ° inscrito(a).</p>"))
-        if "inscricao.php?id1=%F1" in url:
-            return R(ficha_html(self.pref))
+        if "inscricao.php?id1=" in url:
+            return R("Método não permitido.", status=405)
         if "viacep" in url:
             return R("", j={"logradouro": "Avenida Albert Einstein", "bairro": "Cidade Universitária",
                             "localidade": "Campinas", "uf": "SP"})
@@ -140,7 +143,9 @@ class FakeExtecamp:
             return R(NASC_OK if (data["dia_t"], data["mes_t"], data["ano_t"]) == ("17", "5", "1990")
                      else NASC)
         if "inscricao.php?id1=" in url:
-            return R(ficha_html())
+            if (data or {}).get("csrf_token") != "tok":
+                return R("Requisição inválida.", status=403)
+            return R(ficha_html(self.pref) if "id1=%F1" in url else ficha_html())
         if "inscricao.php?id=1" in url:
             self.envio = data
             if self.final == "ok":

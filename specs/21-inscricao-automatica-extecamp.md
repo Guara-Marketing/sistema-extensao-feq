@@ -29,6 +29,13 @@ com selects `dia_t`/`mes_t`/`ano_t` (valores **sem zero à esquerda**: `5`, não
 certa → página com `<script>location.href='inscricao.php?id1=…'</script>` (redirect em JS,
 não HTTP), que o robô segue para chegar à ficha pré-preenchida. Tela desconhecida = pendência.
 
+**CSRF (desde 25/11/2026, Vagner, FEQ-1150):** os forms da Extecamp passaram a levar um
+`csrf_token` oculto. `inscricao.php` recusa GET (405 "Método não permitido") e POST sem o
+token (403 "Requisição inválida"). Por isso: o "primeiro cadastro" é enviado com os campos
+do form2 (o token junto), e o ex-aluno abre a ficha pelo form `inscricao.php?id1=…` que vem
+na página pós-data (mesmo `id1` do `location.href`, sem o `id5` vazio), não pelo redirect.
+Sem esse form, o robô ainda tenta o GET antigo. A ficha final não traz token (visto em 25/11).
+
 **Primeira tentativa real (06/11/2026, FEQ-1150/001, Enzo):** primeiro cadastro, 47 campos,
 e a Extecamp devolveu a ficha com "ATENÇÃO: Favor verificar os campos em destaque" — mas
 **a inscrição foi feita** (conferido no ADM Cursos em 07/11). A resposta do POST não é

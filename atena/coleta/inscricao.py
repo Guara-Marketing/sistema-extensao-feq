@@ -520,10 +520,15 @@ def _localizar(http, url_curso, ficha):
         html = _texto(http.post(urljoin(BASE, acao), dados))
         m = _JS_LOCATION.search(html)
         if m and not _form_com(html, "pf_nome"):
-            out["query"] = m.group(1).replace("&amp;", "&").split("?", 1)[-1]
-            if "upload_foto" in m.group(1):     # a query ainda serve a _ja_inscrito
+            alvo = m.group(1).replace("&amp;", "&")
+            out["query"] = alvo.split("?", 1)[-1]
+            if "upload_foto" in alvo:           # a query ainda serve a _ja_inscrito
                 return {**out, "erro": _ERRO_FOTO}
-            html = _texto(http.get(urljoin(BASE, m.group(1).replace("&amp;", "&"))))
+            # 25/11/2026 (Vagner, FEQ-1150): a Extecamp passou a exigir csrf_token. O GET do
+            # redirect dá 405; a ficha abre pelo form da mesma página (mesmo id1, sem o id5).
+            fx = next((f for f in formularios(html) if f["action"].split("&")[0] == alvo.split("&")[0]), None)
+            html = _texto(http.post(urljoin(BASE, fx["action"]), {k: c["valor"] for k, c in fx["campos"].items()})
+                          if fx else http.get(urljoin(BASE, alvo)))
         if not _form_com(html, "pf_nome"):
             return {**out, "erro": "ex-aluno: data de nascimento não aceita pela Extecamp"}
         out["ficha_html"] = html
@@ -557,7 +562,8 @@ def inscrever(ficha, lead, url_curso, valer=False, sessao=None):
         return out
     ficha_html = loc["ficha_html"]
     if ficha_html is None:                      # 3b. primeiro cadastro
-        ficha_html = _texto(http.post(urljoin(BASE, loc["novo"]["action"]), {}))
+        novo = loc["novo"]                      # leva o csrf_token (sem ele: 403, 25/11/2026)
+        ficha_html = _texto(http.post(urljoin(BASE, novo["action"]), {k: c["valor"] for k, c in novo["campos"].items()}))
     out["caminho"] = "ex-aluno" if ex_aluno else "novo"
     form = _form_com(ficha_html, "pf_nome")
     if not form:
