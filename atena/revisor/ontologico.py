@@ -166,7 +166,19 @@ def revisar_estrutural(codigo, texto, ont, fonte_extra=None, confia_valor_humano
         else:
             bloq.append(f"Carga horária fora da base ({escopo}): {v}h.")
 
+    # 5) Nenhum curso do portfólio é lato sensu nem vale como título em concurso.
+    for frase in re.split(r"(?<=[.!?\n])", texto):
+        if LATO_RE.search(frase) and not NEGA_RE.search(frase):
+            bloq.append(f"Afirmação de lato sensu/pós-graduação/concurso: '{frase.strip()[:120]}'. "
+                        "Os cursos são de extensão (Pró-Reitoria de Extensão), não lato sensu.")
+
     return {"aprovado": not bloq, "bloqueios": bloq, "ancoras": usadas}
+
+
+# ponytail: negação por frase ("não é lato sensu" passa, "é lato sensu" barra). Frase que
+# nega outra coisa e afirma lato sensu escapa — a regra do prompt cobre esse resto.
+LATO_RE = re.compile(r"lato[\s-]*sensu|concursos?\b", re.I)
+NEGA_RE = re.compile(r"\bn[ãa]o\b|\bnem\b|\bnenhum", re.I)
 
 
 def revisar_semantico(codigo, texto, ont):

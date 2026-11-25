@@ -208,6 +208,18 @@ def test_confia_valor_humano_nao_bloqueia_valor_real_da_base():
 
 
 # --------------------------------------------------------- runner sem pytest
+# ------------------------------------------------ certificação: não é lato sensu
+def test_afirmar_lato_sensu_ou_concurso_bloqueia():
+    assert not _ok("FEQ-0480", "Sim! É uma especialização lato sensu reconhecida.")
+    assert not _ok("FEQ-0480", "O certificado vale para concurso público.")
+
+
+def test_negar_lato_sensu_aprovado():
+    assert _ok("FEQ-0480", "Não é pós-graduação lato sensu: é formação de especialistas "
+                           "da Pró-Reitoria de Extensão. O certificado não vale como título "
+                           "em concurso público, mas é muito bem aceito pelo mercado.")
+
+
 if __name__ == "__main__":
     casos = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     falhas = 0

@@ -5,7 +5,7 @@
 >
 > Campos marcados como *não informado* não estavam na página de origem e **não devem ser preenchidos por suposição**.
 
-> ⚠️ **Regra de qualificação (vale para todo o portfólio):** os **8 cursos exigem ensino superior completo**. As especializações (0360, 0480, 1000) são lato sensu; as extensões (0499, 0333, 0580, 0331) exigem nível superior completo; o 0655 exige diploma. **Ensino médio completo NÃO qualifica para nenhum curso atual.** O gate acadêmico do agente é, uniformemente, *superior completo*.
+> ⚠️ **Regra de qualificação (vale para todo o portfólio):** os **8 cursos exigem ensino superior completo**. As formações de especialista (0360, 0480, 1000) são cursos de extensão da Pró-Reitoria de Extensão — **não são lato sensu** e não valem como título em concurso público; as extensões (0499, 0333, 0580, 0331) exigem nível superior completo; o 0655 exige diploma. **Ensino médio completo NÃO qualifica para nenhum curso atual.** O gate acadêmico do agente é, uniformemente, *superior completo*.
 
 ---
 
@@ -27,7 +27,7 @@
 ---
 
 ## FEQ 0360 — Gestão de Processos Industriais: Confiabilidade e Segurança de Processos
-- **Tipo:** Formação de especialista (lato sensu)
+- **Tipo:** Formação de especialista (extensão — NÃO é lato sensu)
 - **Pré-requisito:** Ensino superior completo
 - **Carga horária:** 398 horas
 - **Modalidade:** A distância (Online)
@@ -42,7 +42,7 @@
 - **Insight de venda (Desafios):** queixas de preço amenizadas com webinar + descontos. Desafio atual: ampliar e focar a base de interessados; testar anúncios com senso de urgência.
 
 ## FEQ 0480 — Técnicas de Inteligência Artificial Aplicadas às Engenharias de Processos
-- **Tipo:** Formação de especialista (lato sensu)
+- **Tipo:** Formação de especialista (extensão — NÃO é lato sensu)
 - **Pré-requisito:** Ensino superior completo
 - **Carga horária:** 368 horas
 - **Modalidade:** A distância (Online)
@@ -57,7 +57,7 @@
 - **Insight de venda (Desafios):** preço era o entrave; desconto gradual começando em 8% + workshop funcionou muito bem. Estratégia a replicar. Melhor curso "modelo" do portfólio.
 
 ## FEQ 1000 — Engenharia de Processos Químicos
-- **Tipo:** Formação de especialista (lato sensu)
+- **Tipo:** Formação de especialista (extensão — NÃO é lato sensu)
 - **Pré-requisito:** Ensino superior completo (eng. química, produção, mecânica, alimentos e afins)
 - **Carga horária:** 448 horas
 - **Modalidade:** A distância (Online — Google Meet + Moodle Extecamp)

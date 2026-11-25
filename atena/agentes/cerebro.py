@@ -312,6 +312,21 @@ def _bloco_descontos(ctx):
         "chegar ao lead. ")
 
 
+def _bloco_certificacao(ctx):
+    """Vitor, 24/11/2026: lead perguntou se o certificado é lato sensu. Não é — e a base
+    legada (Base_Conhecimento v1) dizia que era. Quem usa o título em concurso público
+    descobre tarde demais: por isso a regra é explícita e o Revisor barra o contrário."""
+    tipo = ((ctx.get("curso") or {}).get("tipo") or "extensão").lower().removeprefix("curso de ")
+    return (
+        "CERTIFICAÇÃO / LATO SENSU: este é um curso de " + tipo + " da Unicamp, regido pela "
+        "Pró-Reitoria de Extensão — NÃO é pós-graduação lato sensu (nem stricto sensu). O "
+        "documento (certificado ou declaração, conforme os dados) é emitido pela Unicamp e é "
+        "amplamente aceito pelo mercado de trabalho, mas NÃO tem a certificação exigida em "
+        "concursos públicos (não conta como título de especialização lato sensu). Se o lead "
+        "perguntar, responda isso direto e com honestidade — não é caso de "
+        "consultar_coordenacao. Nunca chame o curso de 'pós-graduação', 'pós' ou 'lato sensu'.\n")
+
+
 def _bloco_curso(ctx):
     """Trecho do prompt sobre o curso do lead. Em DESCOBERTA (lead ainda não disse
     qual curso quer — típico de quem chega pelo botão de WhatsApp da LP) troca o
@@ -412,6 +427,7 @@ def _system_prompt(ctx, lead_nome=None, precedentes="", fase=None):
         "útil, nunca evasivo. EXCEÇÃO: mensagem iniciada por [INFORMAÇÃO DA COORDENAÇÃO] é fonte "
         "autorizada — responda com ela.\n"
         + _gate_instr(ctx.get("elegivel"), ctx)
+        + _bloco_certificacao(ctx)
         + _bloco_descontos(ctx) +
         "Se houver política específica do curso, ela "
         "estará no campo 'descontos' dos dados; use-a. Para OUTRAS categorias de desconto não "

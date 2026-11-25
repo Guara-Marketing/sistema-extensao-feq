@@ -196,3 +196,14 @@ Extecamp. O Injetor ainda não edita esse campo (mudança direta no catálogo, v
 - **Precedentes do agente**: resposta antiga que cita data (`dd/mm`) não é mais usada como
   precedente — data é fato do oferecimento e vem do registro do curso.
 - Os leads da turma anterior (matriculados, cancelados) **permanecem** no funil como histórico.
+
+## Certificação: nenhum curso é lato sensu (24/11/2026)
+Confirmado por Vitor: os cursos (inclusive a **formação de especialistas** — 0360, 0480,
+1000) são cursos de extensão regidos pela **Pró-Reitoria de Extensão** da Unicamp. **Não são
+pós-graduação lato sensu.** O documento emitido é amplamente aceito pelo mercado, mas **não tem
+a certificação exigida em concursos públicos** (não conta como título de especialização).
+- Prompt do cérebro: `cerebro._bloco_certificacao` — responde direto, sem `consultar_coordenacao`.
+- Revisor estrutural (passo 5): frase que fala de "lato sensu" ou "concurso" **sem negação** é
+  bloqueada. `test_revisor.py::test_afirmar_lato_sensu_ou_concurso_bloqueia`.
+- A base legada (`Base_Conhecimento_Cursos_FEQ_v1.md`, `cursos_feq.json`) dizia "lato sensu":
+  corrigida.
