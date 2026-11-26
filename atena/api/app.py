@@ -1918,9 +1918,13 @@ def config_ep():
     if request.method == "POST":
         b = request.get_json(silent=True) or {}
         if "auto_aprovar" in b:
+            # Ligar o envio sem aprovação humana tira a revisão de TODA mensagem do
+            # agente: decisão de supervisor, não de qualquer operador logado.
+            if session.get("papel") != "supervisor":
+                return jsonify({"erro": "ligar ou desligar o envio sem aprovação exige papel supervisor"}), 403
             CFG["auto_aprovar"] = bool(b.get("auto_aprovar"))
             EST.set_config("auto_aprovar", "1" if CFG["auto_aprovar"] else "0")
-            EST.log_acao("operador", f"auto_aprovar={CFG['auto_aprovar']}")
+            EST.log_acao(session.get("usuario", "operador"), f"auto_aprovar={CFG['auto_aprovar']}")
         if "verif_auto" in b:
             CFG["verif_auto"] = bool(b.get("verif_auto"))
             EST.set_config("verif_auto", "1" if CFG["verif_auto"] else "0")
@@ -2460,6 +2464,32 @@ def _rate_ok(ip, limite=30, janela=60):
     return True
 
 
+# Etapa 2 da LP traz a ficha completa (CPF, endereço, pagamento) e o lead é achado
+# pelo TELEFONE. Sem um vínculo, quem soubesse o telefone de alguém trocava a ficha
+# dele (inclusive o CPF) e, com INSCRICAO_AUTO=1, o robô inscrevia com esses dados.
+# A etapa 1 devolve um token assinado (lead + curso + validade) que a LP reenvia na
+# etapa 2. Ficha sem token válido continua sendo gravada (não perdemos inscrição de
+# LP antiga, ainda sem o token), mas NÃO vai para o robô: vira alerta para conferir.
+_FICHA_TOKEN_TTL_S = 6 * 3600
+
+
+def _ficha_token(card_id, curso, exp=None):
+    exp = int(exp or time.time() + _FICHA_TOKEN_TTL_S)
+    chave = str(app.secret_key or "").encode()
+    sig = hmac.new(chave, f"ficha|{card_id}|{curso}|{exp}".encode(), "sha256").hexdigest()
+    return f"{exp}.{sig}"
+
+
+def _ficha_token_ok(token, card_id, curso):
+    try:
+        exp = int(str(token).split(".", 1)[0])
+    except (TypeError, ValueError):
+        return False
+    if not card_id or exp < time.time():
+        return False
+    return hmac.compare_digest(_ficha_token(card_id, curso, exp), str(token))
+
+
 @app.route("/webhook/ponte", methods=["POST", "OPTIONS"])
 def webhook_ponte():
     """Recebe o modal da ponte: mesmo event_id do Pixel -> CAPI desduplica.
@@ -2471,6 +2501,9 @@ def webhook_ponte():
     dados = {**(request.get_json(silent=True) or {}),
              "ip": request.remote_addr, "ua": request.headers.get("User-Agent", "")}
     r = ponte.processar(dados, EST, GRW, ADS, ING, ont=_ont())
+    if r.get("ok") and r.get("aberto"):
+        curso = (dados.get("curso") or dados.get("curso_id") or "").strip().upper()
+        r["ficha_token"] = _ficha_token(r["card_id"], curso)
     # O "modo imediato" da verificação automática vivia aqui: com a régua de 2h nunca
     # tendo rodado, ele era o que fazia o 1º toque sair. Agora a régua roda de verdade
     # (op_recuperar no _operacoes), e quem parou na etapa 1 nem está na fila de
@@ -2489,10 +2522,22 @@ def webhook_inscricao():
         return jsonify({"ok": False, "motivo": "rate limit"}), 429, _CORS_LP
     dados = {**(request.get_json(silent=True) or {}),
              "ip": request.remote_addr, "ua": request.headers.get("User-Agent", "")}
+    curso = (dados.get("curso") or dados.get("curso_id") or "").strip().upper()
+    token = dados.pop("ficha_token", "")
     r = ponte.processar_etapa2(dados, EST, GRW, ADS, ING, ont=_ont())
+    # o token tem de ser do MESMO lead que o telefone achou (e do mesmo curso)
+    vinculada = bool(r.get("ok")) and _ficha_token_ok(token, r.get("card_id"), curso)
+    if r.get("ok") and not vinculada:
+        ficha = GRW.get_inscricao(r["card_id"])
+        if ficha:
+            GRW.set_inscricao_robo(ficha["id"], "CONFERIR: ficha sem vínculo com a etapa 1 da LP")
+        EST.add_alerta("inscricao", f"Ficha de {curso} sem vínculo com a etapa 1 da LP (lead {r['card_id']}): "
+                                    f"confirme os dados com o lead antes de transcrever — pode ter sido "
+                                    f"enviada por outra pessoa que sabe o telefone.", r["card_id"])
     # spec 21: o lead acabou de pedir a inscrição ("Concluir inscrição"); com
     # INSCRICAO_AUTO=1 o robô a faz na hora. Sem a flag, fica o botão na Central.
-    if r.get("ok") and os.environ.get("INSCRICAO_AUTO") == "1":
+    # Só com a ficha vinculada à etapa 1: a não vinculada espera um humano.
+    if r.get("ok") and vinculada and os.environ.get("INSCRICAO_AUTO") == "1":
         threading.Thread(target=_inscrever_extecamp, args=(r["card_id"], True), daemon=True).start()
     return jsonify(r), (200 if r.get("ok") else 400), _CORS_LP
 

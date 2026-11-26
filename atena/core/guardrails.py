@@ -65,9 +65,13 @@ def dentro_janela(agora=None):
 
 
 def verificar_assinatura(secret, corpo_bytes, header):
-    """HMAC-SHA256 do webhook (Meta/WhatsApp). Sem secret => passthrough (dev)."""
+    """HMAC-SHA256 do webhook (Meta/WhatsApp).
+
+    Sem secret, RECUSA: antes aceitava tudo, e um servidor de produção sem
+    META_APP_SECRET recebia mensagens e leads falsos de qualquer um. Em dev, para
+    testar sem assinatura, é preciso pedir de propósito: ATENA_WEBHOOK_SEM_ASSINATURA=1."""
     if not secret:
-        return True  # ponytail: sem APP_SECRET, não bloqueia em dev; setar secret ativa a trava
+        return os.environ.get("ATENA_WEBHOOK_SEM_ASSINATURA") == "1"
     if not header:
         return False
     esperado = "sha256=" + hmac.new(secret.encode(), corpo_bytes or b"", hashlib.sha256).hexdigest()
