@@ -151,20 +151,23 @@ def test_etapa2_coloca_na_fila_de_transcricao():
     assert cid not in {p["card_id"] for p in A.GRW.verificacoes_pendentes()}
     r2 = c.post("/webhook/inscricao", json={
         "whatsapp": "19997770002", "curso_id": "FEQ-0480", "event_id": "ev-etapa2-1",
-        "cpf": "123.456.789-00", "nascimento": "1990-01-01",
-        "escolaridade": "Superior Completo", "forma_pagamento": "19 PARCELA(S)"})
+        "forma_pagamento": "19 PARCELA(S)",
+        "decl_requisito": "Tenho ensino superior completo.",
+        "decl_modalidade": "Estou de acordo com a modalidade a distância.",
+        "decl_boleto": "Estou ciente de que o primeiro boleto será emitido em 08/01/2027."})
     assert r2.status_code == 200, r2.get_json()
     tipos = [x[0] for x in A.GRW.conn.execute(
         "SELECT tipo FROM eventos_funil WHERE card_id=?", (cid,))]
     assert "inicio_inscricao" in tipos
     assert cid in {p["card_id"] for p in A.GRW.verificacoes_pendentes()}
     assert A.GRW.get_inscricao(cid)["status"] == "recebida"
-    # a ficha inteira fica guardada, não só o evento
+    # as confirmações ficam guardadas com a frase exata que o lead marcou
     ficha = json.loads(A.GRW.get_inscricao(cid)["dados_json"])
-    assert ficha["cpf"] == "123.456.789-00" and ficha["escolaridade"] == "Superior Completo"
-    # ...e o card anda para INSCRITO no kanban, sem reportar conversão à Meta:
-    # inscricao_confirmada continua sendo o gesto humano depois de lançar na Extecamp.
-    assert A.EST.get_lead(cid)["fase"] == "Inscrito"
+    assert ficha["decl_requisito"] == "Tenho ensino superior completo."
+    assert ficha["decl_boleto"].startswith("Estou ciente") and ficha["forma_pagamento"]
+    # ...e o card anda para PROSPECT (pré-inscrito, ainda não está na Extecamp), sem
+    # reportar conversão à Meta: inscricao_confirmada é o gesto humano do consultor.
+    assert A.EST.get_lead(cid)["fase"] == "Prospect"
     assert "inscricao_confirmada" not in tipos
 
 
@@ -186,8 +189,7 @@ def test_ficha_entregue_sai_da_regua_de_recuperacao():
     # concluída a etapa 2, ele continua pendente de transcrição mas NÃO recebe toque
     c.post("/webhook/inscricao", json={
         "whatsapp": "19997770003", "curso_id": "FEQ-0480", "event_id": "ev-ficha-1",
-        "cpf": "111.222.333-44", "nascimento": "1990-01-01",
-        "escolaridade": "Superior Completo", "forma_pagamento": "19 PARCELA(S)"})
+        "forma_pagamento": "19 PARCELA(S)", "decl_modalidade": "Estou de acordo."})
     enviados = F.recuperar(A.GRW, A.EST, A.ONTO.ont, A.WA, agora=depois)["enviados"]
     assert cid not in enviados, enviados
 

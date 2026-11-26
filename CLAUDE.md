@@ -241,6 +241,12 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   passou para `feq_promo_0480_v2` (a v1 aprovada tinha o preço de agosto); **pendente:
   submeter a v2 à Meta**. Prorrogou as inscrições? Prorrogue a promoção junto.
 
+- ✅ **Etapa 2 da LP = pré-inscrição qualificada** (26/11/2026, `specs/17` §7b): no lugar da
+  ficha de dados, o lead confirma em checkbox requisito, forma de pagamento (parcelado ou à
+  vista), modalidade/datas e data do 1º boleto — tudo derivado da ontologia
+  (`ponte._declaracoes`). Card vai a **Prospect**; o consultor formaliza a matrícula na
+  Extecamp. Thank You Page: "Pré-inscrição concluída!". Robô automático não dispara sem CPF.
+
 - ✅ **VPS compartilhável** (06/11/2026): `atena/ops/recursos.py` vigia disco/RAM/swap/CPU a
   cada 10 min no tick de operações e alerta (Central + WhatsApp, 1 por tipo a cada 6h).
   Regras para hospedar outro sistema na mesma VM: `atena/ops/GUIA_novo_sistema_no_vps.md`.

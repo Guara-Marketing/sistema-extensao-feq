@@ -49,6 +49,11 @@ check("1x de" not in lp and "1 parcelas" not in lp, "1 parcela é mostrada como 
 check("R$ 499,16</strong> à vista" in lp, "preço à vista no topo")
 check("abertura da turma" not in lp and "turma confirmada" not in lp,
       "sem passo de 'aguardar a turma' num curso contínuo")
+check('name="decl_requisito"' not in lp and lp.count("<fieldset data-decl=") == 3,
+      "sem pré-requisito: a etapa 2 não pede declaração de escolaridade (3 pontos)")
+check("o boleto é emitido logo após a formalização da inscrição" in lp
+      and "encerramento das inscrições em" not in lp,
+      "contínuo: a frase do boleto não manda esperar o fim das inscrições (2031)")
 check("Quando começam e terminam as aulas?" not in lp and "oferecimento é contínuo" in lp,
       "período vira disponibilidade na plataforma, não início de aulas")
 meta = next(m for m in GRW.cursos() if m["curso"] == COD)
@@ -57,7 +62,7 @@ check(ponte.url_inscricao(meta, c).endswith("/curso/inscricao/FEQ-1150/001") and
 
 # os demais cursos não mudam de documento nem de passos
 lp_0295 = ponte.render(GRW, ONT, "FEQ-0295", hoje=HOJE)
-check("Certificado Unicamp" in lp_0295 and "abertura da turma" in lp_0295 and "4x de" in lp_0295,
+check("Certificado Unicamp" in lp_0295 and "turma confirmada" in lp_0295 and "4x de" in lp_0295,
       "curso com turma mantém certificado, parcelas e os 5 passos")
 check("taxa de inscrição de R$ 24,00" in lp_0295, "FEQ-0295 mostra a taxa de inscrição publicada na Extecamp")
 

@@ -1,6 +1,7 @@
 /* Atena · Bridge Page (specs 16 §2 e 17 §5) — two-step opt-in + telemetria de sessão.
  * Lê window.BRIDGE = {curso, aberto, webhook, webhook_inscricao, pixel} (do template).
- * Regras: CTA abre a etapa 1 (contato, sem Pixel); a etapa 2 é a ficha completa e é
+ * Regras: CTA abre a etapa 1 (contato, sem Pixel); a etapa 2 é a pré-inscrição
+ * qualificada (confirmações de requisito, valor, modalidade e boleto) e é
  * ela que dispara o Pixel InitiateCheckout com o MESMO event_id que vai ao backend
  * (dedup CAPI) e leva à página de obrigado — sucesso, falha ou timeout, o lead nunca
  * fica preso esperando o backend.
@@ -323,21 +324,46 @@
     window.scrollTo(0, 0);
   }
 
-  // ---- ETAPA 2: valida -> Pixel (AQUI) -> POST -> obrigado --------------------
+  // ---- ETAPA 2: pré-inscrição qualificada -> Pixel (AQUI) -> POST -> obrigado ----
+  // Cada fieldset [data-decl] é um ponto a confirmar: um checkbox (requisito,
+  // modalidade, boleto) ou um grupo de opções (forma de pagamento). Só segue com
+  // todos marcados; o erro aparece sob o ponto que faltou, checado no envio.
   var formE2 = document.getElementById("etapa2-form");
+  var grupos = formE2 ? formE2.querySelectorAll("[data-decl]") : [];
+  function marcado(g) { return !!g.querySelector("input:checked"); }
+  function contar() {
+    var n = 0;
+    Array.prototype.forEach.call(grupos, function (g) {
+      var ok = marcado(g);
+      if (ok) {
+        n += 1;
+        var e = g.querySelector(".decl-erro");     // corrigiu: o aviso some na hora
+        if (e) e.classList.add("hidden");
+        g.querySelectorAll("input").forEach(function (i) { i.removeAttribute("aria-invalid"); });
+      }
+    });
+    var alvo = document.getElementById("e2-feitos");
+    if (alvo) alvo.textContent = n;
+    return n;
+  }
+  if (formE2) formE2.addEventListener("change", contar);
   if (formE2) formE2.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var erro = document.getElementById("erro-e2");
     var faltando = [];
-    // Todo [required] do formulário: a ficha completa exige o que o robô precisa para
-    // inscrever na Extecamp (spec 21); a básica, só CPF/nascimento/pagamento.
-    formE2.querySelectorAll("[required]").forEach(function (el) {
-      if (!String(el.value).trim()) faltando.push(el.id);
+    Array.prototype.forEach.call(grupos, function (g) {
+      if (marcado(g)) return;
+      faltando.push(g);
+      var e = g.querySelector(".decl-erro");
+      if (e) e.classList.remove("hidden");
+      g.querySelectorAll("input").forEach(function (i) { i.setAttribute("aria-invalid", "true"); });
     });
     if (faltando.length) {
-      erro.textContent = "Preencha os campos obrigatórios antes de concluir.";
+      erro.textContent = faltando.length === 1 ? "Falta confirmar 1 ponto."
+        : "Faltam confirmar " + faltando.length + " pontos.";
       erro.classList.remove("hidden");
-      var p = document.getElementById(faltando[0]); if (p) p.focus();
+      faltando[0].querySelector("input").focus();
+      faltando[0].scrollIntoView({ block: "center" });
       return;
     }
     erro.classList.add("hidden");
@@ -366,10 +392,8 @@
     function concluir() {
       if (foi) return;
       foi = true;
-      // Página de obrigado e PARA AQUI — sem repassar o lead para o formulário da
-      // Extecamp. Ele acabou de preencher a ficha completa AQUI; mandá-lo preencher
-      // tudo de novo lá seria pedir a mesma coisa duas vezes.
-      // A transcrição na Extecamp é trabalho do time (aba Verificação da Central).
+      // Página de obrigado e PARA AQUI — a matrícula na Extecamp quem formaliza é o
+      // consultor (aba Inscrições da Central), com os dados colhidos na conversa.
       // O path continua começando com /thank-you-page porque é o que o gatilho de
       // conversão do Google Ads/GTM observa.
       window.location.href = "/thank-you-page-lp/";
@@ -380,6 +404,6 @@
       keepalive: true,
       body: JSON.stringify(corpo)
     }).then(concluir, concluir);
-    setTimeout(concluir, 4000);   // ficha é maior que o modal: dá mais folga ao POST
+    setTimeout(concluir, 4000);   // folga ao POST antes de seguir mesmo assim
   });
 })();

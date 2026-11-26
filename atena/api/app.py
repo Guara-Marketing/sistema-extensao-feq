@@ -653,6 +653,8 @@ _ROTULO_FICHA = {
     "situacao": "Situação", "empresa": "Empresa", "cargo": "Cargo",
     "experiencia_anos": "Experiência (anos)",
     "forma_pagamento": "Forma de pagamento", "comprovante_em": "Comprovante em nome de",
+    "decl_requisito": "Requisito (confirmou)", "decl_modalidade": "Modalidade e datas (confirmou)",
+    "decl_boleto": "Primeiro boleto (ciente)",
 }
 # Ordem de leitura para quem vai TRANSCREVER: a mesma do formulário da Extecamp.
 # Um dict solto obrigaria o agente a caçar campo por campo na tela.
@@ -665,6 +667,8 @@ _GRUPOS_FICHA = (
                             "ano_conclusao", "situacao", "empresa", "cargo",
                             "experiencia_anos")),
     ("Pagamento", ("forma_pagamento", "comprovante_em")),
+    # etapa 2 nova (26/11/2026): a frase exata que o lead confirmou na pré-inscrição
+    ("Qualificação", ("decl_requisito", "decl_modalidade", "decl_boleto")),
 )
 
 
@@ -2490,9 +2494,10 @@ def webhook_inscricao():
     dados = {**(request.get_json(silent=True) or {}),
              "ip": request.remote_addr, "ua": request.headers.get("User-Agent", "")}
     r = ponte.processar_etapa2(dados, EST, GRW, ADS, ING, ont=_ont())
-    # spec 21: o lead acabou de pedir a inscrição ("Concluir inscrição"); com
-    # INSCRICAO_AUTO=1 o robô a faz na hora. Sem a flag, fica o botão na Central.
-    if r.get("ok") and os.environ.get("INSCRICAO_AUTO") == "1":
+    # spec 21: com INSCRICAO_AUTO=1 o robô inscreve na hora — mas só uma ficha COM
+    # dados de matrícula. A etapa 2 virou pré-inscrição (26/11/2026: só confirmações,
+    # sem CPF/endereço); quem formaliza é o consultor. Sem CPF, o robô nem tenta.
+    if r.get("ok") and dados.get("cpf") and os.environ.get("INSCRICAO_AUTO") == "1":
         threading.Thread(target=_inscrever_extecamp, args=(r["card_id"], True), daemon=True).start()
     return jsonify(r), (200 if r.get("ok") else 400), _CORS_LP
 

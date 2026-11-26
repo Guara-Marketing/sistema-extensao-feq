@@ -101,43 +101,30 @@ check("01/09/2026" in lp, "LP informa quando a Extecamp abre")
 check("Entrar na lista de espera" not in lp, "não é mais lista de espera: é inscrição de verdade")
 
 lp_dep = ponte.render(GRW, ONT, "FEQ-0670", hoje=ANTES)
-check("Preencha o formulário de inscrição no sistema oficial" in lp_dep,
-      "curso comum mantém os 5 passos oficiais da Extecamp")
+check("formaliza a inscrição no sistema oficial" in lp_dep,
+      "curso comum: o consultor formaliza a inscrição na Extecamp (pré-inscrição na LP)")
 
 
-# ------------------------------------------------------------- 4) ficha BÁSICA x COMPLETA
-check(ONT.curso("FEQ-0295")["ficha_inscricao"] == "basica",
-      "FEQ-0295 declara ficha BÁSICA (proposta Extecamp, pág. 2)")
-check(ONT.curso("FEQ-0670")["ficha_inscricao"] == "completa",
-      "curso sem o campo declarado assume COMPLETA (comportamento que já estava no ar)")
-
-SO_BASICA = ("cpf", "nascimento", "forma_pagamento")
-SO_COMPLETA = ("doc_tipo", "doc_numero", "doc_emissor", "sexo", "estado_civil",
-               "cidade_nascimento", "cep", "rua", "numero", "bairro", "cidade",
-               "estado", "comprovante_em")
-for campo in SO_BASICA:
-    check(f'name="{campo}"' in lp, f"ficha básica mantém o essencial: {campo}")
-faltando = [x for x in SO_COMPLETA if f'name="{x}"' in lp]
-check(not faltando, f"ficha básica não pede campo que a Extecamp não recebe (sobrou: {faltando})")
-for campo in SO_BASICA + SO_COMPLETA:
-    check(f'name="{campo}"' in lp_dep, f"ficha completa segue intacta: {campo}")
-
-# Robô da Extecamp (spec 21) não inscreve sem estes: a ficha completa os exige no
-# navegador (caso Débora, 08/11/2026: ficha sem endereço, inscrição impossível).
-ROBO = ("doc_tipo", "doc_numero", "doc_emissor", "sexo", "genero", "estado_civil",
-        "estado_nascimento", "cidade_nascimento", "cep", "rua", "numero", "bairro",
-        "cidade", "estado")
-def exige(html, x):
-    return bool(re.search(rf'name="{x}"[^>]*\srequired', html))
-sem_req = [x for x in ROBO + SO_BASICA if not exige(lp_dep, x)]
-check(not sem_req, f"ficha completa exige tudo que o robô precisa (faltou: {sem_req})")
-check(not exige(lp_dep, "complemento"), "complemento segue opcional")
-check(all(exige(lp, x) for x in SO_BASICA)
-      and not any(exige(lp, x) for x in ROBO),
-      "ficha básica só exige CPF, nascimento e pagamento")
-
-check("{{E2_" not in lp and "{{E2_" not in lp_dep, "nenhum token de ficha vazou para o HTML")
-check("Leva menos de 1 minuto" in lp and "Leva cerca de 3 minutos" in lp_dep,
-      "o tempo prometido acompanha o tamanho real do formulário")
+# ------------------------------------------- 4) etapa 2 = pré-inscrição qualificada
+# Desde 26/11/2026 a etapa 2 não pede dado de matrícula (CPF, endereço...): o lead
+# confirma requisito, valor, modalidade/datas e boleto, e o consultor formaliza.
+DADOS = ("cpf", "nascimento", "doc_numero", "cep", "rua", "sexo", "comprovante_em")
+for html_lp, nome in ((lp, "0295"), (lp_dep, "0670")):
+    sobrou = [x for x in DADOS if f'name="{x}"' in html_lp]
+    check(not sobrou, f"{nome}: etapa 2 não pede dado de matrícula (sobrou: {sobrou})")
+    check(html_lp.count("<fieldset data-decl=") == 4, f"{nome}: quatro pontos a confirmar")
+    check("de 4 pontos confirmados" in html_lp, f"{nome}: contador bate com os pontos")
+    for k in ("decl_requisito", "forma_pagamento", "decl_modalidade", "decl_boleto"):
+        check(re.search(rf'name="{k}"[^>]*\srequired', html_lp), f"{nome}: {k} é obrigatório")
+check("Tenho ensino médio completo." in lp, "requisito declarado vem da ontologia (0295: médio)")
+check("Estou ciente de que o primeiro boleto será emitido em 03/02/2027, logo após o "
+      "encerramento das inscrições em 01/02/2027." in lp,
+      "0295: data do boleto declarada e fim das inscrições na frase do boleto")
+check("logo após o encerramento das inscrições em 01/01/2027." in lp_dep
+      and "emitido em" not in lp_dep.split("decl_boleto")[1][:400],
+      "0670 sem data de boleto declarada: a frase não inventa o dia (spec 17 §3e)")
+check("{{E2_" not in lp and "{{E2_" not in lp_dep, "nenhum token da etapa 2 vazou para o HTML")
+check("Concluir pré-inscrição" in lp and "Fale com um consultor no WhatsApp" in lp,
+      "botão nomeia a ação e há saída humana para quem não se encaixa")
 
 print(f"\n{ok} checks OK — captação antecipada")

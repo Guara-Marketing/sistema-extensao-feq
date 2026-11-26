@@ -4,6 +4,12 @@
 `atena/tests/test_inscricao_extecamp.py`). Dry-run conferido contra o formulário real
 (FEQ-0480/009). **Primeira inscrição real feita** (06/11/2026, ver § Fluxo); ver § Ativação.
 
+> **26/11/2026 — a LP deixou de colher a ficha.** A etapa 2 virou pré-inscrição
+> qualificada (spec 17 §7b): o lead só confirma requisito, valor, modalidade/datas e
+> boleto. Os dados da matrícula o **consultor** colhe na conversa e lança pelo
+> preenchimento assistido (abaixo). O disparo automático (`INSCRICAO_AUTO=1`) só roda
+> para ficha que traga CPF — na prática, nenhuma vinda da LP nova.
+
 ## Objetivo
 A ficha que o lead entrega na etapa 2 da LP (spec 17) é lançada pelo robô no
 formulário público de inscrição do curso — o mesmo que o lead preencheria — e o link
@@ -123,7 +129,8 @@ completa o vazio, exceto as escolhas do curso (pagamento, misto, como soube, con
   envia, o link fica na ficha para envio manual.
 - Falha → `inscricoes.robo_obs` + alerta `inscricao` na caixa de Notificações.
 - **Automático**: `INSCRICAO_AUTO=1` no `.env` faz o robô rodar em thread assim que a
-  etapa 2 chega (`/webhook/inscricao`). Sem a flag, só pelo botão.
+  etapa 2 chega (`/webhook/inscricao`) **com CPF** (desde 26/11/2026 a etapa 2 da LP é
+  pré-inscrição sem dados: o robô não dispara). Sem a flag, só pelo botão.
 
 ## Preenchimento assistido (desde 25/11/2026)
 Com o reCAPTCHA, quem envia a ficha é uma pessoa; o robô faz a leitura e o operador só cola.

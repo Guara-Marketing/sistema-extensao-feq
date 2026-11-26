@@ -254,14 +254,24 @@ check("formulário" in b0480 and "boletos" in b0480,
       "agente sabe explicar por que o formulário da Extecamp mostra o valor cheio")
 
 # ------------------------------------------------------- 9) a ficha de inscrição (nossa)
-ops = P._opcoes_pagamento(c0480)
+ops = " | ".join(v for v, _, _ in P._opcoes_pagamento(c0480))
 check("19 PARCELA(S) DE R$ 799,90" in ops and "01 PARCELA(S) DE R$ 13.987,39 À VISTA" in ops,
       "ficha oferece o parcelado promocional e o à vista com desconto")
 check("866,09" not in ops and "16.455,75" not in ops,
       "opções de tabela cobertas pela campanha saem (à vista não parece mais caro)")
 check(ops.count("Valor promocional") == 2, "cada opção da campanha leva o nome dela")
-ops670 = P._opcoes_pagamento(c0670)
+ops670 = " | ".join(v for v, _, _ in P._opcoes_pagamento(c0670))
 check("PARCELA(S)" in ops670 and "À VISTA" in ops670, "curso sem campanha mantém as opções de tabela")
+legivel = [(t, d) for _, t, d in P._opcoes_pagamento(c0480)]
+check(legivel == [("19x de R$ 799,90", legivel[0][1]), ("R$ 13.987,39 à vista", legivel[1][1])]
+      and all("Valor promocional" in d for _, d in legivel),
+      "etapa 2 mostra ao lead 19x de R$ 799,90 e R$ 13.987,39 à vista, com o nome da campanha")
+e2 = P._etapa2_html(c0480)
+check(e2.count('type="radio" name="forma_pagamento"') == 2 and "Mais a taxa de inscrição de R$ 69,00 (boleto ou cartão de crédito)." in e2,
+      "investimento: parcelado e à vista como opções + a taxa de inscrição dita")
+check("primeiro boleto será emitido em 08/01/2027, logo após o encerramento das inscrições "
+      "em 03/01/2027" in e2, "0480: datas do boleto e do fim das inscrições da ontologia")
+check("Tenho ensino superior completo" in e2, "0480 exige superior completo e pede a declaração")
 
 from atena.coleta.inscricao import _parcelas
 check(_parcelas("19 PARCELA(S) DE R$ 799,90 ATRAVÉS DE BOLETO BANCÁRIO — Valor promocional") == 19,

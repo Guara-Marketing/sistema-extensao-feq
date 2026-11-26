@@ -265,55 +265,34 @@
   </div>
 </div>
 
-<!-- ETAPA 2 — ficha completa. Só aqui a conversão conta: o Pixel dispara no submit
-     deste formulário, não no da etapa 1 (spec 17 §7). Nome/e-mail/telefone não se
-     repetem: vieram da etapa 1 e já estão guardados. -->
-<div id="etapa2" class="e2-overlay hidden">
+<!-- ETAPA 2 — pré-inscrição qualificada (26/11/2026). O lead confirma, ponto a ponto,
+     requisito, valor, modalidade/datas e boleto (tudo da ontologia, ponte._declaracoes).
+     Só aqui a conversão conta: o Pixel dispara no submit deste formulário, não no da
+     etapa 1 (spec 17 §7). Os dados da matrícula o consultor colhe na conversa. -->
+<div id="etapa2" class="e2-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="e2-titulo">
   <div class="e2-caixa">
-    <p class="kicker">Etapa 2 de 2</p>
-    <h3 class="titulo mt-2">Complete sua inscrição</h3>
-    <p class="sub mt-2">Olá, <span id="e2-nome" class="destaque"></span>! Estes são os dados que a
-      Extecamp pede para efetivar a matrícula. {{E2_TEMPO}}</p>
+    <p class="kicker">Etapa 2 de 2 · Pré-inscrição</p>
+    <h3 id="e2-titulo" class="titulo mt-2">Confirme as condições da turma</h3>
+    <p class="sub mt-2">Olá, <span id="e2-nome" class="destaque"></span>! Marque cada ponto
+      abaixo. Assim sua pré-inscrição fica pronta e o consultor já chega sabendo que a turma
+      cabe na sua rotina e no seu orçamento.</p>
 
     <form id="etapa2-form" novalidate>
-      <fieldset>
-        <legend class="e2-legenda">Dados pessoais</legend>
-        <div class="e2-grid">
-          <div><label class="lbl" for="cpf">CPF *</label>
-            <input id="cpf" name="cpf" required inputmode="numeric" placeholder="000.000.000-00" maxlength="14" class="inp"></div>
-          <div><label class="lbl" for="nascimento">Data de nascimento *</label>
-            <input id="nascimento" name="nascimento" type="date" required class="inp"></div>
-{{E2_PESSOAIS_EXTRA}}
-        </div>
-      </fieldset>
-
-{{E2_ENDERECO}}
-
-      <fieldset>
-        <legend class="e2-legenda">Pagamento</legend>
-        <div class="e2-grid">
-          <!-- as opções JÁ vêm com o preço com desconto da campanha: este formulário é
-               nosso, então não há mais o aviso "o formulário da Extecamp mostra o
-               valor cheio" — o valor escolhido aqui é o que vale. -->
-          <div class="e2-largo"><label class="lbl" for="forma_pagamento">Forma de pagamento *</label>
-            <select id="forma_pagamento" name="forma_pagamento" required class="inp">
-              <option value="">Selecione…</option>
-              {{OPCOES_PAGAMENTO}}
-            </select></div>
-{{E2_PAGAMENTO_EXTRA}}
-        </div>
-      </fieldset>
+{{E2_DECLARACOES}}
 
       <p class="e2-privacidade">
-        Estes dados são usados exclusivamente para efetivar sua inscrição junto à Escola de
-        Extensão da Unicamp (Extecamp) e para o contato sobre este curso. Você pode pedir a
-        correção ou a exclusão a qualquer momento pelos nossos canais oficiais.
+        Suas confirmações ficam registradas na sua pré-inscrição e só são usadas para o
+        contato sobre este curso. Você pode pedir a correção ou a exclusão a qualquer
+        momento pelos nossos canais oficiais.
       </p>
-      <p id="erro-e2" class="erro hidden mt-2"></p>
-      <div class="mt-3">
-        <button id="e2-enviar" type="submit" class="btn btn-bloco">Concluir inscrição</button>
+      <p class="e2-contador" aria-live="polite"><strong id="e2-feitos">0</strong> de {{E2_TOTAL}} pontos confirmados</p>
+      <div class="mt-2">
+        <button id="e2-enviar" type="submit" class="btn btn-bloco">Concluir pré-inscrição</button>
       </div>
-      <p class="e2-obrig">* campos obrigatórios</p>
+      <p id="erro-e2" class="erro hidden mt-2" role="status"></p>
+      <p class="e2-saida">Algum ponto não se encaixa no seu caso?
+        <a href="{{WA_LINK}}" target="_blank" rel="noopener">Fale com um consultor no WhatsApp</a>
+        antes de concluir.</p>
     </form>
   </div>
 </div>

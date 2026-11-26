@@ -449,66 +449,6 @@ def _secao_curriculo(c):
         '</section>')
 
 
-# Blocos da etapa 2 que existem SÓ na ficha completa. A Extecamp usa duas fichas de
-# inscrição e cada proposta de oferecimento declara qual ("Ficha de Inscrição a ser
-# utilizada: BÁSICA/COMPLETA"). Pedir ao lead um dado que a ficha da Extecamp nem
-# recebe cobra o preço mais caro da LP — abandono no meio do formulário — e não
-# entrega nada a ninguém: o operador transcreve campo a campo o que a Extecamp pede.
-# O que sobra na básica é o mínimo para existir uma inscrição: quem é (CPF +
-# nascimento) e como paga.
-_E2_PESSOAIS_EXTRA = """          <div><label class="lbl" for="doc_tipo">Tipo de documento *</label>
-            <select id="doc_tipo" name="doc_tipo" required class="inp"><option value="">Selecione…</option>
-              <option>RG</option><option value="CIN">CIN – Carteira de Identidade Nacional</option>
-              <option>RNE</option><option>RNM</option><option>Passaporte</option></select></div>
-          <div><label class="lbl" for="doc_numero">Número do documento *</label>
-            <input id="doc_numero" name="doc_numero" required class="inp" placeholder="com o hífen, se tiver"></div>
-          <div><label class="lbl" for="doc_emissor">Estado emissor *</label>
-            <input id="doc_emissor" name="doc_emissor" required maxlength="2" placeholder="SP" class="inp"></div>
-          <div><label class="lbl" for="sexo">Sexo *</label>
-            <select id="sexo" name="sexo" required class="inp"><option value="">Selecione…</option>
-              <option>Feminino</option><option>Masculino</option></select></div>
-          <div><label class="lbl" for="genero">Gênero *</label>
-            <select id="genero" name="genero" required class="inp"><option value="">Selecione…</option>
-              <option>Mulher cisgênero</option><option>Homem cisgênero</option><option>Mulher trans</option>
-              <option>Homem trans/transmasculino</option><option>Travesti</option>
-              <option>Pessoa não binária/agênero</option><option>Prefere não responder</option></select></div>
-          <div><label class="lbl" for="estado_civil">Estado civil *</label>
-            <select id="estado_civil" name="estado_civil" required class="inp"><option value="">Selecione…</option>
-              <option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option>
-              <option>Separado(a) judicialmente</option><option>Viúvo(a)</option><option>União estável</option></select></div>
-          <div><label class="lbl" for="estado_nascimento">Estado onde nasceu *</label>
-            <input id="estado_nascimento" name="estado_nascimento" required maxlength="2" placeholder="SP" class="inp"></div>
-          <div><label class="lbl" for="cidade_nascimento">Cidade onde nasceu *</label>
-            <input id="cidade_nascimento" name="cidade_nascimento" required class="inp"></div>
-          <div><label class="lbl" for="deficiencia">Possui alguma deficiência?</label>
-            <select id="deficiencia" name="deficiencia" class="inp"><option value="Não">Não</option>
-              <option>Cegueira</option><option>Baixa Visão</option><option>Surdez</option>
-              <option>Surdocegueira</option><option value="Deficiencia Fisica">Deficiência física</option>
-              <option>Outra</option></select></div>
-"""
-
-_E2_ENDERECO = """      <fieldset>
-        <legend class="e2-legenda">Endereço</legend>
-        <div class="e2-grid">
-          <div><label class="lbl" for="cep">CEP *</label>
-            <input id="cep" name="cep" required inputmode="numeric" placeholder="00000-000" maxlength="9" class="inp"></div>
-          <div><label class="lbl" for="rua">Rua *</label><input id="rua" name="rua" required class="inp"></div>
-          <div><label class="lbl" for="numero">Número *</label><input id="numero" name="numero" required class="inp"></div>
-          <div><label class="lbl" for="complemento">Complemento</label><input id="complemento" name="complemento" class="inp"></div>
-          <div><label class="lbl" for="bairro">Bairro *</label><input id="bairro" name="bairro" required class="inp"></div>
-          <div><label class="lbl" for="cidade">Cidade *</label><input id="cidade" name="cidade" required class="inp"></div>
-          <div><label class="lbl" for="estado">Estado *</label>
-            <input id="estado" name="estado" required maxlength="2" placeholder="SP" class="inp"></div>
-        </div>
-      </fieldset>
-"""
-
-_E2_PAGAMENTO_EXTRA = """          <div class="e2-largo"><label class="lbl" for="comprovante_em">Comprovante de pagamento em nome de</label>
-            <select id="comprovante_em" name="comprovante_em" class="inp">
-              <option>Aluno</option><option>Empresa</option></select></div>
-"""
-
-
 def _documento(c):
     """Difusão a distância emite DECLARAÇÃO de frequência, não certificado (ontologia,
     `certificacao`) — mesma regra de pdf_guia._certificado, para a LP não prometer um
@@ -527,21 +467,22 @@ def _plano_exibicao(c):
     return {**c, "plano": {**p, "n": None}}
 
 
-def _etapa2_blocos(c):
-    """Campos da etapa 2 conforme a ficha declarada pelo curso. Default: completa —
-    curso sem o campo declarado mantém exatamente o formulário que já estava no ar."""
-    if ((c or {}).get("ficha_inscricao") or "completa") == "basica":
-        return {"E2_TEMPO": "Leva menos de 1 minuto.", "E2_PESSOAIS_EXTRA": "",
-                "E2_ENDERECO": "", "E2_PAGAMENTO_EXTRA": ""}
-    return {"E2_TEMPO": "Leva cerca de 3 minutos.", "E2_PESSOAIS_EXTRA": _E2_PESSOAIS_EXTRA,
-            "E2_ENDERECO": _E2_ENDERECO, "E2_PAGAMENTO_EXTRA": _E2_PAGAMENTO_EXTRA}
+_REQUISITO_DECL = {
+    # A frase que o lead DECLARA (1ª pessoa). Sem exigência ("nenhum") não há o que
+    # declarar: o bloco some e a etapa 2 fica com três pontos em vez de quatro.
+    "medio": "Tenho ensino médio completo.",
+    "superiorIncompleto": "Estou cursando ou já concluí um curso superior.",
+    "superiorCompleto": "Tenho ensino superior completo (graduação concluída em qualquer área).",
+    "pos": "Tenho pós-graduação concluída.",
+}
 
 
 def _opcoes_pagamento(c):
-    """<option> da etapa 2, no formato que a Extecamp usa no próprio formulário:
-    sempre o parcelamento MÁXIMO e a opção à vista, ambos boleto. Vem do plano da
-    ontologia — a mesma fonte que o Revisor usa para validar preço, então o que o
-    lead escolhe aqui não pode divergir do que o agente pode afirmar."""
+    """Opções de pagamento da etapa 2: [(valor, titulo, detalhe)]. `valor` fica no
+    formato que a Extecamp usa no próprio formulário (o consultor o reconhece na
+    Central); título/detalhe são o que o lead lê. Sempre o parcelamento MÁXIMO e o à
+    vista, vindos do plano da ontologia — a mesma fonte que o Revisor usa para validar
+    preço, então o que o lead aceita aqui não pode divergir do que o agente afirma."""
     p = (c or {}).get("plano") or {}
     pr = (c or {}).get("promocao") or {}
     ofs = pr.get("ofertas", [])
@@ -550,28 +491,106 @@ def _opcoes_pagamento(c):
     # ficha mostrava 19x de R$ 866,09 ao lado de 19x de R$ 799,90, e R$ 16.455,75 à
     # vista acima do parcelado promocional — o à vista parecia o mais caro.
     if p.get("n") and p.get("valor_parcela") and not any(o.get("n") == p["n"] for o in ofs):
-        ops.append(f"{int(p['n']):02d} PARCELA(S) DE {_moeda(p['valor_parcela'])} "
-                   f"ATRAVÉS DE BOLETO BANCÁRIO")
+        ops.append((f"{int(p['n']):02d} PARCELA(S) DE {_moeda(p['valor_parcela'])} "
+                    f"ATRAVÉS DE BOLETO BANCÁRIO",
+                    f"{int(p['n'])}x de {_moeda(p['valor_parcela'])}", "no boleto"))
     if p.get("a_vista") and not any(o.get("a_vista") for o in ofs):
-        ops.append(f"01 PARCELA(S) DE {_moeda(p['a_vista'])} À VISTA, "
-                   f"ATRAVÉS DE BOLETO BANCÁRIO")
-    # Campanha vigente: as ofertas promocionais entram ALÉM das de tabela, JÁ COM O
-    # PREÇO COM DESCONTO — este formulário é nosso, então o lead escolhe aqui o valor
-    # que vai valer (não existe mais o "o formulário mostra o valor cheio" da Extecamp).
-    # Cada linha leva o nome da campanha: sem isso, uma oferta cujo rótulo fala em
-    # grupo faz o lead achar que o preço à vista também exige grupo.
+        ops.append((f"01 PARCELA(S) DE {_moeda(p['a_vista'])} À VISTA, "
+                    f"ATRAVÉS DE BOLETO BANCÁRIO",
+                    f"{_moeda(p['a_vista'])} à vista", "boleto único"))
+    # Campanha vigente: as ofertas entram JÁ COM O PREÇO COM DESCONTO. Cada linha leva
+    # o nome da campanha: sem isso, uma oferta cujo rótulo fala em grupo faz o lead
+    # achar que o preço à vista também exige grupo.
     campanha = pr.get("rotulo") or "promoção"
     for o in ofs:
         pct = f" −{o['desconto_pct']}%" if o.get("desconto_pct") else ""
         cond = f": {o['rotulo']}" if o.get("rotulo") else ""
         if o.get("n") and o.get("valor_parcela"):
-            ops.append(f"{int(o['n']):02d} PARCELA(S) DE {_moeda(o['valor_parcela'])} "
-                       f"ATRAVÉS DE BOLETO BANCÁRIO — {campanha}{cond}{pct}")
+            ops.append((f"{int(o['n']):02d} PARCELA(S) DE {_moeda(o['valor_parcela'])} "
+                        f"ATRAVÉS DE BOLETO BANCÁRIO — {campanha}{cond}{pct}",
+                        f"{int(o['n'])}x de {_moeda(o['valor_parcela'])}",
+                        f"no boleto · {campanha}{pct}"))
         if o.get("a_vista"):
-            ops.append(f"01 PARCELA(S) DE {_moeda(o['a_vista'])} À VISTA, ATRAVÉS DE "
-                       f"BOLETO BANCÁRIO — {campanha}{pct}")
-    # dedupe preservando a ordem: duas ofertas podem repetir o mesmo à vista
-    return "\n".join(f'<option>{_esc(o)}</option>' for o in dict.fromkeys(ops))
+            ops.append((f"01 PARCELA(S) DE {_moeda(o['a_vista'])} À VISTA, ATRAVÉS DE "
+                        f"BOLETO BANCÁRIO — {campanha}{pct}",
+                        f"{_moeda(o['a_vista'])} à vista", f"boleto único · {campanha}{pct}"))
+    # dedupe pelo valor, preservando a ordem: duas ofertas podem repetir o mesmo à vista
+    return list({v: (v, t, d) for v, t, d in reversed(ops)}.values())[::-1]
+
+
+def _attr(v):
+    return html.escape(str(v), quote=True)
+
+
+def _declaracoes(c):
+    """Os pontos da etapa 2, na ordem em que aparecem: [(chave, título, frase)].
+    `forma_pagamento` é um grupo de opções (radio), os demais são um checkbox cada.
+    Tudo derivado da ontologia: requisito, modalidade, calendário, datas do boleto."""
+    c = c or {}
+    out = []
+    if c.get("requisito") in _REQUISITO_DECL:
+        out.append(("decl_requisito", "Escolaridade", _REQUISITO_DECL[c["requisito"]]))
+    out.append(("forma_pagamento", "Investimento",
+                "Estou de acordo com o valor do curso e escolho como pagar:"))
+    mod = (c.get("modalidade") or "").strip()
+    mod = (mod[:1].lower() + mod[1:]) if mod else "do curso"
+    hor = (c.get("horario") or "").strip()
+    if c.get("continuo"):
+        frase = f"Estou de acordo com a modalidade {mod}" + (f": {hor}." if hor else ".")
+    else:
+        frase = f"Estou de acordo com a modalidade {mod}"
+        if c.get("aulas_inicio") and c.get("aulas_fim"):
+            frase += (f" e com as datas da turma: aulas de {_ddmm(c['aulas_inicio'])} "
+                      f"a {_ddmm(c['aulas_fim'])}")
+        frase += (f", {hor}." if hor else ".")
+    out.append(("decl_modalidade", "Modalidade e datas", frase))
+    fim, bol = _ddmm(c.get("inscricoes_fim")), _ddmm(c.get("boleto_data"))
+    # spec 17 §3e: a data do boleto NUNCA é derivada do prazo — sem `boleto_data`
+    # declarada, a frase diz só "logo após o encerramento", sem inventar o dia.
+    if c.get("continuo") or not fim:
+        frase = "Estou ciente de que o boleto é emitido logo após a formalização da inscrição."
+    elif bol:
+        frase = (f"Estou ciente de que o primeiro boleto será emitido em {bol}, logo após "
+                 f"o encerramento das inscrições em {fim}.")
+    else:
+        frase = (f"Estou ciente de que o primeiro boleto será emitido logo após o "
+                 f"encerramento das inscrições em {fim}.")
+    out.append(("decl_boleto", "Primeiro boleto", frase))
+    return out
+
+
+def _etapa2_html(c):
+    """Etapa 2 = qualificação (desde 26/11/2026): o lead confirma, ponto a ponto, que
+    atende ao requisito e aceita valor, modalidade/datas e data do boleto. Substituiu
+    a ficha de dados (CPF, endereço...) — os dados da matrícula agora são colhidos
+    pelo consultor, que formaliza a inscrição na Extecamp. O `value` de cada checkbox
+    é a própria frase: a pré-inscrição guarda o texto exato que a pessoa declarou."""
+    blocos = []
+    for i, (k, titulo, frase) in enumerate(_declaracoes(c), 1):
+        erro = f'<p id="erro-{k}" class="erro decl-erro hidden">' + (
+            "Escolha a forma de pagamento para continuar." if k == "forma_pagamento"
+            else "Marque esta confirmação para continuar.") + "</p>"
+        if k == "forma_pagamento":
+            opcoes = "".join(
+                f'<label class="decl decl-opcao"><input type="radio" name="forma_pagamento" '
+                f'value="{_attr(v)}" required aria-describedby="erro-{k}">'
+                f'<span class="decl-txt"><strong>{_esc(t)}</strong>'
+                f'<span class="decl-det">{_esc(d)}</span></span></label>'
+                for v, t, d in _opcoes_pagamento(c))
+            p = (c or {}).get("plano") or {}
+            nota = (f'<p class="decl-det decl-nota">Mais a taxa de inscrição de '
+                    f'{_moeda(p["taxa"])}' + (f' ({_esc(p["taxa_meios"])})' if p.get("taxa_meios")
+                                             else "") + '.</p>') if _moeda(p.get("taxa")) else ""
+            corpo = (f'<p class="decl-intro">{_esc(frase)}</p>'
+                     f'<div class="decl-opcoes">{opcoes}</div>{nota}')
+        else:
+            corpo = (f'<label class="decl"><input type="checkbox" name="{k}" '
+                     f'value="{_attr(frase)}" required aria-describedby="erro-{k}">'
+                     f'<span class="decl-txt">{_esc(frase)}</span></label>')
+        blocos.append(f'<fieldset data-decl="{k}">'
+                      f'<legend class="e2-legenda"><span class="decl-n">{i}</span>{titulo}</legend>'
+                      f'{corpo}{erro}</fieldset>')
+    return "\n".join(blocos)
 
 
 def _conteudo_html(texto):
@@ -980,8 +999,8 @@ def _passos_html(c, antecipada=False, abre_em=""):
     quando = f" O boleto desta turma é de {_ddmm(c.get('boleto_data'))}." if c.get("boleto_data") else ""
     if antecipada:
         passos = [
-            "Preencha a ficha de inscrição aqui mesmo nesta página — leva menos de um minuto "
-            "e garante o seu lugar na turma.",
+            "Faça a pré-inscrição aqui mesmo nesta página: deixe seu contato e confirme as "
+            "condições da turma. Leva cerca de um minuto e garante o seu lugar.",
             "A Extensão FEQ registra a sua inscrição no sistema oficial da Unicamp (Extecamp) "
             + (f"assim que ele abrir para esta turma, em {abre_em}. " if abre_em
                else "assim que ele abrir para esta turma. ")
@@ -1000,8 +1019,9 @@ def _passos_html(c, antecipada=False, abre_em=""):
         p = c.get("plano") or {}
         plat = f" ({_esc(c['plataforma'])})" if c.get("plataforma") else ""
         passos = [
-            "Preencha o formulário de inscrição no sistema oficial da Unicamp (Extecamp) e "
-            "aguarde o e-mail com as instruções de acesso ao portal do aluno.",
+            "Faça a pré-inscrição aqui nesta página. Um consultor da Extensão FEQ fala com "
+            "você pelo WhatsApp e formaliza a inscrição no sistema oficial da Unicamp "
+            "(Extecamp); você recebe por e-mail as instruções de acesso ao portal do aluno.",
             f"Pague o curso ({_moeda(p.get('a_vista'))} à vista) por boleto bancário ou cartão "
             f"de crédito. A taxa de inscrição ({taxa}) é somada a esse valor.",
             f"Estude no seu horário: o oferecimento é contínuo, sem turma a esperar, e o "
@@ -1010,15 +1030,17 @@ def _passos_html(c, antecipada=False, abre_em=""):
             f'<li class="passo"><span class="passo-n">{i + 1}</span><span>{p}</span></li>'
             for i, p in enumerate(passos))
     passos = [
-        "Preencha o formulário de inscrição no sistema oficial da Unicamp (Extecamp) e aguarde "
-        "o e-mail com as instruções de acesso ao portal do aluno e o termo de compromisso.",
-        "Baixe e preencha o termo de compromisso e envie os documentos na aba "
-        "“Documentos” do portal do aluno.",
+        "Faça a pré-inscrição aqui nesta página: deixe seu contato e confirme as condições "
+        "da turma (requisito, valor, modalidade e datas).",
+        "Um consultor da Extensão FEQ fala com você pelo WhatsApp e formaliza a inscrição no "
+        "sistema oficial da Unicamp (Extecamp). Você recebe por e-mail as instruções de "
+        "acesso ao portal do aluno e o termo de compromisso.",
+        "Preencha o termo de compromisso e envie os documentos na aba “Documentos” do "
+        "portal do aluno.",
         f"Pague o boleto da taxa de inscrição ({taxa}).{quando}",
-        "Aguarde a validação da documentação e a confirmação de abertura da turma "
-        "(ao encerramento das inscrições).",
-        "Com a turma confirmada, a secretaria entra em contato por e-mail para o pagamento "
-        "e a efetivação da matrícula. Pronto — você é aluno da Extensão Unicamp!"]
+        "Com a documentação validada e a turma confirmada (ao encerramento das inscrições), "
+        "a secretaria entra em contato por e-mail para o pagamento e a efetivação da "
+        "matrícula. Pronto — você é aluno da Extensão Unicamp!"]
     itens = "\n    ".join(
         f'<li class="passo"><span class="passo-n">{i + 1}</span><span>{p}</span></li>'
         for i, p in enumerate(passos))
@@ -1248,20 +1270,22 @@ def render_tokens(meta_row, c, aberto=True, recuperavel=False,
         "FAQ_COMO_INSCREVER": (
             '<details class="qa">'
             '<summary>Como funciona a inscrição?</summary>'
-            '<p>Ao clicar em Inscreva-se, você preenche a ficha desta página (nome e contato, '
-            'depois os dados da matrícula) e a sua vaga fica registrada conosco. O sistema '
-            f'oficial da Unicamp (Extecamp) abre para a turma {meta_row["curso"]}/'
-            f'{meta_row["turma"]} em {abre_em}'
-            ' — a Extensão FEQ conclui o seu registro lá e te avisa por e-mail, com o termo de '
-            'compromisso, o envio de documentos e o boleto da taxa de inscrição.</p></details>'
+            '<p>Ao clicar em Inscreva-se, você deixa seu contato e confirma as condições da '
+            'turma (requisito, valor, modalidade e datas): é a sua pré-inscrição, e a vaga fica '
+            'registrada conosco. O sistema oficial da Unicamp (Extecamp) abre para a turma '
+            f'{meta_row["curso"]}/{meta_row["turma"]} em {abre_em}'
+            ' — um consultor da Extensão FEQ fala com você pelo WhatsApp, formaliza a inscrição '
+            'lá e orienta o termo de compromisso, os documentos e o boleto da taxa de '
+            'inscrição.</p></details>'
             if (aberto and antecipada) else
             '<details class="qa">'
             '<summary>Como funciona a inscrição?</summary>'
-            '<p>Ao clicar em Inscreva-se, você preenche a ficha desta página (nome e contato, '
-            'depois os dados da matrícula) e segue para o formulário oficial da Extecamp '
-            f'(sistema da Unicamp), onde a inscrição da turma {meta_row["curso"]}/'
-            f'{meta_row["turma"]} é concluída — com taxa de inscrição, envio de documentos e '
-            'boletos gerados por lá.</p></details>'
+            '<p>Ao clicar em Inscreva-se, você deixa seu contato e confirma as condições da '
+            'turma (requisito, valor, modalidade e datas): é a sua pré-inscrição. Em seguida, '
+            'um consultor da Extensão FEQ fala com você pelo WhatsApp e formaliza a inscrição da '
+            f'turma {meta_row["curso"]}/{meta_row["turma"]} no sistema oficial da Unicamp '
+            '(Extecamp) — com taxa de inscrição, envio de documentos e boletos gerados por '
+            'lá.</p></details>'
             if aberto else
             ('<details class="qa">'
              '<summary>O prazo acabou. Ainda dá para entrar?</summary>'
@@ -1345,15 +1369,13 @@ def render(g, ont, curso, webhook_url="/webhook/ponte", hoje=None):
     css = ((_WEB / "bridge.css").read_text()
            .replace("{{HERO_BG_URL}}", hero_bg)
            .replace("{{CV_FOTO_URL}}", os.environ.get("GROWTH_CV_FOTO_URL") or CV_FOTO_URL))
-    for _k, _v in _etapa2_blocos(c).items():        # ficha básica x completa
-        pagina = pagina.replace("{{%s}}" % _k, _v)
     return (pagina
             .replace("{{CURSOS_RELACIONADOS_HTML}}", _cursos_relacionados_html(g, ont, curso))
             .replace("{{WEBHOOK_URL}}", webhook_url)
             .replace("{{SECAO_EMPRESAS}}", _secao_empresas(c))
             .replace("{{SECAO_CURRICULO}}", _secao_curriculo(c))
-            .replace("{{OPCOES_PAGAMENTO}}", _opcoes_pagamento(c))
-            .replace("{{E2_TEMPO}}", _etapa2_blocos(c)["E2_TEMPO"])
+            .replace("{{E2_DECLARACOES}}", _etapa2_html(c))
+            .replace("{{E2_TOTAL}}", str(len(_declaracoes(c))))
             .replace("{{REQUISITO_AVISO}}",
                      _esc(_REQUISITO_TEXTO.get((c or {}).get("requisito"), "")))
             .replace("{{LOGO_URL}}", logo)
@@ -1364,10 +1386,9 @@ def render(g, ont, curso, webhook_url="/webhook/ponte", hoje=None):
 def pagina_obrigado_html():
     """/lp-thank-you-page/ — FIM da jornada da LP (spec 17 §7).
 
-    Deixou de ser interstício para a Extecamp: o lead entregou a ficha completa na
-    etapa 2, então mandá-lo preencher tudo de novo no formulário oficial seria pedir
-    a mesma coisa duas vezes. A transcrição é trabalho do time (aba Verificação), e
-    esta página diz exatamente isso — que a Extensão FEQ entra em contato.
+    O lead concluiu a pré-inscrição (etapa 2: confirmou requisito, valor, modalidade
+    e boleto). Quem formaliza a matrícula na Extecamp é o consultor, e esta página
+    diz exatamente isso — que um consultor de Extensão entra em contato.
     O path continua começando com 'thank-you-page' porque é o que o gatilho de
     conversão do Google Ads/GTM (GTM-WPXLCWJ, já no <head> do site) observa.
     Mesmos seletores de bridge.css pra tirar cabeçalho/faixa de título do tema."""
@@ -1406,10 +1427,10 @@ def pagina_obrigado_html():
         f'<div class="lp-obrigado">\n'
         f'  <img src="{logo}" alt="FEQ Unicamp">\n'
         '  <div class="selo">✓</div>\n'
-        '  <p>Inscrição recebida!</p>\n'
-        '  <p>O time da Extensão FEQ Unicamp entra em contato em breve pelo WhatsApp '
-        'para ajudar você a concluir a matrícula. Não precisa preencher mais nada '
-        'agora — seus dados já estão com a gente.</p>\n'
+        '  <p>Pré-inscrição concluída!</p>\n'
+        '  <p>Em breve um de nossos consultores de Extensão entra em contato pelo '
+        'WhatsApp para formalizar a sua matrícula e dar as devidas orientações. '
+        'Não precisa fazer mais nada agora.</p>\n'
         '</div>\n'
         f'<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={gtm_id}" '
         'height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
@@ -1739,15 +1760,20 @@ CAMPOS_ETAPA2 = (
     "experiencia_anos", "superior",
     # financeiro
     "forma_pagamento", "comprovante_em",
+    # qualificação (etapa 2 desde 26/11/2026): a frase exata que o lead confirmou
+    "decl_requisito", "decl_modalidade", "decl_boleto",
 )
 # "Para finalizar" (como ficou sabendo / preferência de contato) saiu do formulário:
 # a origem já vem dos UTMs e do fbclid, e o canal de contato é o WhatsApp que ele
 # acabou de informar — eram dois campos a mais numa ficha que já é longa.
-OBRIGATORIOS_ETAPA2 = ("cpf", "nascimento", "forma_pagamento")
+# Só a forma de pagamento: é o que a etapa 2 nova (qualificação) e a antiga (ficha,
+# ainda em cache de navegador logo após a troca) têm em comum. As confirmações são
+# exigidas no navegador; aqui guardamos o que veio, com a frase de cada uma.
+OBRIGATORIOS_ETAPA2 = ("forma_pagamento",)
 
 
 def processar_etapa2(dados, est, g, ads, ing, ont=None):
-    """Etapa 2 da LP: a ficha completa. É AQUI que a conversão conta (spec 17 §7).
+    """Etapa 2 da LP: a pré-inscrição qualificada. É AQUI que a conversão conta (spec 17 §7).
 
     Só neste ponto sai `inicio_inscricao` -> CAPI InitiateCheckout, com o event_id do
     NAVEGADOR, para desduplicar contra o Pixel que dispara no mesmo submit.
@@ -1785,14 +1811,15 @@ def processar_etapa2(dados, est, g, ads, ing, ont=None):
     funil.registrar(g, ads, est, card_id, "inicio_inscricao",
                     curso=curso, event_id=eid, contexto=contexto)
     if est:
-        # Ficha completa = o lead virou INSCRITO no kanban (pediu a vaga e entregou
-        # CPF, endereço e forma de pagamento). Move só a FASE: o evento de funil
-        # `inscricao_confirmada` — que é o que reporta conversão à Meta e tira o card
-        # da fila de transcrição — continua sendo o gesto humano na aba Verificação,
-        # depois de lançar a inscrição na Extecamp de fato.
-        est.upsert_lead(card_id, fase="Inscrito")
-        est.log_acao("ponte", f"ficha completa recebida ({curso}) — fase movida para "
-                              f"Inscrito, aguardando transcrição na Extecamp", card_id)
-        est.add_alerta("inscricao", f"Ficha completa de {curso} pronta para transcrever na "
-                                    f"Extecamp (lead {card_id})")
+        # Pré-inscrição qualificada = PROSPECT no kanban: confirmou requisito, valor,
+        # modalidade/datas e boleto, mas ainda NÃO está na Extecamp — quem o inscreve
+        # é o consultor, que colhe os dados da matrícula na conversa. Nunca regride
+        # quem já está adiante (a coleta pode ter visto a pessoa inscrita antes).
+        from atena.core.estado import alcancou
+        if not alcancou((est.get_lead(card_id) or {}).get("fase"), "Prospect"):
+            est.upsert_lead(card_id, fase="Prospect")
+        est.log_acao("ponte", f"pré-inscrição qualificada recebida ({curso}) — aguardando "
+                              f"o consultor formalizar a matrícula na Extecamp", card_id)
+        est.add_alerta("inscricao", f"Pré-inscrição de {curso}: consultor deve contatar "
+                                    f"para formalizar a matrícula (lead {card_id})")
     return {"ok": True, "card_id": card_id, "event_id": eid}

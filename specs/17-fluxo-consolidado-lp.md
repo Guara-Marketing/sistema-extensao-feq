@@ -310,21 +310,39 @@ respondeu após o checkout (a conversa passa ao cérebro) e — desde 11/08/2026
 = 'recebida'`): a bola está com a gente, não com ele. Boleto continua esperando 24 h
 para o 1º toque. Teto de 25 envios/passada.
 
-### 7b. O que cada etapa faz com o lead (11/08/2026)
+### 7b. O que cada etapa faz com o lead (atualizado 26/11/2026)
 
-| | Etapa 1 (contato) | Etapa 2 (ficha completa) |
+**Etapa 2 = pré-inscrição qualificada** (desde 26/11/2026). A Extecamp pôs reCAPTCHA
+na ficha (spec 21), e transcrever CPF/endereço deixou de compensar: a etapa 2 virou
+um formulário de **qualificação por declarações**. O lead marca, ponto a ponto:
+
+| # | Ponto | Frase (derivada da ontologia por `ponte._declaracoes`) | Some quando |
+|---|---|---|---|
+| 1 | Escolaridade | "Tenho ensino superior completo…" (`requisito`) | `requisito = nenhum` |
+| 2 | Investimento | escolhe **parcelado** ou **à vista** (`_opcoes_pagamento`, já com a campanha) + nota da taxa de inscrição | — |
+| 3 | Modalidade e datas | "Estou de acordo com a modalidade … e com as datas da turma: aulas de X a Y, horário" | (contínuo: sem datas) |
+| 4 | Primeiro boleto | "…será emitido em `boleto_data`, logo após o encerramento das inscrições em `inscricoes_fim`" | sem `boleto_data`: só "logo após o encerramento…" (§3e: o dia nunca é derivado do prazo) |
+
+Só segue com tudo marcado (erro sob o ponto que faltou, foco no primeiro). O `value`
+de cada checkbox é a própria frase: a pré-inscrição guarda o texto exato que a pessoa
+confirmou. Quem não se encaixa tem a saída "Fale com um consultor no WhatsApp" — o
+contato já foi captado na etapa 1, então desqualificar não perde o lead.
+
+| | Etapa 1 (contato) | Etapa 2 (pré-inscrição qualificada) |
 |---|---|---|
-| Guarda | card no CRM: nome, e-mail, telefone, opt-in, UTMs, sessão | tudo da etapa 1 **+ `inscricoes.dados_json`** (CPF, endereço, pagamento) |
+| Guarda | card no CRM: nome, e-mail, telefone, opt-in, UTMs, sessão | tudo da etapa 1 **+ `inscricoes.dados_json`** (forma de pagamento + `decl_*` com a frase confirmada) |
 | Evento de funil | `etapa1` (sem CAPI) | `inicio_inscricao` → CAPI InitiateCheckout, mesmo `event_id` do Pixel |
-| Fase no kanban | Lead | **Inscrito** (move só a fase; não grava `inscricao_confirmada`) |
-| Aba Verificação | fora (não há o que transcrever) | **entra** — é a fila de transcrição na Extecamp |
-| Régua | 2 h → `feq_lead` ("teve dificuldade?") | fora enquanto a ficha está `recebida` |
-| Fim da jornada | abre a etapa 2 | `/thank-you-page-lp/`: "o time entra em contato para concluir a matrícula" |
+| Fase no kanban | Lead | **Prospect** (nunca regride quem já está adiante) |
+| Aba Inscrições | fora | **entra** — fila do consultor, grupo "Qualificação" |
+| Robô Extecamp (spec 21) | — | **não dispara** (sem CPF não há o que inscrever) |
+| Régua | 2 h → `feq_lead` ("teve dificuldade?") | fora enquanto a pré-inscrição está `recebida` |
+| Fim da jornada | abre a etapa 2 | `/thank-you-page-lp/`: "Pré-inscrição concluída! Em breve um de nossos consultores de Extensão entra em contato…" |
 
-A distinção que sustenta isso: **fase ≠ evento de funil**. A etapa 2 move a fase para
-Inscrito (o lead pediu a vaga e entregou os dados), mas quem reporta conversão à Meta
-e tira o card da fila continua sendo o gesto humano na Verificação, depois de lançar
-a inscrição na Extecamp de verdade (§8).
+Quem formaliza a matrícula é o **consultor**: colhe os dados na conversa, inscreve na
+Extecamp (preenchimento assistido, spec 21) e marca "transcrita" na Central — é esse
+gesto que grava `inscricao_confirmada` e reporta a conversão offline. O backend aceita
+também a ficha antiga (só `forma_pagamento` é obrigatório no servidor) para não perder
+envio de página ainda em cache logo após a troca.
 
 **Nome digitado vence o do perfil** (27/10/2026): se o telefone já tem card (em geral
 criado pelo WhatsApp, com o nome do perfil — "mari 🎀"), a etapa 1 sobrescreve o `nome`
