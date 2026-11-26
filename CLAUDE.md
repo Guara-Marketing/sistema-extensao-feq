@@ -117,7 +117,8 @@ set -a && source .env && set +a
 
 # Sistema v2 (atena/) — PRODUÇÃO no VPS Oracle Cloud 144.33.22.236 (systemd atena+caddy),
 # migrado do Lightsail em 13/10/2026 (atena/ops/RUNBOOK_migracao_vps.md). Chave: ~/.ssh/oracle-b.key
-# https://feq.vitoraugolis.com.br (domínio definitivo) · https://144.33.22.236.sslip.io (fallback por IP)
+# https://feq.guaramedia.com.br (domínio definitivo, em migração desde 26/11/2026) ·
+# https://feq.vitoraugolis.com.br (antigo, servido em paralelo) · https://144.33.22.236.sslip.io (fallback por IP)
 # O Lightsail antigo (3.218.159.36) foi APAGADO em 13/10/2026; o deploy recusa esse IP.
 # Webhooks da Meta (WhatsApp e leadgen) apontam para o domínio desde a mesma data.
 zsh atena/ops/deploy_vps.sh 144.33.22.236 ubuntu   # deploy (rsync; NÃO sobrescreve
@@ -293,4 +294,10 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   sem turma/link na Extecamp ainda. Agente manda a LP (`urlInscricaoLead`); fichas ficam
   pendentes no robô. Quando o link sair: `/api/injetor/oferecimento`, remover o campo e
   reprocessar as fichas (`specs/08`).
+- **Migração de domínio para `feq.guaramedia.com.br`** (26/11/2026): o Caddy já serve os dois
+  domínios (`deploy_vps.sh`). Falta: registro A `feq` → 144.33.22.236 no registro.br (zona
+  guaramedia.com.br); trocar `ATENA_PUBLIC_URL` no `.env` do VPS (o tick horário republica as
+  12 LPs com o webhook novo — conferir uma); trocar as URLs de callback do WhatsApp e do leadgen
+  no app da Meta; atualizar README, `semente.md` e `onboarding/manual-atena.html`. Só depois de
+  alguns dias: tirar o domínio antigo do Caddy e apagar o registro A de `vitoraugolis`.
 - Rotacionar quaisquer segredos que tenham circulado em texto.

@@ -85,13 +85,16 @@ if [ ! -x /usr/local/bin/caddy ]; then
 fi
 IP_PUB=$(curl -4 -fsS ifconfig.me)
 sudo mkdir -p /etc/caddy
-# feq.vitoraugolis.com.br: domínio definitivo (registro A -> este IP). O bloco
+# feq.guaramedia.com.br: domínio definitivo (registro A -> este IP), servido junto
+# com o antigo feq.vitoraugolis.com.br durante a migração (26/11/2026) — LPs em cache
+# e webhooks da Meta ainda podem chamar o antigo. Tirar o antigo daqui só depois de
+# trocar ATENA_PUBLIC_URL, os webhooks da Meta e esperar as LPs republicarem. O bloco
 # sslip.io fica como fallback de acesso direto por IP (útil p/ diagnóstico e
 # enquanto o DNS do domínio não propagou). Caddy emite/renova os dois
 # certificados via ACME sozinho; se o domínio ainda não resolver pra cá, só a
 # tentativa dele falha e tenta de novo depois — o site em sslip.io não é afetado.
 # Outros apps da VM (ex.: guara) ficam em /etc/caddy/*.caddy: o import os preserva a cada deploy.
-printf '%s.sslip.io {\n  reverse_proxy localhost:8095\n}\n\nfeq.vitoraugolis.com.br {\n  reverse_proxy localhost:8095\n}\n\nimport /etc/caddy/*.caddy\n' "$IP_PUB" | sudo tee /etc/caddy/Caddyfile >/dev/null
+printf '%s.sslip.io {\n  reverse_proxy localhost:8095\n}\n\nfeq.guaramedia.com.br, feq.vitoraugolis.com.br {\n  reverse_proxy localhost:8095\n}\n\nimport /etc/caddy/*.caddy\n' "$IP_PUB" | sudo tee /etc/caddy/Caddyfile >/dev/null
 # systemd: app
 sudo tee /etc/systemd/system/atena.service >/dev/null <<EOF
 [Unit]
@@ -125,6 +128,7 @@ sudo systemctl restart caddy          # idem p/ o Caddyfile: já rodando não re
 sleep 4
 echo "--- saúde local:" && curl -fsS localhost:8095/health && echo
 echo "--- URL pública: https://$IP_PUB.sslip.io"
-echo "--- domínio definitivo: https://feq.vitoraugolis.com.br (precisa do registro A -> $IP_PUB)"
+echo "--- domínio definitivo: https://feq.guaramedia.com.br (precisa do registro A -> $IP_PUB)"
+echo "--- domínio antigo (migração): https://feq.vitoraugolis.com.br"
 REMOTE
 echo "==> deploy concluído"
