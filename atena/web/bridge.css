@@ -572,3 +572,9 @@ div:has(> #busca-feq) { display: none !important; }
   .e2-caixa { padding: 2rem 1.25rem 2.5rem; }
   .cta-fixo-in { padding: 0 1rem; }
 }
+/* abaixo de 360px (iPhone SE) preço+relógio+botão não cabem: o botão sai, o CTA fixo
+   do rodapé já leva à inscrição */
+@media (max-width: 359px) {
+  .barra-promo-btn { display: none; }
+  .barra-promo-in { justify-content: center; }
+}
