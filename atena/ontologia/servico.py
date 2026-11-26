@@ -140,6 +140,7 @@ class Ontologia:
             return None
         hoje = hoje or datetime.date.today()
         ini, fim = self._janela(promo, FEQ.janela)
+        ciclo = self.g.value(promo, FEQ.contagemCicloHoras)
         if (ini and hoje < ini) or (fim and hoje > fim):
             return None
         ofertas = []
@@ -162,6 +163,8 @@ class Ontologia:
                 "como_aplicar": str(self.g.value(promo, FEQ.comoAplicar) or "") or None,
                 "inicio": ini.isoformat() if ini else None,
                 "fim": fim.isoformat() if fim else None,
+                # contagem regressiva cíclica da LP (horas); None = conta os dias até `fim`
+                "ciclo_h": int(ciclo) if ciclo is not None else None,
                 "ofertas": ofertas}
 
     # ------------------------------------------------------------------ público

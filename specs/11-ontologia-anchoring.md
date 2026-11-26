@@ -92,6 +92,25 @@ mostra o valor CHEIO, o desconto entra nos boletos e o lead precisa avisar após
 inscrição. Sem isso o lead via o preço cheio no formulário e concluía que fora enganado —
 o operador teve de explicar à mão. Como é campo da promoção, morre junto com a campanha.
 
+### Valor promocional FEQ-0480 (26/11/2026 → 03/01/2027)
+19x de R$ 799,90 (tabela: 19x de R$ 866,09) até o fim das inscrições. O à vista com 15%
+(R$ 13.987,39, já previsto em `descontos`) entra como segunda oferta: sem ela a ficha da LP
+mostrava R$ 16.455,75 à vista ao lado de 19x de 799,90 — o à vista parecia o mais caro.
+Aplicado em produção por `atena/ops/promo_0480_nov26.py --aplicar` (via `Versionamento`,
+com rollback) + restart.
+
+- `feq:contagemCicloHoras` (opcional, 1–720) na promoção: a LP troca o "termina em N dias"
+  por um relógio que zera a cada N horas e recomeça. Âncora = meia-noite BRT do início da
+  campanha, então todo visitante vê o mesmo relógio e recarregar não o reinicia; o último
+  ciclo para no fim REAL e, passado o fim, a tarja some. O prazo real (03/01/2027) segue
+  escrito no bloco de investimento.
+- O fim da promoção é FIXO: se as inscrições forem prorrogadas, a promoção precisa ser
+  prorrogada junto (o SHACL só barra o contrário — promoção passando do fim das inscrições).
+- Template de recuperação: `feq_promo_0480` (aprovado na Meta) tem os preços de AGOSTO no
+  corpo e voltaria a ser usado com qualquer campanha nova do curso. `TEMPLATES_PROMO` aponta
+  agora para `feq_promo_0480_v2`; até ela ser aprovada na Meta, o gate de aprovação manda
+  a recuperação para os templates genéricos. Regra: **mudou o preço, muda o nome do template**.
+
 ### Inscrição fora do prazo (✅ implementado)
 `captavel()` tinha só "aberta" e "encerrada". Faltava o caso do meio: **prazo vencido com a
 turma ainda por começar** — há vagas remanescentes e a coordenação gera um link de inscrição

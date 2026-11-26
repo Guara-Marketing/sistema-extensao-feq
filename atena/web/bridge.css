@@ -136,7 +136,8 @@ div:has(> #busca-feq) { display: none !important; }
 .destaque { color: var(--tinta); font-weight: 700; }
 /* dinheiro e relógio em amarelo — sempre sobre fundo azul */
 .inv .destaque, .inv .checklist strong { color: var(--amarelo); }
-[data-prazo-dias] { color: var(--amarelo); font-weight: 700; }
+[data-prazo-dias], [data-contagem] { color: var(--amarelo); font-weight: 700; }
+[data-contagem] { font-variant-numeric: tabular-nums; }
 .numero { font-variant-numeric: tabular-nums; font-weight: 800; letter-spacing: -0.03em; }
 .link { color: var(--tinta); font-weight: 600; text-decoration: underline;
   text-underline-offset: 3px; text-decoration-color: var(--acento); }
@@ -566,6 +567,7 @@ div:has(> #busca-feq) { display: none !important; }
     justify-content: space-between; }
   .barra-promo-tag { display: none; }     /* o preço já identifica a campanha */
   .barra-promo-txt { white-space: nowrap; }
+  .barra-promo .cd-pre { display: none; } /* relógio cíclico: preço · 37:23:01 · botão */
   .barra-promo-btn { font-size: .68rem; padding: .35rem .6rem; white-space: nowrap; }
   .e2-caixa { padding: 2rem 1.25rem 2.5rem; }
   .cta-fixo-in { padding: 0 1rem; }

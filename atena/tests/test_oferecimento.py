@@ -39,10 +39,12 @@ def _setup():
     return est, onto
 
 
+# Turma POSTERIOR à atual: com a promoção do 0480 no ar (até 03/01/2027), uma janela de
+# inscrição terminando antes dela é barrada pelo SHACL — de propósito (PromocaoNaJanela).
 NOVO = dict(curso="FEQ-0480", turma="010",
            url_extecamp="https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0480/010",
-           insc_inicio="2026-11-01", insc_fim="2026-11-30",
-           of_inicio="2027-02-01", of_fim="2027-08-01")
+           insc_inicio="2027-01-10", insc_fim="2027-02-28",
+           of_inicio="2027-03-15", of_fim="2027-09-01")
 
 # ------------------------------------------------------- 1) diff nos caminhos certos
 est, onto = _setup()
@@ -58,14 +60,14 @@ check(any(d["campo"] == "urlExtecamp" and d["para"] == NOVO["url_extecamp"] for 
 
 # ------------------------------------------------------- 2) validação de campos
 p2 = onto.propor_oferecimento(curso="FEQ-0480", turma="010", url_extecamp="",
-                              insc_inicio="2026-11-01", insc_fim="2026-11-30",
-                              of_inicio="2027-02-01", of_fim="2027-08-01")
+                              insc_inicio="2027-01-10", insc_fim="2027-02-28",
+                              of_inicio="2027-03-15", of_fim="2027-09-01")
 check(p2["status"] == "esclarecer", "campo vazio (URL) não vira proposta — pede esclarecimento")
 
 p3 = onto.propor_oferecimento(curso="FEQ-0480", turma="010",
                               url_extecamp="https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0480/999",
-                              insc_inicio="2026-11-01", insc_fim="2026-11-30",
-                              of_inicio="2027-02-01", of_fim="2027-08-01")
+                              insc_inicio="2027-01-10", insc_fim="2027-02-28",
+                              of_inicio="2027-03-15", of_fim="2027-09-01")
 check(p3["status"] == "esclarecer", "URL com turma DIFERENTE da declarada é rejeitada antes de virar proposta")
 
 p4 = onto.propor_oferecimento(curso="FEQ-9999", turma="001", url_extecamp="https://x/FEQ-9999/001",
@@ -77,8 +79,8 @@ check(p4["status"] == "invalida", "curso inexistente no catálogo é rejeitado")
 # já usada em Growth.__init__ para cursos_metas.url)
 p5 = onto.propor_oferecimento(curso="FEQ-0480", turma="010",
                               url_extecamp="https://ins.extecamp.unicamp.br/curso/dados/FEQ-0480/010",
-                              insc_inicio="2026-11-01", insc_fim="2026-11-30",
-                              of_inicio="2027-02-01", of_fim="2027-08-01")
+                              insc_inicio="2027-01-10", insc_fim="2027-02-28",
+                              of_inicio="2027-03-15", of_fim="2027-09-01")
 check(any(d["campo"] == "urlExtecamp" and "/curso/inscricao/" in d["para"] for d in p5["diff"]),
       "URL /curso/dados/ é normalizada para /curso/inscricao/ automaticamente")
 

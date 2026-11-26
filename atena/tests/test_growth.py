@@ -503,12 +503,12 @@ check(ponte._outros_professores_html([]) == "" and ponte._outros_professores_htm
 from atena.ontologia.servico import Ontologia as _OntReal
 
 
-# A campanha de agosto/2026 do FEQ-0480 morre sozinha no fim da janela (por design).
+# A campanha do FEQ-0480 (hoje: valor promocional de 26/11/2026 a 03/01/2027) morre sozinha no fim da janela (por design).
 # Sem fixar "hoje", as checagens de preço promocional abaixo passariam só enquanto a
 # campanha estivesse no ar e falhariam sozinhas depois, sem nenhum bug real — foi o
 # que aconteceu em 24/08. Mesma correção já feita em test_promocao.py. Só `promocao`
 # é fixada: captabilidade segue no dia real, que é o que as checagens de status querem.
-_HOJE_CAMPANHA = datetime.date(2026, 8, 10)
+_HOJE_CAMPANHA = datetime.date(2026, 12, 1)
 
 
 class _OntRealFixa(_OntReal):
@@ -532,8 +532,8 @@ check("Aulas online ao vivo + gravadas" in lp_real
       and "19x de R$ 866,09" in lp_real          # tabela: fica como referência do desconto
       and "R$ 69,00" in lp_real,
       "LP renderizada com ontologia real: cards 2 e 3 no formato novo")
-# com a campanha de agosto no ar, o destaque passa a ser o preço promocional
-check("19x de R$ 799,00" in lp_real and "R$ 13.987,39" in lp_real,
+# com a campanha no ar, o destaque passa a ser o preço promocional
+check("19x de R$ 799,90" in lp_real and "R$ 13.987,39" in lp_real,
       "LP destaca a promoção vigente sem esconder o valor de tabela")
 check("Mais professores do curso" in lp_real and "lattes.cnpq.br/0419561926689242" in lp_real,
       "LP renderizada com ontologia real: seção de outros professores presente")

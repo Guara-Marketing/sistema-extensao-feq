@@ -104,7 +104,11 @@
     "captacaoAntecipada": "feq:captacaoAntecipada",
     "oferecimentoContinuo": "feq:oferecimentoContinuo",
     "urlInscricaoLead": "feq:urlInscricaoLead",
-    "meiosPagamentoTaxa": "feq:meiosPagamentoTaxa"
+    "meiosPagamentoTaxa": "feq:meiosPagamentoTaxa",
+    "contagemCicloHoras": {
+      "@id": "feq:contagemCicloHoras",
+      "@type": "xsd:integer"
+    }
   },
   "@graph": [
     {
@@ -226,31 +230,30 @@
       "programaDetalheJson": "[{\"t\": \"Engenharia de Processos e a Inteligência Artificial\", \"s\": [\"Introdução: Inteligência Artificial e Indústria 4.0\"]}, {\"t\": \"Ferramentas Computacionais para IA\", \"s\": [\"Introdução ao Python\", \"Instalação e ambientes de programação\", \"Sintaxe\", \"Condicionais e estruturas iterativas\", \"Bibliotecas\"]}, {\"t\": \"Ferramentas Estatísticas para Análise de Dados de Processos\", \"s\": [\"Análise exploratória de dados\", \"Distribuição de dados e amostras\", \"Regressão e predição\", \"Classificação\", \"Aprendizagem de máquinas estatística\", \"Aprendizado não supervisionado\"]}, {\"t\": \"Análise e Simulação de Processos\", \"s\": [\"Introdução\", \"Modelos matemáticos dos sistemas de engenharia\", \"Simulação computacional\", \"Dinâmica e controle no domínio do tempo\", \"Processos multivariáveis\"]}, {\"t\": \"Projeto Final de Curso — Parte I\", \"s\": [\"Formação de equipes\", \"Estudo de viabilidade\", \"Definição do cronograma\", \"Requisitos\", \"Avaliação preliminar das propostas\", \"Orientação teórico-metodológica\"]}, {\"t\": \"Técnicas de Otimização e Algoritmos Genéticos\", \"s\": [\"Conceitos básicos de otimização\", \"Algoritmos de otimização\", \"Otimização multiobjetivo\", \"Algoritmos genéticos\"]}, {\"t\": \"Machine Learning em Processos Industriais\", \"s\": [\"Introdução ao Machine Learning\", \"Classificação\", \"Regressão\", \"Agrupamento\", \"Redução dimensional\", \"Pré-processamento e seleção de modelos\"]}, {\"t\": \"Modelagem e Suporte à Decisão Fuzzy\", \"s\": [\"Introdução à Lógica Fuzzy\", \"Teoria dos Conjuntos Fuzzy\", \"Variáveis e termos linguísticos\", \"Funções de pertinência\", \"Conjunto de Regras Fuzzy\", \"Fuzzificação e Defuzzificação\", \"Auxílio à tomada de decisão\"]}, {\"t\": \"Controle de Processos Industriais com Lógica Fuzzy\", \"s\": [\"Introdução ao controle\", \"Controladores PID\", \"Controladores Fuzzy\", \"Sintonia\"]}, {\"t\": \"Projeto Final de Curso — Parte II\", \"s\": [\"Orientação de escrita e apresentação de resultados\", \"Definição de projetos aplicados em IA\", \"Coleta e pré-processamento de dados\", \"Seleção e implementação de algoritmos\", \"Avaliação e métricas de desempenho\"]}, {\"t\": \"Sistemas Neuro-Fuzzy\", \"s\": [\"Introdução\", \"Modelos matemáticos dos sistemas de engenharia\", \"Simulação computacional\", \"Dinâmica e controle no domínio do tempo\", \"Processos multivariáveis\"]}, {\"t\": \"Deep Learning em Processos Industriais\", \"s\": [\"Introdução ao Deep Learning\", \"Redes Neurais Artificiais\", \"Redes Neurais Profundas\", \"Redes Neurais Convolucionais\", \"Redes Recorrentes\"]}, {\"t\": \"Projeto Final de Curso — Parte III\", \"s\": [\"Elaboração e análise do projeto\", \"Orientação para escrita\", \"Implementação de modelos com frameworks populares\", \"Ética e considerações legais em IA\", \"Apresentação preliminar e documentação\"]}, {\"t\": \"Aprendizado por Reforço (Reinforcement Learning)\", \"s\": [\"Conceitos fundamentais e terminologia\", \"Processo de Decisão de Markov (MDP)\", \"Q-Learning, SARSA, Policy Gradient, DDPG\", \"Exploração e explotação\", \"Funções de valor, políticas e modelagem\", \"Aplicações em processos industriais e tomada de decisões\"]}, {\"t\": \"Processamento de Linguagem Natural (NLP)\", \"s\": [\"Conceitos, desafios e aplicações\", \"Pré-processamento de texto (tokenização, stop words, stemming)\", \"Análise sintática e semântica\", \"Embeddings: Word2Vec, GloVe, BERT\", \"Classificação de texto e sentimentos\", \"Geração de texto e sumarização\", \"NLP em chatbots e assistentes virtuais\"]}, {\"t\": \"Projeto Final de Curso — Parte IV\", \"s\": [\"Orientação final\", \"Material para a defesa pública\", \"Definição de avaliadores\", \"Sessões de apresentações orais\"]}]",
       "promocao": {
         "@type": "feq:Promocao",
-        "rotulo": "Campanha de Agosto 2026",
+        "rotulo": "Valor promocional",
         "janela": {
           "@type": "feq:JanelaTemporal",
-          "inicio": "2026-08-06",
-          "fim": "2026-08-16"
+          "inicio": "2026-11-26",
+          "fim": "2027-01-03"
         },
+        "contagemCicloHoras": 48,
         "ofertas": [
           {
             "@type": "feq:Oferta",
-            "rotulo": "Promoção de agosto",
-            "condicao": "inscrição individual, parcelado",
+            "rotulo": "Parcelado no boleto",
+            "condicao": "pagamento em 19 parcelas no boleto, para inscrições feitas dentro do prazo",
             "numParcelas": 19,
-            "valorParcela": "799.00"
+            "valorParcela": "799.90"
           },
           {
             "@type": "feq:Oferta",
-            "rotulo": "Grupo (3+) ou pagamento à vista",
-            "condicao": "inscrição em grupo de 3 ou mais pessoas, ou pagamento à vista",
+            "rotulo": "À vista no boleto",
+            "condicao": "pagamento à vista em boleto (os 15% à vista do curso, sobre o valor de tabela)",
             "percentualDesconto": 15,
-            "numParcelas": 19,
-            "valorParcela": "736.18",
             "aVista": "13987.39"
           }
         ],
-        "comoAplicar": "O formulário de inscrição da Extecamp mostra o valor CHEIO — o desconto da campanha não aparece lá. Ele é aplicado depois, direto nos boletos das mensalidades: conclua a inscrição normalmente e nos avise aqui pelo WhatsApp, que o valor com desconto entra no termo de compromisso."
+        "comoAplicar": "O formulário de inscrição da Extecamp mostra o valor CHEIO — o valor promocional não aparece lá. Ele é aplicado depois, direto nos boletos das mensalidades: conclua a inscrição normalmente e nos avise aqui pelo WhatsApp, que o valor promocional entra no termo de compromisso."
       },
       "dataBoleto": "2027-01-08"
     },

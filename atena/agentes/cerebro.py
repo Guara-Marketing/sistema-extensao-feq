@@ -245,7 +245,7 @@ def _bloco_promo(c):
         "Responder o preço cheio existindo campanha é erro grave: o lead recebe informação pior "
         "que a real e desiste.\n"
         "Os valores acima já estão calculados nos dados — reproduza-os exatamente, nunca "
-        "recalcule nem arredonde. Se o lead se encaixa numa condição melhor (ex.: grupo), diga "
+        "recalcule nem arredonde. Se o lead se encaixa numa condição melhor (ex.: à vista), diga "
         "isso proativamente: é dinheiro no bolso dele. Não some a campanha com outros descontos "
         "nem prometa acúmulo — descontos não acumulam; se perguntarem, diga isso. "
         f"Depois de {fim} a promoção acaba: a urgência que você comunica é essa data real, "

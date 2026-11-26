@@ -81,7 +81,7 @@ TEMPLATES_ROL = [
                 {"k": "prazo", "rotulo": "Prazo de inscrição"}]},
     {"nome": "retomar_atendimento", "idioma": "pt_BR", "titulo": "Retomar atendimento",
      "descricao": "Convida o lead a reabrir a conversa (sem variáveis).", "params": []},
-    {"nome": "feq_promo_0480", "idioma": "pt_BR", "titulo": "Campanha FEQ-0480",
+    {"nome": "feq_promo_0480_v2", "idioma": "pt_BR", "titulo": "Campanha FEQ-0480",
      "descricao": "Recuperação com o preço da campanha do FEQ-0480 (só enquanto vigente).",
      "params": [{"k": "nome", "rotulo": "Nome"}, {"k": "prazo", "rotulo": "Prazo de inscrição"}]},
     {"nome": "feq_promo_0331", "idioma": "pt_BR", "titulo": "Campanha FEQ-0331",
@@ -141,7 +141,11 @@ CORPO_CONTINUIDADE_INSCRICAO = (
 # (é a identidade da oferta), então eles só podem ser usados enquanto a promoção do
 # curso estiver vigente — `template_promocional` faz esse gate contra a ontologia.
 # Sem isso, um template aprovado sobreviveria à campanha e anunciaria preço morto.
-TEMPLATES_PROMO = {"FEQ-0480": "feq_promo_0480", "FEQ-0331": "feq_promo_0331"}
+# FEQ-0480 aponta para a v2 (valor de nov/2026): a `feq_promo_0480` aprovada na Meta traz
+# os preços de AGOSTO no corpo (19x de 799,00 e o preço de grupo) e voltaria a ser usada
+# assim que a nova campanha entrasse no ar. Até a v2 ser aprovada, o gate de aprovação
+# abaixo devolve None e a recuperação usa os templates genéricos.
+TEMPLATES_PROMO = {"FEQ-0480": "feq_promo_0480_v2", "FEQ-0331": "feq_promo_0331"}
 
 # Correção de link errado. Existe porque 6 leads do FEQ-0480 receberam a turma /001 em
 # vez de /009 (o LLM converteu a URL à mão). Mandar o link certo por template é a única
@@ -153,12 +157,11 @@ CORPO_LINK_CORRIGIDO = (
     "Se tiver qualquer dificuldade para concluir, me chama por aqui que eu te ajudo.")
 
 CORPOS_PROMO = {
-    "feq_promo_0480": (
+    "feq_promo_0480_v2": (
         "Oi, {{1}}! Aqui é da Extensão FEQ Unicamp. As inscrições do curso Técnicas de "
         "Inteligência Artificial Aplicadas às Engenharias de Processos (FEQ-0480) vão até "
-        "{{2}} e, nesta campanha, o investimento está em 19x de R$ 799,00. "
-        "Pagando à vista ou fechando em grupo de 3 ou mais pessoas, são 15% de desconto: "
-        "19x de R$ 736,18 ou R$ 13.987,39 à vista. "
+        "{{2}} e, até lá, o investimento está no valor promocional de 19x de R$ 799,90 "
+        "(o valor de tabela é 19x de R$ 866,09). À vista, são 15% de desconto: R$ 13.987,39. "
         "Quer que eu te envie o programa completo e o link de inscrição?"),
     "feq_promo_0331": (
         "Oi, {{1}}! Aqui é da Extensão FEQ Unicamp. As inscrições do curso Análise "
@@ -178,7 +181,7 @@ PARAMS_TEMPLATE = {
     "feq_reengajamento": ("nome", "curso", "prazo"),
     "feq_lembrete_inscricao": ("nome", "curso", "prazo"),
     "retomar_atendimento": (),
-    "feq_promo_0480": ("nome", "prazo"),
+    "feq_promo_0480_v2": ("nome", "prazo"),
     "feq_promo_0331": ("nome", "prazo"),
     "feq_link_corrigido": ("nome", "curso", "url_inscricao", "prazo"),
     "feq_inscricao_garantida": ("nome", "curso"),

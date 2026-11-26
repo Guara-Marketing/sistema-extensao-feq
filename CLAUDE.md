@@ -234,6 +234,12 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   não contorna captcha: para antes de enviar, e a inscrição segue pelo **preenchimento
   assistido** (Central prepara, favorito cola na ficha, a pessoa marca o captcha e envia).
 
+- ✅ **Valor promocional FEQ-0480** (26/11/2026, `specs/11`): 19x de R$ 799,90 (tabela
+  866,09) até 03/01/2027, com relógio de 48h na LP que zera e recomeça (`contagemCicloHoras`).
+  Ficha da LP só oferece 19x promocional e à vista R$ 13.987,39. Template de recuperação
+  passou para `feq_promo_0480_v2` (a v1 aprovada tinha o preço de agosto); **pendente:
+  submeter a v2 à Meta**. Prorrogou as inscrições? Prorrogue a promoção junto.
+
 - ✅ **VPS compartilhável** (06/11/2026): `atena/ops/recursos.py` vigia disco/RAM/swap/CPU a
   cada 10 min no tick de operações e alerta (Central + WhatsApp, 1 por tipo a cada 6h).
   Regras para hospedar outro sistema na mesma VM: `atena/ops/GUIA_novo_sistema_no_vps.md`.

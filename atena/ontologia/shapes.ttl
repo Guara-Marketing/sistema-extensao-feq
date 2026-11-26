@@ -77,7 +77,9 @@ feq:PromocaoShape a sh:NodeShape ;
     sh:targetClass feq:Promocao ;
     sh:property [ sh:path feq:rotulo ; sh:minCount 1 ; sh:maxCount 1 ] ;
     sh:property [ sh:path feq:janela ; sh:class feq:JanelaTemporal ; sh:minCount 1 ; sh:maxCount 1 ] ;
-    sh:property [ sh:path feq:ofertas ; sh:minCount 1 ] .
+    sh:property [ sh:path feq:ofertas ; sh:minCount 1 ] ;
+    sh:property [ sh:path feq:contagemCicloHoras ; sh:datatype xsd:integer ;
+                  sh:minInclusive 1 ; sh:maxInclusive 720 ; sh:maxCount 1 ] .
 
 #  Promoção que sobrevive à inscrição é oferta que não pode ser honrada: o lead
 #  chega na Extecamp e o preço não existe mais. Trava aqui, não em produção.

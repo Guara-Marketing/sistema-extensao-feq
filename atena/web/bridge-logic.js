@@ -50,6 +50,33 @@
   }
   prazoDias();
 
+  // Contagem cíclica (data-contagem): zera a cada `data-ciclo-h` horas e recomeça,
+  // ancorada na meia-noite BRT do início da campanha — o mesmo relógio para todo
+  // visitante, e recarregar não o reinicia. O último ciclo termina no fim REAL.
+  // ponytail: -03:00 fixo; o Brasil não tem horário de verão desde 2019.
+  var relogios = document.querySelectorAll("[data-contagem]");
+  function dois(n) { return (n < 10 ? "0" : "") + n; }
+  function contagem() {
+    var agora = Date.now();
+    Array.prototype.forEach.call(relogios, function (el) {
+      var ini = Date.parse(el.getAttribute("data-inicio") + "T00:00:00-03:00");
+      var fim = Date.parse(el.getAttribute("data-fim") + "T23:59:59-03:00");
+      var ciclo = +el.getAttribute("data-ciclo-h") * 3600000;
+      if (isNaN(ini) || isNaN(fim) || !ciclo) return;
+      if (agora > fim) {
+        var barra = el.closest(".barra-promo");
+        if (barra) barra.style.display = "none";
+        return;
+      }
+      var alvo = Math.min(fim, ini + (Math.floor((agora - ini) / ciclo) + 1) * ciclo);
+      var s = Math.max(0, Math.floor((alvo - agora) / 1000));
+      // HH:MM:SS; o prefixo some na tarja do celular (.cd-pre) para caber em 375px
+      el.innerHTML = '<span class="cd-pre">termina em </span>' + dois(Math.floor(s / 3600)) +
+        ":" + dois(Math.floor(s / 60) % 60) + ":" + dois(s % 60);
+    });
+  }
+  if (relogios.length) { contagem(); setInterval(contagem, 1000); }
+
   function uuid() {
     return (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
       : "s-" + Date.now() + "-" + Math.random().toString(16).slice(2);

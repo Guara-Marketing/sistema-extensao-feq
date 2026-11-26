@@ -543,11 +543,16 @@ def _opcoes_pagamento(c):
     ontologia — a mesma fonte que o Revisor usa para validar preço, então o que o
     lead escolhe aqui não pode divergir do que o agente pode afirmar."""
     p = (c or {}).get("plano") or {}
+    pr = (c or {}).get("promocao") or {}
+    ofs = pr.get("ofertas", [])
     ops = []
-    if p.get("n") and p.get("valor_parcela"):
+    # Opção de tabela que a campanha cobre (mesmo nº de parcelas, ou à vista) sai: a
+    # ficha mostrava 19x de R$ 866,09 ao lado de 19x de R$ 799,90, e R$ 16.455,75 à
+    # vista acima do parcelado promocional — o à vista parecia o mais caro.
+    if p.get("n") and p.get("valor_parcela") and not any(o.get("n") == p["n"] for o in ofs):
         ops.append(f"{int(p['n']):02d} PARCELA(S) DE {_moeda(p['valor_parcela'])} "
                    f"ATRAVÉS DE BOLETO BANCÁRIO")
-    if p.get("a_vista"):
+    if p.get("a_vista") and not any(o.get("a_vista") for o in ofs):
         ops.append(f"01 PARCELA(S) DE {_moeda(p['a_vista'])} À VISTA, "
                    f"ATRAVÉS DE BOLETO BANCÁRIO")
     # Campanha vigente: as ofertas promocionais entram ALÉM das de tabela, JÁ COM O
@@ -555,9 +560,8 @@ def _opcoes_pagamento(c):
     # que vai valer (não existe mais o "o formulário mostra o valor cheio" da Extecamp).
     # Cada linha leva o nome da campanha: sem isso, uma oferta cujo rótulo fala em
     # grupo faz o lead achar que o preço à vista também exige grupo.
-    pr = (c or {}).get("promocao") or {}
     campanha = pr.get("rotulo") or "promoção"
-    for o in pr.get("ofertas", []):
+    for o in ofs:
         pct = f" −{o['desconto_pct']}%" if o.get("desconto_pct") else ""
         cond = f": {o['rotulo']}" if o.get("rotulo") else ""
         if o.get("n") and o.get("valor_parcela"):
@@ -618,8 +622,18 @@ def _invest_destaque(c, aberto):
             eco = (f'<p class="invest-eco">Você economiza até '
                    f'<strong>{_moeda(f"{tab - alvo:.2f}")}</strong></p>')
     return (f'<div class="invest-destaque"><p class="invest-destaque-tag">{_esc(pr["rotulo"])}</p>'
-            f'{eco}<p class="invest-destaque-prazo" data-prazo-dias data-fim="{pr["fim"]}">'
-            f'termina em {_ddmm(pr["fim"])}</p></div>')
+            f'{eco}{_prazo_span(pr, "p", "invest-destaque-prazo")}</div>')
+
+
+def _prazo_span(pr, tag="span", cls=""):
+    """Prazo da campanha, preenchido no cliente (bridge-logic.js). Com `ciclo_h` é um
+    relógio que zera a cada N horas e recomeça; o último ciclo para no fim REAL. A
+    âncora é a meia-noite BRT do início da campanha, então todo visitante vê o mesmo
+    relógio e recarregar não o reinicia. Sem JS fica o prazo real."""
+    attrs = (f'data-contagem data-inicio="{pr["inicio"]}" data-ciclo-h="{pr["ciclo_h"]}"'
+             if pr.get("ciclo_h") and pr.get("inicio") else "data-prazo-dias")
+    c = f' class="{cls}"' if cls else ""
+    return f'<{tag}{c} {attrs} data-fim="{pr["fim"]}">termina em {_ddmm(pr["fim"])}</{tag}>'
 
 
 def _melhor_oferta(pr):
@@ -667,7 +681,7 @@ def _barra_promo(c, aberto):
         f'<span class="barra-promo-tag">{_esc(pr["rotulo"])}</span>'
         f'<span class="barra-promo-txt"><strong>{preco}</strong>'
         f'<span class="barra-promo-sep">·</span>'
-        f'<span data-prazo-dias data-fim="{pr["fim"]}">termina em {_ddmm(pr["fim"])}</span></span>'
+        f'{_prazo_span(pr)}</span>'
         f'<button data-cta class="barra-promo-btn">Garantir vaga</button>'
         f'</div></div>')
 
