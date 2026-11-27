@@ -348,7 +348,7 @@
       },
       "planoPagamento": {
         "@type": "feq:PlanoPagamento",
-        "taxaInscricao": "22.00",
+        "taxaInscricao": "24.00",
         "numParcelas": 4,
         "valorParcela": "949.94",
         "aVista": "3799.74",
@@ -413,7 +413,7 @@
       },
       "planoPagamento": {
         "@type": "feq:PlanoPagamento",
-        "taxaInscricao": "22.00",
+        "taxaInscricao": "24.00",
         "numParcelas": 3,
         "valorParcela": "1000.12",
         "aVista": "3000.37",
@@ -466,7 +466,7 @@
       },
       "planoPagamento": {
         "@type": "feq:PlanoPagamento",
-        "taxaInscricao": "22.00",
+        "taxaInscricao": "24.00",
         "numParcelas": 13,
         "valorParcela": "733.34",
         "aVista": "9533.46",
@@ -514,7 +514,7 @@
       },
       "planoPagamento": {
         "@type": "feq:PlanoPagamento",
-        "taxaInscricao": "22.00",
+        "taxaInscricao": "24.00",
         "numParcelas": 5,
         "valorParcela": "1163.19",
         "aVista": "5815.95",
@@ -587,7 +587,7 @@
       },
       "planoPagamento": {
         "@type": "feq:PlanoPagamento",
-        "taxaInscricao": "65.00",
+        "taxaInscricao": "24.00",
         "numParcelas": 15,
         "valorParcela": "905.07",
         "aVista": "13576.09",

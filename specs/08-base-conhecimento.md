@@ -88,6 +88,11 @@ Extecamp aceita **boleto ou cartão de crédito**, em todos os cursos com taxa. 
 `plano.taxa_meios`. O prompt proíbe citar meio de pagamento que não esteja nos dados, e
 os meios da mensalidade continuam sem registro.
 
+`taxaInscricao` (27/11/2026, Vitor): **R$ 24,00 em todo curso FEQ de extensão e difusão**;
+formação de especialistas segue em **R$ 69,00**. Aplicado por `atena/ops/taxa_extensao_24.py`
+(antes: R$ 22,00 em 0499/0333/0580/0331 e R$ 65,00 no 0655). ECO-1100 (Instituto de
+Economia) fica fora da regra. Curso novo de extensão/difusão nasce com R$ 24,00.
+
 ## Cursos (resumo) — captabilidade é calculada vs. `hoje`, não fixa aqui
 | Código | Tipo | Requisito | Inscrições até | À vista |
 |---|---|---|---|---|

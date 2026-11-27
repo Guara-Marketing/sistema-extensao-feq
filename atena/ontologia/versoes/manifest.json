@@ -138,5 +138,12 @@
     "autor": "vitor",
     "motivo": "FEQ-1000: agente envia o link da LP enquanto o link da Extecamp (019) não abre",
     "pre_imagem": "catalogo_pre_v0020_1791295972.jsonld"
+  },
+  {
+    "versao": "v0021",
+    "ts": "2026-11-27T16:34:45",
+    "autor": "vitor",
+    "motivo": "taxa de inscrição R$ 24,00 em extensão e difusão FEQ",
+    "pre_imagem": "catalogo_pre_v0021_1795808085.jsonld"
   }
 ]

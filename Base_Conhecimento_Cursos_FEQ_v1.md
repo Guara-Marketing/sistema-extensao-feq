@@ -79,7 +79,7 @@
 - **Período de inscrições:** até 30/04/2026 (Extecamp: "Não tem mais" — confirmar)
 - **Período de oferecimento:** 09/05/2026 a 18/07/2026
 - **Professores:** Flávio Vasconcelos, Eduardo Perez
-- **Investimento:** Taxa R$ 22,00 · 4× R$ 949,94 · ou 1× R$ 3.799,74 à vista
+- **Investimento:** Taxa R$ 24,00 · 4× R$ 949,94 · ou 1× R$ 3.799,74 à vista
 - **Insight de venda (Desafios):** interessados se dividem — perguntam sobre corrosão e somem, migram para o 0360, ou se inscrevem. Base de interessados ainda mal calibrada; precisa de testes de público.
 
 ## FEQ 0333 — CCUS: Carbon Capture, Utilization and Storage (Módulo 1: Introduction)
@@ -93,7 +93,7 @@
 - **Período de inscrições:** 03/12/2025 a 11/05/2026
 - **Período de oferecimento:** 13/06/2026 a 30/09/2026
 - **Professor responsável:** Luis Fernando Mercier Franco
-- **Investimento:** Taxa R$ 22,00 · 3× R$ 1.000,12 · ou 1× R$ 3.000,37 à vista
+- **Investimento:** Taxa R$ 24,00 · 3× R$ 1.000,12 · ou 1× R$ 3.000,37 à vista
 - **Extecamp:** https://ins.extecamp.unicamp.br/curso/dados/FEQ-0333/001
 - **Insight de venda (Desafios):** esclarecer ativamente — (1) "Módulo 1" faz parecer curso pela metade (são módulos); (2) nome em inglês faz pensar que é 100% em inglês (não é). Primeiro oferecimento.
 
@@ -107,7 +107,7 @@
 - **Período de inscrições:** 19/03/2025 a 22/07/2026
 - **Período de oferecimento:** 22/08/2026 a 27/11/2027
 - **Professor responsável:** Flavio Vasconcelos da Silva
-- **Investimento:** Taxa R$ 22,00 · 13× R$ 733,34 · ou 1× R$ 9.533,46 à vista
+- **Investimento:** Taxa R$ 24,00 · 13× R$ 733,34 · ou 1× R$ 9.533,46 à vista
 - **Extecamp:** https://ins.extecamp.unicamp.br/curso/dados/FEQ-0580/001
 - **Insight de venda (Desafios):** entrave é clareza, não preço — interessados pedem conteúdo programático. Potencial de seguir o modelo do 0480 (descontos graduais, workshop).
 
@@ -136,7 +136,7 @@
 - **Período de inscrições:** 06/11/2025 a 10/05/2026
 - **Período de oferecimento:** 09/06/2026 a 29/07/2027
 - **Professor responsável:** Dirceu Noriler
-- **Investimento:** Taxa R$ 65,00 · 15× R$ 905,07 · ou 1× R$ 13.576,09 à vista
+- **Investimento:** Taxa R$ 24,00 · 15× R$ 905,07 · ou 1× R$ 13.576,09 à vista
 - **Extecamp:** https://ins.extecamp.unicamp.br/curso/dados/FEQ-0655/001
 - **Insight de venda (Desafios):** dois gargalos — público interessado escasso (mín. 25 é ambicioso) e, principalmente, **muitos não conseguem se inscrever por falta de diploma**. Qualificar diploma **antes** de investir no lead é essencial aqui.
 

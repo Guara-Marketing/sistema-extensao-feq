@@ -241,6 +241,10 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   passou para `feq_promo_0480_v2` (a v1 aprovada tinha o preço de agosto); **pendente:
   submeter a v2 à Meta**. Prorrogou as inscrições? Prorrogue a promoção junto.
 
+- ✅ **Taxa de inscrição R$ 24 em extensão e difusão** (27/11/2026, `specs/08`): todo curso FEQ
+  de extensão/difusão; formação de especialistas segue R$ 69. Ontologia local e do VPS
+  editadas por `atena/ops/taxa_extensao_24.py` (Versionamento); o tick horário republica as LPs.
+
 - ✅ **Etapa 2 da LP = pré-inscrição qualificada** (26/11/2026, `specs/17` §7b): no lugar da
   ficha de dados, o lead confirma em checkbox requisito, forma de pagamento (parcelado ou à
   vista), modalidade/datas e data do 1º boleto — tudo derivado da ontologia
