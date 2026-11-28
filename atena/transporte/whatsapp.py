@@ -124,6 +124,57 @@ CORPO_INSCRICAO_EFETUADA = (
     "ajudará você.\n\n"
     "Atenciosamente,\nExtensão Unicamp")
 
+# Pré-inscrição aprovada (28/11/2026, spec 17 §7c): sai sozinho quando o lead conclui
+# a qualificação da LP. A ESTRUTURA mora no texto fixo (parágrafos, passos numerados,
+# bloco do curso) e cada dado do curso entra numa variável CURTA, na própria linha: a
+# Meta proíbe quebra de linha dentro de variável, e por isso os templates antigos que
+# punham a orientação inteira numa variável chegavam como texto corrido. A assinatura
+# vai no fim do corpo, em itálico: o rodapé da Meta tem só 60 caracteres.
+# Variáveis: 1 nome · 2 curso · 3 link do formulário · 4 prazo · 5 taxa · 6 boleto ·
+# 7 aulas · 8 modalidade · 9 investimento escolhido. Montadas por
+# `ponte.params_pre_inscricao` (ontologia); submetido por atena/ops/criar_template_pre_inscricao.py.
+TPL_PRE_INSCRICAO = "feq_pre_inscricao_aprovada"
+CORPO_PRE_INSCRICAO = (
+    "Olá, {{1}}! 👋\n\n"
+    "Recebemos sua pré-inscrição no curso *{{2}}* e ela foi aprovada. ✅\n\n"
+    "Para prosseguir, acesse o formulário completo de inscrição na Extecamp:\n"
+    "🔗 {{3}}\n\n"
+    "📌 *Próximos passos*\n"
+    "1. Preencha o formulário até *{{4}}*.\n"
+    "2. Você recebe por e-mail o acesso ao portal do aluno. Lá, envie o termo de "
+    "compromisso e os documentos.\n"
+    "3. Pague a taxa de inscrição ({{5}}).\n"
+    "4. {{6}}\n\n"
+    "*Sobre o curso*\n"
+    "• Aulas: {{7}}\n"
+    "• Modalidade: {{8}}\n"
+    "• Investimento escolhido: {{9}}\n\n"
+    "Ficou com alguma dúvida? É só responder aqui, estamos à disposição.\n\n"
+    "_Mensagem enviada pela equipe da Secretaria de Extensão da FEQ Unicamp - "
+    "extfeq@unicamp.br_")
+# A Meta recusa (132005) a mensagem cujo texto JÁ PREENCHIDO passa de 1024 caracteres:
+# `ponte.params_pre_inscricao` não envia acima disso.
+LIMITE_TEXTO_TEMPLATE = 1024
+EXEMPLOS_PRE_INSCRICAO = [
+    "Mariana",
+    "Técnicas de Inteligência Artificial Aplicadas às Engenharias de Processos (FEQ-0480)",
+    "https://ins.extecamp.unicamp.br/curso/inscricao/FEQ-0480/009",
+    "03/01/2027",
+    "R$ 69,00",
+    "O primeiro boleto do curso sai em 08/01/2027, logo após o fim das inscrições.",
+    "de 18/01/2027 a 19/06/2028, segundas e quartas 19h30-22h30",
+    "a distância (Online)",
+    "19x de R$ 799,90 no boleto (promocional: o formulário mostra o valor cheio e o desconto vem nos boletos)",
+]
+
+
+def preencher_template(corpo, params):
+    """Texto do template com as variáveis preenchidas (o que o lead vai ler)."""
+    for i, v in enumerate(params, 1):
+        corpo = corpo.replace("{{%d}}" % i, str(v))
+    return corpo
+
+
 # Link INDIVIDUAL da Extecamp (ok-inscricao_taxa.php?id1=…) para o inscrito seguir com a
 # inscrição. Não vem da ontologia: cada aluno tem o seu, colado pelo operador.
 # Submetido/enviado por atena/ops/continuidade_inscricao.py.

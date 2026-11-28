@@ -159,6 +159,7 @@ def stats():
     funil = [
         {"fase": "Leads", "n": total, "nota": f"{f['Lead']} em Lead"},
         {"fase": "Prospects", "n": f["Prospect"], "nota": _pct(f["Prospect"], total) + " do total"},
+        {"fase": "Pré-inscritos", "n": f["Pré-Inscrito"], "nota": _pct(f["Pré-Inscrito"], total) + " do total"},
         # CUMULATIVO: quem está em "Taxa paga" é inscrito também. Contar só a coluna
         # "Inscrito" faria a conversão despencar sempre que alguém avançasse.
         {"fase": "Inscritos", "n": insc, "nota": _pct(insc, max(f["Prospect"], 1)) + " dos prospects"},
@@ -778,6 +779,53 @@ def _avisar_inscricao_efetuada(lead, curso=None):
     return r
 
 
+def _avisar_pre_inscricao(card_id):
+    """Pré-inscrição aprovada (spec 17 §7c): manda SOZINHO o template com o link do
+    formulário completo e a orientação do curso, logo depois da qualificação da LP.
+    Fail-closed: opt-out, template não aprovado ou curso em que o texto não se aplica
+    (sem link na Extecamp, contínuo, antecipado) -> não envia e deixa um alerta para o
+    consultor, que fala com o lead por outro caminho."""
+    from atena.transporte.whatsapp import TPL_PRE_INSCRICAO, CORPO_PRE_INSCRICAO, preencher_template
+    lead = EST.get_lead(card_id) or {}
+    curso = lead.get("curso") or ""
+    def falhou(motivo):
+        EST.log_acao("sistema", f"pré-inscrição aprovada NÃO enviada: {motivo}", card_id)
+        # tipo próprio: 'inscricao' fica fora da caixa (ALERTAS_FORA_DA_CAIXA), e aqui o
+        # consultor PRECISA ver o motivo — a linha da pré-inscrição não o mostra
+        EST.add_alerta("pre_inscricao", f"Pré-inscrição de {curso} sem mensagem automática "
+                                    f"({motivo}) — fale com o lead (lead {card_id})", card_id)
+        return {"ok": False, "motivo": motivo}
+    if not lead:
+        return {"ok": False, "motivo": "lead inexistente"}
+    if lead.get("optout"):
+        return falhou("lead pediu para não receber mensagens")
+    st = WA.templates_status()
+    if st is not None and st.get(TPL_PRE_INSCRICAO) != "APPROVED":
+        return falhou(f"template {TPL_PRE_INSCRICAO} ainda não aprovado na Meta")
+    ficha = GRW.get_inscricao(card_id) or {}
+    try:
+        dados = json.loads(ficha.get("dados_json") or "{}")
+    except ValueError:
+        dados = {}
+    ont = ONTO.ont
+    try:
+        c, cap = ont.curso(curso), ont.captavel(curso)
+    except Exception:
+        c, cap = None, {}
+    params, motivo = ponte.params_pre_inscricao(c, lead, dados, cap)
+    if params is None:
+        return falhou(motivo)
+    r = WA.enviar_template(lead["telefone"], TPL_PRE_INSCRICAO, params=params)
+    if not r.get("ok"):
+        return falhou(f"envio recusado ({r.get('status')}: {str(r.get('erro') or r.get('motivo') or '')[:120]})")
+    # o texto inteiro vai para a conversa: o consultor vê exatamente o que o lead leu
+    EST.add_conversa(card_id, "agente", preencher_template(CORPO_PRE_INSCRICAO, params),
+                     wamid=r.get("wamid"), status="enviado", autor="template",
+                     destino=lead["telefone"])
+    EST.log_acao("sistema", f"pré-inscrição aprovada enviada ({TPL_PRE_INSCRICAO})", card_id)
+    return r
+
+
 # ------------------------------------------- Robô de inscrição na Extecamp (spec 21)
 TPL_CONTINUIDADE = "feq_continuidade_inscricao"
 _ROBO_EM_CURSO = set()
@@ -955,8 +1003,8 @@ def notificacoes():
     for i in GRW.inscricoes(status="recebida"):
         lead = EST.get_lead(i["card_id"]) or {}
         itens.append({"fonte": "inscricao", "categoria": "ficha", "id": i["id"], "tipo": "ficha_nova",
-                      "texto": f"Ficha completa de {lead.get('nome') or i['card_id']} "
-                               f"({i['curso']}) aguardando transcrição na Extecamp",
+                      "texto": f"Pré-inscrição de {lead.get('nome') or i['card_id']} "
+                               f"({i['curso']}) aguardando a inscrição na Extecamp",
                       "card_id": i["card_id"], "ts": i["criado"], "lido": False,
                       "acao": "inscricoes"})
     agora = datetime.datetime.now()
@@ -2031,9 +2079,10 @@ def _aprovacoes_payload(incluir_dispensadas=False):
                       "contexto": d.get("contexto"),
                       "acao": "duvidas", "ref": d["id"], "marca": d["id"]})
     # 5) curso encerrado com leads ativos (decisão de negócio, não de conversa)
+    from atena.core.estado import em_captacao
     ativos = {}
     for l in EST.listar_leads():
-        if l["fase"] in ("Lead", "Prospect"):
+        if em_captacao(l["fase"]):
             ativos[l["curso"]] = ativos.get(l["curso"], 0) + 1
     for cod, n in sorted(ativos.items()):
         cap = _ont().captavel(cod)
@@ -2494,6 +2543,10 @@ def webhook_inscricao():
     dados = {**(request.get_json(silent=True) or {}),
              "ip": request.remote_addr, "ua": request.headers.get("User-Agent", "")}
     r = ponte.processar_etapa2(dados, EST, GRW, ADS, ING, ont=_ont())
+    # pré-inscrição aprovada: template com o link do formulário completo (spec 17 §7c),
+    # em thread — a chamada à Meta não pode segurar o redirecionamento do lead
+    if r.get("ok"):
+        threading.Thread(target=_avisar_pre_inscricao, args=(r["card_id"],), daemon=True).start()
     # spec 21: com INSCRICAO_AUTO=1 o robô inscreve na hora — mas só uma ficha COM
     # dados de matrícula. A etapa 2 virou pré-inscrição (26/11/2026: só confirmações,
     # sem CPF/endereço); quem formaliza é o consultor. Sem CPF, o robô nem tenta.

@@ -22,6 +22,7 @@ STAGES = {  # fase local -> UUID no FARO (spec 02)
 # (spec 20). Todos eles são "Inscrito" lá — e "Cancelado" é perda. Espelhar assim
 # mantém o FARO correto no vocabulário DELE; o detalhe fino vive na Central.
 STAGES.update({
+    "Pré-Inscrito": STAGES["Prospect"],     # ainda não está na Extecamp
     "Taxa aceita": STAGES["Inscrito"],
     "Taxa paga": STAGES["Inscrito"],
     "Documento entregue": STAGES["Inscrito"],

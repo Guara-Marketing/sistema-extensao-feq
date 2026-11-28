@@ -165,9 +165,9 @@ def test_etapa2_coloca_na_fila_de_transcricao():
     ficha = json.loads(A.GRW.get_inscricao(cid)["dados_json"])
     assert ficha["decl_requisito"] == "Tenho ensino superior completo."
     assert ficha["decl_boleto"].startswith("Estou ciente") and ficha["forma_pagamento"]
-    # ...e o card anda para PROSPECT (pré-inscrito, ainda não está na Extecamp), sem
+    # ...e o card anda para PRÉ-INSCRITO (ainda não está na Extecamp), sem
     # reportar conversão à Meta: inscricao_confirmada é o gesto humano do consultor.
-    assert A.EST.get_lead(cid)["fase"] == "Prospect"
+    assert A.EST.get_lead(cid)["fase"] == "Pré-Inscrito"
     assert "inscricao_confirmada" not in tipos
 
 

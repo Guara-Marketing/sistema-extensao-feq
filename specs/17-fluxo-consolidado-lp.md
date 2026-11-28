@@ -332,7 +332,7 @@ contato já foi captado na etapa 1, então desqualificar não perde o lead.
 |---|---|---|
 | Guarda | card no CRM: nome, e-mail, telefone, opt-in, UTMs, sessão | tudo da etapa 1 **+ `inscricoes.dados_json`** (forma de pagamento + `decl_*` com a frase confirmada) |
 | Evento de funil | `etapa1` (sem CAPI) | `inicio_inscricao` → CAPI InitiateCheckout, mesmo `event_id` do Pixel |
-| Fase no kanban | Lead | **Prospect** (nunca regride quem já está adiante) |
+| Fase no kanban | Lead | **Pré-Inscrito** (§7c; nunca regride quem já está adiante) |
 | Aba Inscrições | fora | **entra** — fila do consultor, grupo "Qualificação" |
 | Robô Extecamp (spec 21) | — | **não dispara** (sem CPF não há o que inscrever) |
 | Régua | 2 h → `feq_lead` ("teve dificuldade?") | fora enquanto a pré-inscrição está `recebida` |
@@ -343,6 +343,38 @@ Extecamp (preenchimento assistido, spec 21) e marca "transcrita" na Central — 
 gesto que grava `inscricao_confirmada` e reporta a conversão offline. O backend aceita
 também a ficha antiga (só `forma_pagamento` é obrigatório no servidor) para não perder
 envio de página ainda em cache logo após a troca.
+
+### 7c. Pré-inscrição aprovada: fase Pré-Inscrito + template automático (28/11/2026)
+
+Concluída a qualificação, o card vai para **Pré-Inscrito** (`ESTEIRA`: entre Prospect e
+Inscrito; no FARO, que não tem o degrau, espelha como Prospect) e o lead recebe
+**sozinho** o template `feq_pre_inscricao_aprovada` (`whatsapp.CORPO_PRE_INSCRICAO`,
+categoria UTILITY), disparado em thread pelo `/webhook/inscricao`
+(`app._avisar_pre_inscricao`). Pré-Inscrito segue "em captação" (`estado.em_captacao`):
+curador e ontologista continuam olhando esses leads.
+
+**Forma do texto.** A Meta recusa quebra de linha dentro de variável — foi por isso que
+os templates anteriores chegavam num bloco só. Aqui toda a estrutura (parágrafos, lista
+numerada de próximos passos, bloco "Sobre o curso") está no **corpo fixo**; as 9
+variáveis são curtas e de uma linha: primeiro nome, "Nome (COD)", link da Extecamp,
+prazo das inscrições, taxa, frase do 1º boleto (§3e), aulas+horário, modalidade e a
+opção de pagamento que o lead escolheu (com o aviso "o formulário mostra o valor cheio"
+quando é a da campanha). 4 emojis. A assinatura "Mensagem enviada pela equipe da
+Secretaria de Extensão da FEQ Unicamp - extfeq@unicamp.br" é a última linha do corpo,
+em itálico — o rodapé da Meta tem só 60 caracteres. Tudo vem da ontologia
+(`ponte.params_pre_inscricao`), a mesma fonte da LP.
+
+**Fail-closed** — não envia e cria alerta `pre_inscricao` (visível em Notificações)
+para o consultor falar com o lead quando:
+- o template ainda não está APPROVED na Meta, ou o lead está em opt-out;
+- o curso não tem link `extecamp.unicamp.br/curso/inscricao/` (turma nova com
+  `urlInscricaoLead`: hoje FEQ-0331, FEQ-1000, FEQ-0499), é contínuo (FEQ-1150), está em
+  captação antecipada ou é de outro instituto (a assinatura é da FEQ);
+- alguma variável sairia vazia, ou o texto preenchido passaria de 1024 caracteres.
+
+O texto enviado vai inteiro para a conversa (`autor = template`): o consultor vê o que
+o lead leu. Submissão: `python3 -m atena.ops.criar_template_pre_inscricao` (no VPS).
+Teste: `atena/tests/test_pre_inscricao.py`.
 
 **Nome digitado vence o do perfil** (27/10/2026): se o telefone já tem card (em geral
 criado pelo WhatsApp, com o nome do perfil — "mari 🎀"), a etapa 1 sobrescreve o `nome`

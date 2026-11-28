@@ -89,7 +89,10 @@ FASES_PROFESSOR = ["Lead", "Aquecimento", "Proposta enviada", "Em negociação",
 # se inscreve, aceita o termo da taxa, paga, entrega documentos e só então é
 # matriculada. Antes tudo isso era um "Inscrito" só, e o operador não sabia em qual
 # degrau o lead tinha parado — que é justamente onde o funil sangra.
-ESTEIRA = ["Lead", "Prospect", "Inscrito", "Taxa aceita", "Taxa paga",
+# "Pré-Inscrito" (28/11/2026): concluiu a pré-inscrição qualificada da LP (spec 17
+# §7b) — recebe pelo WhatsApp o link do formulário completo e falta se inscrever na
+# Extecamp. No FARO, que não tem esse degrau, espelha como Prospect.
+ESTEIRA = ["Lead", "Prospect", "Pré-Inscrito", "Inscrito", "Taxa aceita", "Taxa paga",
            "Documento entregue", "Matriculado"]
 # Saídas: não são degraus, são fins de linha. "Perdido" é perda NOSSA (gate
 # acadêmico, opt-out, descarte); "Cancelado" é desistência registrada na Extecamp,
@@ -109,6 +112,13 @@ def alcancou(fase, marco):
     """A pessoa chegou AO MENOS a `marco`? ('Taxa paga' alcançou 'Inscrito')."""
     a, b = ordem_fase(fase), ordem_fase(marco)
     return a is not None and b is not None and a >= b
+
+
+def em_captacao(fase):
+    """Lead ainda ATIVO na captação: na esteira, antes de se inscrever na Extecamp
+    (Lead, Prospect, Pré-Inscrito). Substitui as listas ("Lead", "Prospect") que
+    deixariam um degrau novo de fora em silêncio."""
+    return ordem_fase(fase) is not None and not alcancou(fase, "Inscrito")
 
 
 def _agora():

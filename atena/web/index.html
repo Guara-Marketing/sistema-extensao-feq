@@ -927,7 +927,7 @@ try{ const t = localStorage.getItem('tema'); if(t) document.documentElement.data
               <select id="campFase" onchange="campPreview()">
                 <option value="">Todas as fases</option>
                 <option value="Lead">Lead</option><option value="Prospect">Prospect</option>
-                <option value="Inscrito">Inscrito</option><option value="Taxa aceita">Taxa aceita</option>
+                <option value="Pré-Inscrito">Pré-Inscrito</option><option value="Inscrito">Inscrito</option><option value="Taxa aceita">Taxa aceita</option>
                 <option value="Taxa paga">Taxa paga</option><option value="Documento entregue">Documento entregue</option>
                 <option value="Matriculado">Matriculado</option><option value="Em espera">Em espera</option>
                 <option value="Perdido">Perdido</option><option value="Cancelado">Cancelado</option>
@@ -2771,7 +2771,7 @@ function renderChrome(d){
         <div class="ml-auto d-flex gap-6 ai-center">
           <button class="btn ${d.modo==='manual'?'btn-p':'btn-g'} p-6-10" title="${d.modo==='manual'?'Modo manual: o agente NÃO responde — clique para voltar ao automático':'Modo automático: o agente propõe respostas — clique para assumir a conversa manualmente'}" onclick="setModo('${d.id}','${d.modo==='manual'?'auto':'manual'}')"><i class="ti ti-${d.modo==='manual'?'hand-stop':'robot'}"></i> ${d.modo==='manual'?'Manual':'Auto'}</button>
           <select id="convFaseSel" title="mover fase" class="w-auto p-5-8 fs-m" onchange="moverFase('${d.id}',this.value)">
-            ${(window.FASES||['Lead','Prospect','Inscrito','Matriculado','Em espera','Perdido']).map(f=>`<option ${f===d.fase?'selected':''}>${escapeHtml(f)}</option>`).join('')}
+            ${(window.FASES||['Lead','Prospect','Pré-Inscrito','Inscrito','Matriculado','Em espera','Perdido']).map(f=>`<option ${f===d.fase?'selected':''}>${escapeHtml(f)}</option>`).join('')}
           </select>
           <button class="btn btn-g p-6-10" title="Enviar reengajamento" onclick="reativarLead('${d.id}')"><i class="ti ti-refresh"></i></button>
           <button class="btn btn-g p-6-10" title="Iniciar/reiniciar a conversa (envia a mensagem de abertura, com ou sem histórico)" onclick="conversaNova('${d.id}')"><i class="ti ti-message-plus"></i></button>

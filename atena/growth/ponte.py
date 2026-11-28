@@ -1811,15 +1811,80 @@ def processar_etapa2(dados, est, g, ads, ing, ont=None):
     funil.registrar(g, ads, est, card_id, "inicio_inscricao",
                     curso=curso, event_id=eid, contexto=contexto)
     if est:
-        # Pré-inscrição qualificada = PROSPECT no kanban: confirmou requisito, valor,
-        # modalidade/datas e boleto, mas ainda NÃO está na Extecamp — quem o inscreve
-        # é o consultor, que colhe os dados da matrícula na conversa. Nunca regride
-        # quem já está adiante (a coleta pode ter visto a pessoa inscrita antes).
+        # Pré-inscrição qualificada = PRÉ-INSCRITO no kanban (28/11/2026): confirmou
+        # requisito, valor, modalidade/datas e boleto, mas ainda NÃO está na Extecamp.
+        # O app manda em seguida o template com o link do formulário completo
+        # (`_avisar_pre_inscricao`). Nunca regride quem já está adiante (a coleta pode
+        # ter visto a pessoa inscrita antes).
         from atena.core.estado import alcancou
-        if not alcancou((est.get_lead(card_id) or {}).get("fase"), "Prospect"):
-            est.upsert_lead(card_id, fase="Prospect")
-        est.log_acao("ponte", f"pré-inscrição qualificada recebida ({curso}) — aguardando "
-                              f"o consultor formalizar a matrícula na Extecamp", card_id)
-        est.add_alerta("inscricao", f"Pré-inscrição de {curso}: consultor deve contatar "
-                                    f"para formalizar a matrícula (lead {card_id})")
+        if not alcancou((est.get_lead(card_id) or {}).get("fase"), "Pré-Inscrito"):
+            est.upsert_lead(card_id, fase="Pré-Inscrito")
+        est.log_acao("ponte", f"pré-inscrição qualificada recebida ({curso}) — fase "
+                              f"Pré-Inscrito", card_id)
     return {"ok": True, "card_id": card_id, "event_id": eid}
+
+
+def params_pre_inscricao(c, lead, ficha=None, captavel=None):
+    """Variáveis do template `feq_pre_inscricao_aprovada` (whatsapp.CORPO_PRE_INSCRICAO),
+    tudo da ontologia — a mesma fonte da LP e do Revisor. Devolve (params, None) ou
+    (None, motivo): fail-closed, o consultor recebe o motivo e fala com o lead.
+
+    Não envia quando o template afirmaria algo falso para este curso:
+      • sem link da Extecamp (turma nova com `urlInscricaoLead`: o link aponta para a LP);
+      • captação antecipada (a Extecamp ainda não abriu esta turma);
+      • oferecimento contínuo (sem prazo, turma ou termo: os passos não se aplicam);
+      • curso de outro instituto (a assinatura é da Secretaria de Extensão da FEQ)."""
+    from atena.transporte.whatsapp import (CORPO_PRE_INSCRICAO, LIMITE_TEXTO_TEMPLATE,
+                                           preencher_template)
+    if not c:
+        return None, "curso fora do catálogo"
+    cod = c.get("codigo") or ""
+    if not cod.upper().startswith("FEQ-"):
+        return None, f"{cod} não é da FEQ (o template assina pela Secretaria da FEQ)"
+    if c.get("continuo"):
+        return None, f"{cod} é oferecimento contínuo: os passos do template não se aplicam"
+    if (captavel or {}).get("antecipada"):
+        return None, f"a Extecamp ainda não abriu a inscrição de {cod}"
+    link = c.get("url_inscricao") or ""
+    if "extecamp.unicamp.br/curso/inscricao/" not in link:
+        return None, f"{cod} ainda não tem link de inscrição na Extecamp"
+    c = _plano_exibicao(c)
+    p = c.get("plano") or {}
+    fim, bol = _ddmm(c.get("inscricoes_fim")), _ddmm(c.get("boleto_data"))
+    # mesma regra da LP (spec 17 §3e): o dia do boleto nunca é derivado do prazo
+    boleto = (f"O primeiro boleto do curso sai em {bol}, logo após o fim das inscrições."
+              if bol else "O primeiro boleto do curso sai logo após o fim das inscrições.")
+    aulas = ""
+    if c.get("aulas_inicio") and c.get("aulas_fim"):
+        aulas = f"de {_ddmm(c['aulas_inicio'])} a {_ddmm(c['aulas_fim'])}"
+        if c.get("horario"):
+            aulas += f", {c['horario']}"
+    mod = (c.get("modalidade") or "").strip()
+    mod = mod[:1].lower() + mod[1:]
+    # a opção que o lead ESCOLHEU na qualificação; sem ela (ficha antiga), as opções
+    escolhida = ((ficha or {}).get("forma_pagamento") or "").strip()
+    ops = _opcoes_pagamento(c)
+    alvo = [o for o in ops if o[0] == escolhida]
+    if alvo:
+        invest = f"{alvo[0][1]} {alvo[0][2].split(' · ')[0]}"
+    else:
+        invest = " ou ".join(t for _, t, _ in ops)     # só os títulos: cabe no limite
+    # opção de campanha = a que leva o nome dela no detalhe ("no boleto · Valor promocional")
+    promo = (" · " in alvo[0][2]) if alvo else bool((c.get("promocao") or {}).get("ofertas"))
+    if promo:
+        # o formulário da Extecamp mostra o valor CHEIO (promocao.como_aplicar): sem o
+        # aviso, o lead vê outro preço no passo 1 e acha que a pré-inscrição mentiu
+        invest += " (promocional: o formulário mostra o valor cheio e o desconto vem nos boletos)"
+    primeiro = ((lead or {}).get("nome") or "").split()
+    params = [
+        primeiro[0].capitalize() if primeiro else "",
+        f"{c.get('nome') or cod} ({cod})",
+        link, fim, _moeda(p.get("taxa")), boleto, aulas, mod, invest,
+    ]
+    vazios = [i + 1 for i, v in enumerate(params) if not str(v).strip()]
+    if vazios:
+        return None, f"variável vazia no template ({', '.join(map(str, vazios))})"
+    n = len(preencher_template(CORPO_PRE_INSCRICAO, params))
+    if n > LIMITE_TEXTO_TEMPLATE:
+        return None, f"mensagem preenchida com {n} caracteres (limite da Meta: {LIMITE_TEXTO_TEMPLATE})"
+    return params, None

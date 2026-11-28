@@ -132,7 +132,7 @@ class Ontologista:
         if depois.get("captavel") and not antes.get("captavel"):
             imp.append(f"{self._leads(code, ['Em espera'])} lead(s) em espera podem ser reengajados.")
         if antes.get("captavel") and not depois.get("captavel"):
-            imp.append(f"{self._leads(code, ['Lead', 'Prospect'])} lead(s) ativos: pausar cadência e revisar.")
+            imp.append(f"{self._leads(code, ['Lead', 'Prospect', 'Pré-Inscrito'])} lead(s) ativos: pausar cadência e revisar.")
         if "preco" in tipo or "carga" in tipo:
             imp.append("Afirmações cacheadas (preço/carga) podem ficar desatualizadas — revisar mensagens/templates.")
         if "reabrir" in tipo or "preco" in tipo:

@@ -8,6 +8,8 @@ ponytail: sem scheduler residente — cron o endpoint /api/curador; sem auto-pro
 """
 import re
 
+from atena.core.estado import em_captacao
+
 
 class Curador:
     def __init__(self, estado, ont):
@@ -17,7 +19,7 @@ class Curador:
     def varrer(self):
         ativos = {}
         for l in self.est.listar_leads():
-            if l["fase"] in ("Lead", "Prospect"):
+            if em_captacao(l["fase"]):
                 cod = re.sub(r"\D", "", l["curso"] or "")
                 ativos[cod] = ativos.get(cod, 0) + 1
         alertas = []

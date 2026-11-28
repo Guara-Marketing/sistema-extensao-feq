@@ -12,7 +12,7 @@ Leads vêm de campanhas Meta/Google, e agentes autônomos (com guardrails) fazem
 qualificação, nutrição e suporte à conversão pelo WhatsApp, movendo cada lead por:
 
 ```
-Lead → Prospect → Inscrito → Taxa aceita → Taxa paga → Documento entregue → Matriculado
+Lead → Prospect → Pré-Inscrito → Inscrito → Taxa aceita → Taxa paga → Documento entregue → Matriculado
                                         (saídas: Em espera · Perdido · Cancelado)
 ```
 Os quatro degraus entre Inscrito e Matriculado são o que a coleta do ADM Cursos da
@@ -250,6 +250,13 @@ Reescrita **v2** (monólito modular `atena/`, ancoragem ontológica) implementad
   vista), modalidade/datas e data do 1º boleto — tudo derivado da ontologia
   (`ponte._declaracoes`). Card vai a **Prospect**; o consultor formaliza a matrícula na
   Extecamp. Thank You Page: "Pré-inscrição concluída!". Robô automático não dispara sem CPF.
+
+- ✅ **Fase Pré-Inscrito + template automático** (28/11/2026, `specs/17` §7c): concluída a
+  qualificação da LP, o card vai a Pré-Inscrito (no FARO: Prospect) e o lead recebe sozinho
+  `feq_pre_inscricao_aprovada` (link da Extecamp + próximos passos + dados do curso, assinatura
+  da Secretaria). Fail-closed com alerta `pre_inscricao` em curso sem link Extecamp, contínuo
+  ou antecipado. **Pendente: aprovação da Meta** (submetido por
+  `atena/ops/criar_template_pre_inscricao.py`); até lá, cada pré-inscrição gera alerta.
 
 - ✅ **VPS compartilhável** (06/11/2026): `atena/ops/recursos.py` vigia disco/RAM/swap/CPU a
   cada 10 min no tick de operações e alerta (Central + WhatsApp, 1 por tipo a cada 6h).
